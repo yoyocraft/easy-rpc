@@ -19,7 +19,6 @@ public class EasyProviderExample {
 
         // 启动 Web 服务
         HttpServer httpServer = new VertxHttpServer();
-        // for test: curl -X GET http://localhost:8080
         httpServer.doStart(8080);
     }
 }
