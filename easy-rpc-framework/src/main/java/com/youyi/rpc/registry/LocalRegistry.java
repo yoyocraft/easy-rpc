@@ -13,7 +13,7 @@ public class LocalRegistry {
     /**
      * 注册信息存储
      */
-    private static final Map<String, Class<?>> REGISTER_SERVICE_MAP = new ConcurrentHashMap<>();
+    private static final Map<String /* 服务名称 */, Class<?> /* 服务实现类 */> REGISTER_SERVICE_MAP = new ConcurrentHashMap<>();
 
     /**
      * 注册服务

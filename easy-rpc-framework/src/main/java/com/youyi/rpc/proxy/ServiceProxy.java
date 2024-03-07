@@ -38,7 +38,8 @@ public class ServiceProxy implements InvocationHandler {
             byte[] reqBytes = serializer.serialize(rpcRequest);
             // 发送请求
             // TODO 此处地址为硬编码，需要使用注册中心和服务发现机制解决
-            try (HttpResponse httpResponse = HttpRequest.post("http://localhost:8080").body(reqBytes).execute()) {
+            try (HttpResponse httpResponse = HttpRequest.post("http://localhost:8080")
+                    .body(reqBytes).execute()) {
                 byte[] respBytes = httpResponse.bodyBytes();
                 // 反序列化
                 RpcResponse rpcResponse = serializer.deserialize(respBytes, RpcResponse.class);
