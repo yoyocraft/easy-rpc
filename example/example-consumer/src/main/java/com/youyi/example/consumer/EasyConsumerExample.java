@@ -2,6 +2,7 @@ package com.youyi.example.consumer;
 
 import com.youyi.example.common.model.User;
 import com.youyi.example.common.service.UserService;
+import com.youyi.rpc.proxy.ServiceProxyFactory;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Objects;
@@ -15,7 +16,7 @@ import java.util.Objects;
 public class EasyConsumerExample {
 
     public static void main(String[] args) {
-        // TODO 需要获取 UserService 实现类对象
+        // 获取 UserService 实现类对象
         UserService userService = getUserService();
 
         User user = new User();
@@ -30,10 +31,6 @@ public class EasyConsumerExample {
     }
 
     private static UserService getUserService() {
-        // just for demo without rpc
-        return user -> {
-            log.info("aab");
-            return user;
-        };
+        return ServiceProxyFactory.getProxy(UserService.class);
     }
 }
