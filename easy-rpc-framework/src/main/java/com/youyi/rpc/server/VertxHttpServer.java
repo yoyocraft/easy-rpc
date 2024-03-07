@@ -20,15 +20,8 @@ public class VertxHttpServer implements HttpServer {
 
         // 监听端口并处理请求
         httpServer
-                .requestHandler(request -> {
-                    // 处理 HTTP 请求
-                    log.info("Received request, method: {}, uri: {}", request.method(), request.uri());
-
-                    // 发送 HTTP 响应
-                    request.response()
-                            .putHeader("content-type", "text/plain")
-                            .end("Hello, this is Vert.x HTTP Server");
-                })
+                // 绑定自定义处理器
+                .requestHandler(new HttpServerHandler())
                 .listen(port)
                 .onSuccess(server -> log.info("HTTP server started on port {}", port))
                 .onFailure(throwable -> log.error("Failed to start HTTP server", throwable));
