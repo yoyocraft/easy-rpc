@@ -56,8 +56,10 @@ public class HttpServerHandler implements Handler<HttpServerRequest> {
             // 获取要调用的服务实现类，然后通过反射调用，得到结果
             try {
                 Class<?> implClazz = LocalRegistry.get(rpcRequest.getServiceName());
-                Method method = implClazz.getMethod(rpcRequest.getMethodName(), rpcRequest.getParameterTypes());
-                Object result = method.invoke(implClazz.getDeclaredConstructor().newInstance(), rpcRequest.getParameters());
+                Method method = implClazz.getMethod(rpcRequest.getMethodName(),
+                        rpcRequest.getParameterTypes());
+                Object result = method.invoke(implClazz.getDeclaredConstructor().newInstance(),
+                        rpcRequest.getParameters());
                 // 封装返回结果
                 rpcResponse.setData(result);
                 rpcResponse.setDataType(method.getReturnType());
@@ -82,7 +84,8 @@ public class HttpServerHandler implements Handler<HttpServerRequest> {
      * @param serializer  actual serializer
      */
     void doResponse(HttpServerRequest request, RpcResponse rpcResponse, Serializer serializer) {
-        HttpServerResponse response = request.response().putHeader("content-type", "application/json");
+        HttpServerResponse response = request.response()
+                .putHeader("content-type", "application/json");
 
         try {
             // 序列化响应结果

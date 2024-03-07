@@ -13,6 +13,7 @@ import java.io.ObjectOutputStream;
  * @author <a href="https://github.com/dingxinliang88">youyi</a>
  */
 public class JdkSerializer implements Serializer {
+
     @Override
     public <T> byte[] serialize(T obj) throws IOException {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
