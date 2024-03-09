@@ -17,9 +17,11 @@ public class JdkSerializer implements Serializer {
     @Override
     public <T> byte[] serialize(T obj) throws IOException {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        ObjectOutputStream oos = new ObjectOutputStream(bos);
-        oos.writeObject(obj);
-        oos.close();
+        try (ObjectOutputStream oos = new ObjectOutputStream(bos)) {
+            oos.writeObject(obj);
+        } catch (IOException ignored) {
+        }
+
         return bos.toByteArray();
     }
 

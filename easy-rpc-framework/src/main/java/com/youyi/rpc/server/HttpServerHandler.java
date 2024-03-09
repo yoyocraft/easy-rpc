@@ -3,17 +3,16 @@ package com.youyi.rpc.server;
 import com.youyi.rpc.model.RpcRequest;
 import com.youyi.rpc.model.RpcResponse;
 import com.youyi.rpc.registry.LocalRegistry;
-import com.youyi.rpc.serializer.JdkSerializer;
 import com.youyi.rpc.serializer.Serializer;
+import com.youyi.rpc.serializer.SerializerFactory;
 import io.vertx.core.Handler;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.HttpServerRequest;
 import io.vertx.core.http.HttpServerResponse;
-import lombok.extern.slf4j.Slf4j;
-
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Objects;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * HTTP 请求处理器，基于 Vert.x
@@ -26,7 +25,7 @@ public class HttpServerHandler implements Handler<HttpServerRequest> {
     @Override
     public void handle(HttpServerRequest request) {
         // 指定序列化器
-        final Serializer serializer = new JdkSerializer();
+        final Serializer serializer = SerializerFactory.getSerializer();
 
         // 记录日志
         log.info("Received request, method: {}, uri: {}", request.method(), request.uri());
