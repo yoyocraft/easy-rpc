@@ -1,6 +1,7 @@
 package com.youyi.example.provider;
 
 import com.youyi.example.common.service.UserService;
+import com.youyi.rpc.config.ConfigHolder;
 import com.youyi.rpc.registry.LocalRegistry;
 import com.youyi.rpc.server.HttpServer;
 import com.youyi.rpc.server.VertxHttpServer;
@@ -19,6 +20,6 @@ public class EasyProviderExample {
 
         // 启动 Web 服务
         HttpServer httpServer = new VertxHttpServer();
-        httpServer.doStart(8080);
+        httpServer.doStart(ConfigHolder.resolve().getPort());
     }
 }
