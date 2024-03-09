@@ -14,7 +14,7 @@ public class ServiceProxyFactory {
      *
      * @param serviceClazz 服务类
      * @param <T>          T
-     * @return 代理对象
+     * @return 代理对象 {@link T}
      */
     @SuppressWarnings("unchecked")
     public static <T> T getProxy(Class<?> serviceClazz) {
