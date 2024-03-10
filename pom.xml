@@ -10,7 +10,7 @@
   <packaging>pom</packaging>
 
   <modules>
-    <module>easy-rpc-framework</module>
+    <module>easy-rpc-core</module>
     <module>example</module>
   </modules>
 

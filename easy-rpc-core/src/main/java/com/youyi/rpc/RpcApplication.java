@@ -1,16 +1,23 @@
-package com.youyi.rpc.config;
+package com.youyi.rpc;
 
+import cn.hutool.core.io.resource.NoResourceException;
+import com.youyi.rpc.config.Config;
+import com.youyi.rpc.constants.RpcConstant;
 import com.youyi.rpc.utils.ConfigUtil;
 import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * RPC Config Holder
+ * RPC APP
+ * <p>
+ * - Config Holder
+ * <p>
+ * - APP
  *
  * @author <a href="https://github.com/dingxinliang88">youyi</a>
  */
 @Slf4j
-public class ConfigHolder {
+public class RpcApplication {
 
     private static final Config DEFAULT_CONFIG = new Config();
 
@@ -33,9 +40,9 @@ public class ConfigHolder {
         Config conf;
 
         try {
-            conf = ConfigUtil.load(Config.class, "rpc");
-        } catch (Exception e) {
-            log.error("load rpc properties error, use default config, ", e);
+            conf = ConfigUtil.load(Config.class, RpcConstant.RPC_CONFIG_PREFIX);
+        } catch (NoResourceException e) {
+            log.error("load rpc properties error, use default config");
             conf = DEFAULT_CONFIG;
         }
         init(conf);
@@ -46,7 +53,7 @@ public class ConfigHolder {
      */
     public static Config resolve() {
         if (Objects.isNull(config)) {
-            synchronized (ConfigHolder.class) {
+            synchronized (RpcApplication.class) {
                 if (Objects.isNull(config)) {
                     init();
                 }

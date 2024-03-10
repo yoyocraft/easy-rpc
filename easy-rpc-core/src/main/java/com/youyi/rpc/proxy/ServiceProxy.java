@@ -3,7 +3,7 @@ package com.youyi.rpc.proxy;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import com.youyi.rpc.config.Config;
-import com.youyi.rpc.config.ConfigHolder;
+import com.youyi.rpc.RpcApplication;
 import com.youyi.rpc.model.RpcRequest;
 import com.youyi.rpc.model.RpcResponse;
 import com.youyi.rpc.serializer.JdkSerializer;
@@ -40,7 +40,7 @@ public class ServiceProxy implements InvocationHandler {
             byte[] reqBytes = serializer.serialize(rpcRequest);
             // 发送请求
             // TODO 此处地址为硬编码，需要使用注册中心和服务发现机制解决
-            Config config = ConfigHolder.resolve();
+            Config config = RpcApplication.resolve();
             String url = "http://" + config.getHost() + ":" + config.getPort();
             try (HttpResponse httpResponse = HttpRequest.post(url)
                     .body(reqBytes).execute()) {
