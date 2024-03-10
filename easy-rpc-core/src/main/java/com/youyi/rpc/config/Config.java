@@ -1,6 +1,6 @@
 package com.youyi.rpc.config;
 
-import com.youyi.rpc.serializer.SerializerType;
+import com.youyi.rpc.serializer.SerializerKeys;
 import lombok.Data;
 
 /**
@@ -16,5 +16,5 @@ public class Config {
     private int port = 8080;
     private String version = "1.0.0";
     private boolean mock = false;
-    private String serializer = SerializerType.JDK.getType();
+    private String serializer = SerializerKeys.HESSIAN;
 }

@@ -1,5 +1,6 @@
 package com.youyi.rpc.server;
 
+import com.youyi.rpc.RpcApplication;
 import com.youyi.rpc.model.RpcRequest;
 import com.youyi.rpc.model.RpcResponse;
 import com.youyi.rpc.registry.LocalRegistry;
@@ -25,7 +26,10 @@ public class HttpServerHandler implements Handler<HttpServerRequest> {
     @Override
     public void handle(HttpServerRequest request) {
         // 指定序列化器
-        final Serializer serializer = SerializerFactory.getSerializer();
+        final Serializer serializer = SerializerFactory.getSerializer(
+                RpcApplication.resolve().getSerializer());
+
+        log.info("http server handler use serializer: {}", serializer);
 
         // 记录日志
         log.info("Received request, method: {}, uri: {}", request.method(), request.uri());

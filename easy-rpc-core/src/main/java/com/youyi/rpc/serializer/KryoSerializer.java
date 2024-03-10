@@ -14,31 +14,31 @@ import java.io.IOException;
  */
 public class KryoSerializer implements Serializer {
 
-    private final ThreadLocal<Kryo> kryoThreadLocal = ThreadLocal.withInitial(Kryo::new);
+    /**
+     * Kryo 实例线程不安全，使用 ThreadLocal 确保线程安全
+     */
+    private static final ThreadLocal<Kryo> KRYO_THREAD_LOCAL = ThreadLocal.withInitial(() -> {
+        Kryo kryo = new Kryo();
+        // 设置动态序列化和反序列化类，不提前注册所有类
+        kryo.setRegistrationRequired(false);
+        return kryo;
+    });
 
     @Override
     public <T> byte[] serialize(T obj) throws IOException {
-        Kryo kryo = kryoThreadLocal.get();
-        kryo.register(obj.getClass());
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        try (Output output = new Output(bos)) {
-            kryo.writeClassAndObject(output, obj);
-            return output.toBytes();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        Output output = new Output(bos);
+        KRYO_THREAD_LOCAL.get().writeObject(output, obj);
+        output.close();
+        return bos.toByteArray();
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public <T> T deserialize(byte[] data, Class<T> clazz) throws IOException {
-        Kryo kryo = kryoThreadLocal.get();
-        kryo.register(clazz);
         ByteArrayInputStream bis = new ByteArrayInputStream(data);
-        try (Input input = new Input(bis)) {
-            return (T) kryo.readClassAndObject(input);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        Input input = new Input(bis);
+        T obj = KRYO_THREAD_LOCAL.get().readObject(input, clazz);
+        input.close();
+        return obj;
     }
 }

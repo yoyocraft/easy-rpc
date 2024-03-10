@@ -16,6 +16,11 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.youyi</groupId>
+            <artifactId>easy-rpc-core</artifactId>
+            <optional>true</optional>
+        </dependency>
     </dependencies>
 
 </project>
