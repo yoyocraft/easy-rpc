@@ -13,7 +13,7 @@ import java.util.Objects;
  * @author <a href="https://github.com/dingxinliang88">youyi</a>
  */
 @Slf4j
-public class EasyConsumerExample {
+public class ConsumerExample {
 
     public static void main(String[] args) {
         // 获取 UserService 实现类对象
@@ -28,6 +28,7 @@ public class EasyConsumerExample {
         } else {
             log.info("user is null");
         }
+        log.info("number: {}", userService.getNumber());
     }
 
     private static UserService getUserService() {

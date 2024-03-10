@@ -11,7 +11,7 @@ import com.youyi.rpc.server.VertxHttpServer;
  *
  * @author <a href="https://github.com/dingxinliang88">youyi</a>
  */
-public class EasyProviderExample {
+public class ProviderExample {
 
     public static void main(String[] args) {
 
