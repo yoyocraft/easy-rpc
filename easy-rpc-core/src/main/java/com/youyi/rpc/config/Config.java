@@ -15,5 +15,6 @@ public class Config {
     private String host = "127.0.0.1";
     private int port = 8080;
     private String version = "1.0.0";
+    private boolean mock = false;
     private String serializer = SerializerType.JDK.getType();
 }
