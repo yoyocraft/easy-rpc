@@ -2,17 +2,16 @@ package com.youyi.rpc.proxy;
 
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
-import com.youyi.rpc.config.Config;
 import com.youyi.rpc.RpcApplication;
+import com.youyi.rpc.config.Config;
 import com.youyi.rpc.model.RpcRequest;
 import com.youyi.rpc.model.RpcResponse;
-import com.youyi.rpc.serializer.JdkSerializer;
 import com.youyi.rpc.serializer.Serializer;
-import lombok.extern.slf4j.Slf4j;
-
+import com.youyi.rpc.serializer.SerializerFactory;
 import java.io.IOException;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 服务代理，基于 JDK 动态代理
@@ -25,7 +24,10 @@ public class ServiceProxy implements InvocationHandler {
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         // 指定序列化器
-        Serializer serializer = new JdkSerializer();
+        final Serializer serializer = SerializerFactory.getSerializer(
+                RpcApplication.resolve().getSerializer());
+
+        log.info("service proxy use serializer: {}", serializer);
 
         // 构造请求
         RpcRequest rpcRequest = RpcRequest.builder()

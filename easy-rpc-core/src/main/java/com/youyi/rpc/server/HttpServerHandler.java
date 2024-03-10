@@ -29,6 +29,8 @@ public class HttpServerHandler implements Handler<HttpServerRequest> {
         final Serializer serializer = SerializerFactory.getSerializer(
                 RpcApplication.resolve().getSerializer());
 
+        log.info("http server handler use serializer: {}", serializer);
+
         // 记录日志
         log.info("Received request, method: {}, uri: {}", request.method(), request.uri());
 
