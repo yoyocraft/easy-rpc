@@ -1,6 +1,6 @@
 package com.youyi.rpc.serializer;
 
-import com.youyi.rpc.config.ConfigHolder;
+import com.youyi.rpc.RpcApplication;
 
 /**
  * @author <a href="https://github.com/dingxinliang88">youyi</a>
@@ -8,7 +8,7 @@ import com.youyi.rpc.config.ConfigHolder;
 public class SerializerFactory {
 
     public static Serializer getSerializer() {
-        String type = ConfigHolder.resolve().getSerializer();
+        String type = RpcApplication.resolve().getSerializer();
         SerializerType serializerType = SerializerType.resolve(type);
         Serializer serializer = new KryoSerializer();
         switch (serializerType) {

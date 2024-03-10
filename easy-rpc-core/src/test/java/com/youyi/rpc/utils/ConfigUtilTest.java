@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
  * @author <a href="https://github.com/dingxinliang88">youyi</a>
  */
 @Slf4j
-class ConfigUtilTest {
+public class ConfigUtilTest {
 
     @Test
     void load() {
