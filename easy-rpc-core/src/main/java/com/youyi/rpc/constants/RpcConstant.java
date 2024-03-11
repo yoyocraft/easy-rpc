@@ -7,6 +7,10 @@ package com.youyi.rpc.constants;
  */
 public interface RpcConstant {
 
-    String RPC_CONFIG_PREFIX = "rpc";
+    String DEFAULT_CONFIG_PREFIX = "rpc";
+
+    String DEFAULT_SERVICE_VERSION = "1.0.0";
+
+    String DEFAULT_SERVICE_GROUP = "default";
 
 }
