@@ -41,16 +41,22 @@ public interface Registry {
      */
     List<ServiceMetadata> discovery(String serviceKey);
 
-
     /**
-     * 注册中心销毁
+     * 服务端监听
+     *
+     * @param serviceNodeKey 服务节点 Key
      */
-    void destroy();
+    void watch(String serviceNodeKey);
 
     /**
      * 服务端心跳检测
      */
     void heartBeat();
+
+    /**
+     * 注册中心销毁
+     */
+    void destroy();
 
 
 }
