@@ -1,5 +1,8 @@
 package com.youyi.rpc.registry;
 
+import cn.hutool.core.collection.CollUtil;
+import cn.hutool.cron.CronUtil;
+import cn.hutool.cron.task.Task;
 import cn.hutool.json.JSONUtil;
 import com.youyi.rpc.config.RegistryConfig;
 import com.youyi.rpc.model.ServiceMetadata;
@@ -12,7 +15,9 @@ import io.etcd.jetcd.options.GetOption;
 import io.etcd.jetcd.options.PutOption;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +35,15 @@ public class EtcdRegistry implements Registry {
      */
     private static final String ETCD_ROOT_PATH = "/rpc/";
 
+    /**
+     * 服务节点注册 TTL
+     */
     private static final long SERVICE_TTL = 30L;
+
+    /**
+     * 本机注册的节点 Key 集合，用于维护续期
+     */
+    private final Set<String> LOCAL_REGISTERED_NODE_KEY_SET = new HashSet<>();
 
     private Client client;
 
@@ -43,6 +56,7 @@ public class EtcdRegistry implements Registry {
                 .connectTimeout(Duration.ofMillis(config.getTimeout()))
                 .build();
         kvClient = client.getKVClient();
+        heartBeat();
     }
 
     @Override
@@ -61,13 +75,17 @@ public class EtcdRegistry implements Registry {
 
         // 绑定键值对和租约
         PutOption putOp = PutOption.builder().withLeaseId(leaseId).build();
+
+        // 注册到注册中心和本地
         kvClient.put(key, value, putOp).get();
+        LOCAL_REGISTERED_NODE_KEY_SET.add(regKey);
     }
 
     @Override
     public void deregister(ServiceMetadata metadata) {
         String regKey = ETCD_ROOT_PATH + metadata.getServiceNodeKey();
         kvClient.delete(ByteSequence.from(regKey, StandardCharsets.UTF_8));
+        LOCAL_REGISTERED_NODE_KEY_SET.remove(regKey);
     }
 
     @Override
@@ -102,5 +120,35 @@ public class EtcdRegistry implements Registry {
         if (client != null) {
             client.close();
         }
+    }
+
+    @Override
+    public void heartBeat() {
+        // 每 10s 续签一次
+        CronUtil.schedule("*/10 * * * * *", (Task) () -> {
+            for (String regKey : LOCAL_REGISTERED_NODE_KEY_SET) {
+                try {
+                    List<KeyValue> keyValueList = kvClient.get(
+                            ByteSequence.from(regKey, StandardCharsets.UTF_8)).get().getKvs();
+                    if (CollUtil.isEmpty(keyValueList)) {
+                        // 该节点已过期（需要重启节点才可以重新注册）
+                        continue;
+                    }
+
+                    // 节点未过期，重新注册
+                    // actually keyValueList.size() == 1
+                    String value = keyValueList.get(0).getValue().toString(StandardCharsets.UTF_8);
+                    ServiceMetadata metadata = JSONUtil.toBean(value, ServiceMetadata.class);
+                    register(metadata);
+
+                } catch (Exception e) {
+                    throw new RuntimeException(regKey + " reset ttl failed", e);
+                }
+            }
+        });
+
+        // 设置秒匹配
+        CronUtil.setMatchSecond(true);
+        CronUtil.start();
     }
 }
