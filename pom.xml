@@ -30,6 +30,7 @@
     <jackson.version>2.16.1</jackson.version>
     <junit.version>5.10.1</junit.version>
     <netty.version>4.1.103.Final</netty.version>
+    <jetcd.version>0.7.7</jetcd.version>
 
     <maven-checkstyle-plugin.version>3.2.0</maven-checkstyle-plugin.version>
   </properties>
@@ -81,6 +82,13 @@
         <artifactId>jackson-databind</artifactId>
         <version>${jackson.version}</version>
       </dependency>
+
+      <dependency>
+        <groupId>io.etcd</groupId>
+        <artifactId>jetcd-core</artifactId>
+        <version>${jetcd.version}</version>
+      </dependency>
+
 
       <dependency>
         <groupId>org.junit.jupiter</groupId>
