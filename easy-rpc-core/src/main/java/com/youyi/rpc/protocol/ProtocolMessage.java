@@ -145,7 +145,8 @@ public class ProtocolMessage<T> {
         public static MessageSerializer resolve(String value) {
 
             if (ObjectUtil.isEmpty(value)) {
-                return null;
+                throw new NullPointerException(
+                        "protocol message serializer value can not be empty");
             }
 
             for (MessageSerializer serializer : MessageSerializer.values()) {

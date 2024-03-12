@@ -9,7 +9,7 @@ import com.youyi.rpc.registry.LocalRegistry;
 import com.youyi.rpc.registry.Registry;
 import com.youyi.rpc.registry.RegistryFactory;
 import com.youyi.rpc.server.RpcServer;
-import com.youyi.rpc.server.http.VertxHttpServer;
+import com.youyi.rpc.server.tcp.VertxTcpServer;
 
 /**
  * 简易服务提供者示例
@@ -23,7 +23,7 @@ public class ProviderExample {
         init();
 
         // 启动 Web 服务
-        RpcServer rpcServer = new VertxHttpServer();
+        RpcServer rpcServer = new VertxTcpServer();
         rpcServer.doStart(RpcApplication.resolve().getPort());
     }
 
