@@ -31,7 +31,7 @@ public interface Registry {
      *
      * @param metadata 服务元信息
      */
-    void deregister(ServiceMetadata metadata);
+    void unregister(ServiceMetadata metadata);
 
     /**
      * 消费端获取某服务的所有节点，服务发现

@@ -56,7 +56,7 @@ class RegistryTest {
         serviceMetadata.setServiceVersion("1.0.0");
         serviceMetadata.setServiceHost("localhost");
         serviceMetadata.setServicePort(1234);
-        registry.deregister(serviceMetadata);
+        registry.unregister(serviceMetadata);
     }
 
     @Test

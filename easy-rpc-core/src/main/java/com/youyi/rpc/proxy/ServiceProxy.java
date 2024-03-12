@@ -50,7 +50,7 @@ public class ServiceProxy implements InvocationHandler {
             byte[] reqBytes = serializer.serialize(rpcRequest);
 
             Registry registry = RegistryFactory.getRegistry(
-                    config.getRegistryConfig().getRegistry());
+                    config.getRegistry().getRegistry());
             ServiceMetadata serviceMetadata = new ServiceMetadata();
             serviceMetadata.setServiceName(serviceName);
             serviceMetadata.setServiceVersion(RpcConstant.DEFAULT_SERVICE_VERSION);
