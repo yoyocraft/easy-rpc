@@ -58,13 +58,13 @@ long orderId = orderService.order(arg1, arg2, arg3);
 
 基础角色：「**服务消费者**」、「**服务提供者**」
 
-![](pdd/easy-rpc-rpc-framework-1.drawio.png)
+![](assets/easy-rpc-rpc-framework-1.drawio.png)
 
 服务消费者想要调用服务提供者，就需要启动一个 **web 服务**，然后通过**请求客户端** 发送 HTTP 请求或者其他协议的请求来调用。
 
 比如请求 `rpc.com/order` 地址后，服务提供者就会调用 `OrderService#order()` 方法。
 
-![](pdd/easy-rpc-rpc-framework-2.drawio.png)
+![](assets/easy-rpc-rpc-framework-2.drawio.png)
 
 > 问题：但是如果服务提供者提供了多个服务和方法，难道每个接口和方法都要单独写一个接口吗？消费者要针对每个接口写一段 HTTP 调用的逻辑吗？
 
@@ -72,17 +72,17 @@ long orderId = orderService.order(arg1, arg2, arg3);
 
 【🌰栗子】消费者要调用 `OrderService#order()` 方法，可以发送请求，携带参数 `service=orderService, method=order`，然后请求处理器会根据 `service` 从服务注册器中找到对应的服务实现类，并通过 Java 的反射机制调用 method 指定的方法。
 
-![](pdd/easy-rpc-rpc-framework-3.drawio.png)
+![](assets/easy-rpc-rpc-framework-3.drawio.png)
 
 📢需要注意的是，由于 Java 对象无法直接在网络中传输，所以要对传输的参数进行**序列化**和**反序列化**。
 
-![](pdd/easy-rpc-rpc-framework-4.drawio.png)
+![](assets/easy-rpc-rpc-framework-4.drawio.png)
 
 除此之外，为了简化消费者发送请求的代码，实现类似本地调用的体验，可以基于**代理模式**，为消费者要调用的接口生成一个代理对象，由代理对象完成请求和响应的过程。
 
 至此我们就完成了一个最简易的 RPC 框架架构图：
 
-![](pdd/easy-rpc-rpc-framework-5.drawio.png)
+![](assets/easy-rpc-rpc-framework-5.drawio.png)
 
 上图中的虚线框部分，就是 RPC 框架需要提供的模块和能力。
 
@@ -100,7 +100,7 @@ long orderId = orderService.order(arg1, arg2, arg3);
 
 因此，我们需要一个**注册中心**，来保存服务提供者的地址。消费者需要调用服务时，只需要从注册中心获取对应服务提供者的地址即可。
 
-![](pdd/easy-rpc-registry-center.drawio.png)
+![](assets/easy-rpc-registry-center.drawio.png)
 
 ### 2、负载均衡
 
@@ -108,7 +108,7 @@ long orderId = orderService.order(arg1, arg2, arg3);
 
 我们可以给服务调用方增加负载均衡能力，通过指定不同的算法来决定调用哪一个服务提供者的服务，比如轮询、随机、根据性能动态调整等。
 
-![](pdd/easy-rpc-load-banlance.drawio.png)
+![](assets/easy-rpc-load-banlance.drawio.png)
 
 ### 3、容错机制
 
@@ -116,7 +116,7 @@ long orderId = orderService.order(arg1, arg2, arg3);
 
 为了保证分布式系统的高可用，我们通常会给服务的调用增加一定的容错机制，比如失败重试、降级调用其他接口等等。
 
-![](pdd/easy-rpc-fault-tolerance.drawio.png)
+![](assets/easy-rpc-fault-tolerance.drawio.png)
 
 ### 4、其他
 

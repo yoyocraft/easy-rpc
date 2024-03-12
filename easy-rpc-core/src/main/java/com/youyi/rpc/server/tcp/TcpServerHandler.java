@@ -27,16 +27,15 @@ public class TcpServerHandler implements Handler<NetSocket> {
 
         // 处理连接
         TcpBufferHandlerWrapper tcpBufferHandlerWrapper = new TcpBufferHandlerWrapper(buffer -> {
-            // 接收请求，解码
-            ProtocolMessage<RpcRequest> protocolMessage;
 
+            ProtocolMessage<RpcRequest> protocolMessage;
             try {
+                // 接收请求，解码
                 protocolMessage = (ProtocolMessage<RpcRequest>) ProtocolMessageDecoder
                         .decode(buffer);
             } catch (IOException e) {
                 throw new RuntimeException("decode request error", e);
             }
-
             RpcRequest rpcRequest = protocolMessage.getBody();
 
             // 处理请求，构造响应结果对象
