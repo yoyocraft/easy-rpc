@@ -22,11 +22,10 @@ public class VertxTcpServer implements RpcServer {
         // 创建 TCP 服务器
         NetServer netServer = vertx.createNetServer();
 
-        // 处理请求
-        netServer.connectHandler(new TcpServerHandler());
-
-        // 启动 TCP 服务器并监听指定端口
-        netServer.listen(port)
+        // 处理请求、启动 TCP 服务器并监听指定端口
+        netServer
+                .connectHandler(new TcpServerHandler())
+                .listen(port)
                 .onSuccess(event -> log.info("TCP Server started on port {}", port))
                 .onFailure(event -> log.error("Failed to start TCP Server on port {}", port));
 

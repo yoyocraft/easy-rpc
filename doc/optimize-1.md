@@ -224,7 +224,7 @@ public static <T> T getInstance(Class<T> loadClazz, String key) {
 
 注册中心是 RPC 框架的一个核心模块，目的是帮助服务消费者获取到服务提供者的调用地址，而不是将调用地址硬编码到项目中。
 
-![](pdd/easy-rpc-registry-center.drawio.png)
+![](assets/easy-rpc-registry-center.drawio.png)
 
 ### 方案设计
 
@@ -312,13 +312,13 @@ public static <T> T getInstance(Class<T> loadClazz, String key) {
 
 键名的规则可以是 `/业务前缀/服务名/服务节点地址`：
 
-![](optimize-1/easy-rpc-key-design-folder.drawio.png)
+![](assets/easy-rpc-key-design-folder.drawio.png)
 
 2）列表结构。将所有的服务节点以列表的形式整体作为 Value，即服务为 key 其节点整体为 Value。
 
 【🌰栗子】
 
-![](optimize-1/easy-rpc-key-design-list.drawio.png)
+![](assets/easy-rpc-key-design-list.drawio.png)
 
 > 选择哪种存储结构呢？
 

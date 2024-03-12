@@ -2,7 +2,7 @@
 
 「架构设计图」
 
-![](tdd/easy-rpc-rpc-framework.drawio.png)
+![](assets/easy-rpc-rpc-framework.drawio.png)
 
 
 

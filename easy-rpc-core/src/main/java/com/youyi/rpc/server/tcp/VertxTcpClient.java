@@ -35,7 +35,6 @@ public class VertxTcpClient {
     @SuppressWarnings("unchecked")
     public static RpcResponse doRequest(RpcRequest rpcRequest, ServiceMetadata metadata)
             throws ExecutionException, InterruptedException {
-        // 发送 TCP 请求
         Vertx vertx = Vertx.vertx();
         NetClient netClient = vertx.createNetClient();
 
@@ -48,9 +47,10 @@ public class VertxTcpClient {
                     ProtocolMessage<RpcRequest> protocolMessage
                             = getRpcRequestProtocolMessage(rpcRequest);
 
-                    // 编码信息，发送数据
                     try {
+                        // 编码信息
                         Buffer encodeBuffer = ProtocolMessageEncoder.encode(protocolMessage);
+                        // 发送请求
                         socket.write(encodeBuffer);
                     } catch (IOException e) {
                         throw new RuntimeException("encode error, ", e);
@@ -68,11 +68,12 @@ public class VertxTcpClient {
                                 } catch (IOException e) {
                                     throw new RuntimeException("decode error, ", e);
                                 }
-
                             });
+                    // 装饰器，解决粘包
                     socket.handler(tcpBufferHandlerWrapper);
                 })
                 .onFailure(throwable -> log.info("RPC request error, ", throwable));
+        // 异步处理，阻塞
         RpcResponse rpcResponse = respFuture.get();
         // 关闭连接
         netClient.close();
@@ -84,8 +85,8 @@ public class VertxTcpClient {
         ProtocolMessage.Header header = new ProtocolMessage.Header();
         header.setMagic(ProtocolConstant.PROTOCOL_MAGIC);
         header.setVersion(ProtocolConstant.PROTOCOL_VERSION);
-        header.setSerializer((byte) ProtocolMessage.MessageSerializer.resolve(
-                RpcApplication.resolve()
+        header.setSerializer((byte) ProtocolMessage.MessageSerializer
+                .resolve(RpcApplication.resolve()
                         .getSerializer()).getKey());
         header.setType((byte) ProtocolMessage.MessageType.REQUEST.getKey());
         header.setReqId(IdUtil.getSnowflakeNextId());
