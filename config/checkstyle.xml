@@ -21,11 +21,6 @@
   </module>
 
   <!--    <module name="RegexpSingleline">-->
-  <!--        <property name="format" value="//TODO"/>-->
-  <!--        <property name="message" value="Recommended fix TODO task !"/>-->
-  <!--    </module>-->
-
-  <!--    <module name="RegexpSingleline">-->
   <!--        <property name="format" value="@author"/>-->
   <!--        <property name="message" value="Recommended remove @author tag in javadoc!"/>-->
   <!--    </module>-->
