@@ -1,15 +1,17 @@
-package com.youyi.rpc.server;
+package com.youyi.rpc.server.http;
 
+import com.youyi.rpc.server.RpcServer;
 import io.vertx.core.Vertx;
+import io.vertx.core.http.HttpServer;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Vertx Web 服务器
+ * Vertx HTTP 服务器
  *
  * @author <a href="https://github.com/dingxinliang88">youyi</a>
  */
 @Slf4j
-public class VertxHttpServer implements HttpServer {
+public class VertxHttpServer implements RpcServer {
 
     @Override
     public void doStart(int port) {
@@ -17,7 +19,7 @@ public class VertxHttpServer implements HttpServer {
         Vertx vertx = Vertx.vertx();
 
         // 创建 HTTP 服务器
-        io.vertx.core.http.HttpServer httpServer = vertx.createHttpServer();
+        HttpServer httpServer = vertx.createHttpServer();
 
         // 监听端口并处理请求
         httpServer

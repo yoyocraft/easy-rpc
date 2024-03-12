@@ -1,11 +1,11 @@
 package com.youyi.rpc.server;
 
 /**
- * HTTP 服务器接口
+ * RPC 服务器接口
  *
  * @author <a href="https://github.com/dingxinliang88">youyi</a>
  */
-public interface HttpServer {
+public interface RpcServer {
 
     /**
      * 启动 web 服务器
