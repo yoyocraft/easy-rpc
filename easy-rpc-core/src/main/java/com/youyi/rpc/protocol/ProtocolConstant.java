@@ -22,4 +22,16 @@ public interface ProtocolConstant {
      */
     byte PROTOCOL_VERSION = 0x01;
 
+    // ---------------------- index ------------------------
+
+    int MAGIC_POS = 0;
+    int VERSION_POS = 1;
+    int SERIALIZER_POS = 2;
+    int TYPE_POS = 3;
+    int STATUS_POS = 4;
+    int REQ_ID_POS = 5;
+    int BODY_LEN_POS = 13;
+
+    // ------------------------------------------------------
+
 }
