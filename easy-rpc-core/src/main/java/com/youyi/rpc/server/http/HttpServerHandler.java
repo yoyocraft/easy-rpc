@@ -1,4 +1,4 @@
-package com.youyi.rpc.server;
+package com.youyi.rpc.server.http;
 
 import com.youyi.rpc.RpcApplication;
 import com.youyi.rpc.model.RpcRequest;
