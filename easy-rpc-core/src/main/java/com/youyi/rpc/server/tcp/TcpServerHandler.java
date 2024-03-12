@@ -26,7 +26,7 @@ public class TcpServerHandler implements Handler<NetSocket> {
     public void handle(NetSocket socket) {
 
         // 处理连接
-        socket.handler(buffer -> {
+        TcpBufferHandlerWrapper tcpBufferHandlerWrapper = new TcpBufferHandlerWrapper(buffer -> {
             // 接收请求，解码
             ProtocolMessage<RpcRequest> protocolMessage;
 
@@ -73,6 +73,9 @@ public class TcpServerHandler implements Handler<NetSocket> {
             }
 
         });
+
+        // 调用装饰之后的 handler
+        socket.handler(tcpBufferHandlerWrapper);
 
     }
 }

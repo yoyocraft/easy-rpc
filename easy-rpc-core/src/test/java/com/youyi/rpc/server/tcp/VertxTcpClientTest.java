@@ -6,7 +6,7 @@ package com.youyi.rpc.server.tcp;
 public class VertxTcpClientTest {
 
     public static void main(String[] args) {
-        new VertxTcpClient().start();
+        new VertxTcpClientForTest().start();
     }
 
 }
