@@ -31,6 +31,7 @@
     <junit.version>5.10.1</junit.version>
     <netty.version>4.1.103.Final</netty.version>
     <jetcd.version>0.7.7</jetcd.version>
+    <curator.version>5.6.0</curator.version>
 
     <maven-checkstyle-plugin.version>3.2.0</maven-checkstyle-plugin.version>
   </properties>
@@ -87,6 +88,11 @@
         <groupId>io.etcd</groupId>
         <artifactId>jetcd-core</artifactId>
         <version>${jetcd.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.curator</groupId>
+        <artifactId>curator-x-discovery</artifactId>
+        <version>${curator.version}</version>
       </dependency>
 
 

@@ -31,7 +31,7 @@ public interface Registry {
      *
      * @param metadata 服务元信息
      */
-    void deregister(ServiceMetadata metadata);
+    void unregister(ServiceMetadata metadata);
 
     /**
      * 消费端获取某服务的所有节点，服务发现
@@ -41,6 +41,17 @@ public interface Registry {
      */
     List<ServiceMetadata> discovery(String serviceKey);
 
+    /**
+     * 服务端监听
+     *
+     * @param serviceNodeKey 服务节点 Key
+     */
+    void watch(String serviceNodeKey);
+
+    /**
+     * 服务端心跳检测
+     */
+    void heartBeat();
 
     /**
      * 注册中心销毁

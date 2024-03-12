@@ -34,10 +34,14 @@ public class RpcApplication {
         config = conf;
         log.info("rpc init, config: {}", conf);
         // 注册中心初始化
-        RegistryConfig registryConfig = conf.getRegistryConfig();
+        RegistryConfig registryConfig = conf.getRegistry();
         Registry registry = RegistryFactory.getRegistry(registryConfig.getRegistry());
         registry.init(registryConfig);
         log.info("registry init, config = {}", registryConfig);
+
+        // 创建并注册 Shutdown Hook, JVM 退出时执行操作
+        Runtime.getRuntime()
+                .addShutdownHook(new Thread(registry::destroy, "registry-destroy-hook"));
     }
 
     /**

@@ -17,5 +17,5 @@ public class Config {
     private String version = "1.0.0";
     private boolean mock = false;
     private String serializer = SerializerKeys.HESSIAN;
-    private RegistryConfig registryConfig = new RegistryConfig();
+    private RegistryConfig registry = new RegistryConfig();
 }

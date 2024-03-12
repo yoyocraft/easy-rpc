@@ -36,7 +36,7 @@ public class ProviderExample {
         LocalRegistry.registry(serviceName, UserServiceImpl.class);
 
         Config config = RpcApplication.resolve();
-        RegistryConfig registryConfig = config.getRegistryConfig();
+        RegistryConfig registryConfig = config.getRegistry();
         Registry registry = RegistryFactory.getRegistry(registryConfig.getRegistry());
 
         ServiceMetadata serviceMetadata = new ServiceMetadata();
