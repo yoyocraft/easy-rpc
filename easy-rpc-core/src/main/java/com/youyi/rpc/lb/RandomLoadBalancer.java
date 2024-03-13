@@ -1,9 +1,9 @@
 package com.youyi.rpc.lb;
 
-import cn.hutool.core.util.RandomUtil;
 import com.youyi.rpc.model.ServiceMetadata;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -13,6 +13,8 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class RandomLoadBalancer implements LoadBalancer {
+
+    private final Random RANDOM = new Random(System.currentTimeMillis());
 
     @Override
     public ServiceMetadata select(Map<String, Object> reqParams,
@@ -27,6 +29,7 @@ public class RandomLoadBalancer implements LoadBalancer {
             return metadataList.get(0);
         }
 
-        return metadataList.get(RandomUtil.randomInt(size));
+        int index = RANDOM.nextInt(size);
+        return metadataList.get(index);
     }
 }

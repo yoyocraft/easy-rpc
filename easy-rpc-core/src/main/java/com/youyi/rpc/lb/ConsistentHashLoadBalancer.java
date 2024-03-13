@@ -1,5 +1,6 @@
 package com.youyi.rpc.lb;
 
+import cn.hutool.core.util.HashUtil;
 import com.youyi.rpc.model.ServiceMetadata;
 import java.util.List;
 import java.util.Map;
@@ -80,25 +81,11 @@ public class ConsistentHashLoadBalancer implements LoadBalancer {
         /**
          * FNV1_32_HASH 算法
          *
-         * @param obj object
+         * @param key key
          * @return hash
          */
-        private static int getHash(Object obj) {
-            final int p = 16777619;
-            int hash = (int) 2166136261L;
-            String str = obj.toString();
-            for (int i = 0; i < str.length(); i++) {
-                hash = (hash ^ str.charAt(i)) * p;
-                hash += hash << 13;
-                hash ^= hash >> 7;
-                hash += hash << 3;
-                hash ^= hash >> 17;
-                hash += hash << 5;
-                if (hash < 0) {
-                    hash = Math.abs(hash);
-                }
-            }
-            return hash;
+        private static int getHash(Object key) {
+            return HashUtil.fnvHash(key.toString());
         }
 
     }
