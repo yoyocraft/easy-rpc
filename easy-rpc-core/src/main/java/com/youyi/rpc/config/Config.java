@@ -1,5 +1,6 @@
 package com.youyi.rpc.config;
 
+import com.youyi.rpc.lb.LoadBalancerKeys;
 import com.youyi.rpc.serializer.SerializerKeys;
 import lombok.Data;
 
@@ -18,4 +19,5 @@ public class Config {
     private boolean mock = false;
     private String serializer = SerializerKeys.HESSIAN;
     private RegistryConfig registry = new RegistryConfig();
+    private String loadBalancer = LoadBalancerKeys.ROUND_ROBIN;
 }
