@@ -4,6 +4,8 @@ import cn.hutool.core.collection.CollUtil;
 import com.youyi.rpc.RpcApplication;
 import com.youyi.rpc.config.Config;
 import com.youyi.rpc.constants.RpcConstant;
+import com.youyi.rpc.lb.LoadBalancer;
+import com.youyi.rpc.lb.LoadBalancerFactory;
 import com.youyi.rpc.model.RpcRequest;
 import com.youyi.rpc.model.RpcResponse;
 import com.youyi.rpc.model.ServiceMetadata;
@@ -14,7 +16,9 @@ import com.youyi.rpc.serializer.SerializerFactory;
 import com.youyi.rpc.server.tcp.VertxTcpClient;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -53,8 +57,13 @@ public class ServiceProxy implements InvocationHandler {
         if (CollUtil.isEmpty(serviceMetadataList)) {
             throw new RuntimeException("there are no registry!");
         }
-        // TODO 暂时先取第一个作为服务地址
-        ServiceMetadata selectedService = serviceMetadataList.get(0);
+        // 负载均衡
+        LoadBalancer loadBalancer = LoadBalancerFactory.getLoadBalancer(
+                RpcApplication.resolve().getLoadBalancer());
+        // 将调用方法名（请求路径）作为负载均衡参数
+        Map<String, Object> reqParams = new HashMap<>();
+        reqParams.put("methodName", rpcRequest.getMethodName());
+        ServiceMetadata selectedService = loadBalancer.select(reqParams, serviceMetadataList);
 
         // 发送 TCP 请求
         RpcResponse rpcResponse = VertxTcpClient.doRequest(rpcRequest, selectedService);
