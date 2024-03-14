@@ -51,7 +51,7 @@ public class ProviderBootstrap {
 
         // 启动 Provider Web 服务
         RpcServer rpcServer = new VertxTcpServer();
-        rpcServer.doStart(RpcApplication.resolve().getPort());
+        rpcServer.doStart(config.getPort());
 
     }
 }
