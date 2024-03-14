@@ -2,6 +2,7 @@ package com.youyi.example.consumer;
 
 import com.youyi.example.common.model.User;
 import com.youyi.example.common.service.UserService;
+import com.youyi.rpc.bootstrap.ConsumerBootstrap;
 import com.youyi.rpc.proxy.ServiceProxyFactory;
 import java.util.Scanner;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +18,9 @@ import java.util.Objects;
 public class ConsumerExample {
 
     public static void main(String[] args) {
+        // 服务提供者初始化
+        ConsumerBootstrap.init();
+
         // 获取 UserService 实现类对象
         UserService userService = getUserService();
 
