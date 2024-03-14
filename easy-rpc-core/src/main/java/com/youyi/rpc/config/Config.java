@@ -1,5 +1,6 @@
 package com.youyi.rpc.config;
 
+import com.youyi.rpc.fault.retry.RetryStrategyKeys;
 import com.youyi.rpc.lb.LoadBalancerKeys;
 import com.youyi.rpc.serializer.SerializerKeys;
 import lombok.Data;
@@ -20,4 +21,5 @@ public class Config {
     private String serializer = SerializerKeys.HESSIAN;
     private RegistryConfig registry = new RegistryConfig();
     private String loadBalancer = LoadBalancerKeys.ROUND_ROBIN;
+    private String retry = RetryStrategyKeys.NO;
 }
