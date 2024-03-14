@@ -18,6 +18,6 @@ public interface TolerantStrategy {
      * @param e       异常
      * @return RpcResponse
      */
-    RpcResponse tolerant(Map<String, Object> context, Exception e);
+    RpcResponse tolerant(Map<String, Object> context, Exception e) throws Exception;
 
 }

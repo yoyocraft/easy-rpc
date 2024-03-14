@@ -78,10 +78,16 @@ public class ServiceProxy implements InvocationHandler {
             rpcResponse = retryStrategy.retry(
                     () -> VertxTcpClient.doRequest(rpcRequest, selectedService));
         } catch (Exception e) {
+            // 容错上下文
+            Map<String, Object> context = new HashMap<>() {{
+                put("serviceMetadataList", serviceMetadataList);
+                put("errorService", selectedService);
+                put("rpcRequest", rpcRequest);
+            }};
             // 容错机制
             TolerantStrategy tolerantStrategy = TolerantStrategyFactory.getTolerantStrategy(
                     RpcApplication.resolve().getTolerant());
-            rpcResponse = tolerantStrategy.tolerant(null, e);
+            rpcResponse = tolerantStrategy.tolerant(context, e);
         }
         return rpcResponse.getData();
     }
