@@ -1,0 +1,4 @@
+fail_back=com.youyi.rpc.fault.tolerant.FailBackTolerantStrategy
+fail_fast=com.youyi.rpc.fault.tolerant.FailFastTolerantStrategy
+fail_over=com.youyi.rpc.fault.tolerant.FailOverTolerantStrategy
+fail_safe=com.youyi.rpc.fault.tolerant.FailSafeTolerantStrategy
