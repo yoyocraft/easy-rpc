@@ -2,13 +2,20 @@ package com.youyi.example.common.model;
 
 import java.io.Serial;
 import java.io.Serializable;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * 用户
  *
  * @author <a href="https://github.com/dingxinliang88">youyi</a>
  */
-@lombok.Getter
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class User implements Serializable {
 
     @Serial
@@ -16,7 +23,4 @@ public class User implements Serializable {
 
     private String name;
 
-    public void setName(String name) {
-        this.name = name;
-    }
 }
