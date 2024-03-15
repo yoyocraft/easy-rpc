@@ -13,7 +13,7 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
  * <p>
  * 获取到包含 @RpcReference 注解的类，为其注入属性
  *
- * @author <a href="https://github.com/dingxinliang88">codejuzi</a>
+ * @author <a href="https://github.com/dingxinliang88">youyi</a>
  */
 @Slf4j
 public class RpcConsumerBootStrap implements BeanPostProcessor {

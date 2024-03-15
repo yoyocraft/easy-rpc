@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 /**
  * 服务注册信息
  *
- * @author <a href="https://github.com/dingxinliang88">codejuzi</a>
+ * @author <a href="https://github.com/dingxinliang88">youyi</a>
  */
 @Data
 @NoArgsConstructor

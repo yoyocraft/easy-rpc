@@ -15,7 +15,7 @@ import org.springframework.core.type.AnnotationMetadata;
 /**
  * rpc 初始化引导类
  *
- * @author <a href="https://github.com/dingxinliang88">codejuzi</a>
+ * @author <a href="https://github.com/dingxinliang88">youyi</a>
  */
 @Slf4j
 public class RpcInitBootStrap implements ImportBeanDefinitionRegistrar {
