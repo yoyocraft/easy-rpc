@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * 快速失败策略
  *
- * @author <a href="https://github.com/dingxinliang88">codejuzi</a>
+ * @author <a href="https://github.com/dingxinliang88">youyi</a>
  */
 public class FailFastTolerantStrategy implements TolerantStrategy {
 

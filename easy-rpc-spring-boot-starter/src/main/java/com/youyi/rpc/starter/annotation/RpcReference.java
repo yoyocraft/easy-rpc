@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 /**
  * 服务消费者注解（用于注入服务）
  *
- * @author <a href="https://github.com/dingxinliang88">codejuzi</a>
+ * @author <a href="https://github.com/dingxinliang88">youyi</a>
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
