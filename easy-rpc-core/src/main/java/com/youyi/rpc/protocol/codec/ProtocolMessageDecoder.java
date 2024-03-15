@@ -69,6 +69,7 @@ public class ProtocolMessageDecoder {
         header.setVersion(buffer.getByte(ProtocolConstant.VERSION_POS)); // 1 byte
         header.setSerializer(buffer.getByte(ProtocolConstant.SERIALIZER_POS)); // 1 byte
         header.setType(buffer.getByte(ProtocolConstant.TYPE_POS)); // 1 byte
+        header.setStatus(buffer.getByte(ProtocolConstant.STATUS_POS)); // 1 byte
         header.setReqId(buffer.getLong(ProtocolConstant.REQ_ID_POS)); // 8 byte
         header.setBodyLength(buffer.getInt(ProtocolConstant.BODY_LEN_POS)); // 4 byte
 

@@ -19,7 +19,7 @@ public class TcpBufferHandlerWrapper implements Handler<Buffer> {
     private final RecordParser recordParser;
 
     public TcpBufferHandlerWrapper(Handler<Buffer> bufferHandler) {
-        log.info("init TcpBufferHandlerWrapper");
+        log.debug("init TcpBufferHandlerWrapper");
         recordParser = initRecordParser(bufferHandler);
     }
 

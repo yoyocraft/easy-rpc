@@ -1,9 +1,6 @@
 package com.youyi.rpc.protocol;
 
 import cn.hutool.core.util.ObjectUtil;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -124,11 +121,6 @@ public class ProtocolMessage<T> {
         MessageSerializer(int key, String value) {
             this.key = key;
             this.value = value;
-        }
-
-        public static List<String> getValues() {
-            return Arrays.stream(values()).map(MessageSerializer::getValue).collect(
-                    Collectors.toList());
         }
 
         public static MessageSerializer resolve(int key) {
