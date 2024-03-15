@@ -19,9 +19,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ExponentialBackoffRetryStrategy implements RetryStrategy {
 
-    private static final long MULTIPLIER = 5L;
-    private static final long MAXIMUM_WAIT = 10000L;
-    private static final int ATTEMPT_NUMBER = 3;
+    private static final long MULTIPLIER = 1000L;
+    private static final long MAXIMUM_WAIT = 30000L;
+    private static final int ATTEMPT_NUMBER = 5;
 
     @SuppressWarnings("UnstableApiUsage")
     @Override
@@ -30,7 +30,7 @@ public class ExponentialBackoffRetryStrategy implements RetryStrategy {
                 .<RpcResponse>newBuilder()
                 .retryIfExceptionOfType(Exception.class)
                 .withWaitStrategy(WaitStrategies.exponentialWait(MULTIPLIER, MAXIMUM_WAIT,
-                        TimeUnit.MICROSECONDS))
+                        TimeUnit.MILLISECONDS))
                 .withStopStrategy(StopStrategies.stopAfterAttempt(ATTEMPT_NUMBER))
                 .withRetryListener(new RetryListener() {
                     @Override
