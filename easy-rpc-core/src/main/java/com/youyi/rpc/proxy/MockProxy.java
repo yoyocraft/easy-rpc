@@ -1,7 +1,9 @@
 package com.youyi.rpc.proxy;
 
+import com.github.javafaker.Faker;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
+import java.util.Date;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -12,12 +14,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MockProxy implements InvocationHandler {
 
+    private static final Faker MOCK_FAKER = new Faker();
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         // 根据方法的返回值类型，生成特定的默认值对象
         Class<?> returnType = method.getReturnType();
-        // TODO 使用 Java Faker 库模拟
         log.info("mock proxy return type: {}", returnType);
         return getDefaultObject(returnType);
     }
@@ -43,6 +45,12 @@ public class MockProxy implements InvocationHandler {
             return 0;
         }
         // 对象类型
+        if (type == String.class) {
+            return MOCK_FAKER.lorem().word();
+        }
+        if (type == Date.class) {
+            return MOCK_FAKER.date().birthday();
+        }
         return null;
 
     }
