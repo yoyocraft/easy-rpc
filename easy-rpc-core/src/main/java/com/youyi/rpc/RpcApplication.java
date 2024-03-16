@@ -6,7 +6,7 @@ import com.youyi.rpc.config.RegistryConfig;
 import com.youyi.rpc.constants.RpcConstant;
 import com.youyi.rpc.registry.Registry;
 import com.youyi.rpc.registry.RegistryFactory;
-import com.youyi.rpc.utils.ConfigUtil;
+import com.youyi.rpc.util.ConfigUtil;
 import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
 
