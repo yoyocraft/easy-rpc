@@ -4,3 +4,6 @@ rpc:
   port: 8888
   version: 1.0.0
   serializer: jdk
+  registry:
+    endpoints: http://localhost:8888
+    username: ababa

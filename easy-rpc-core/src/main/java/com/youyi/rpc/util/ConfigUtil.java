@@ -172,8 +172,7 @@ public class ConfigUtil {
      * @return config file path
      */
     private static String buildConfigFilePath(String base, String env, String ext) {
-        StringBuilder configFileBuilder = new StringBuilder(BASE_PATH_DIR);
-        configFileBuilder.append(base);
+        StringBuilder configFileBuilder = new StringBuilder(base);
         if (StrUtil.isNotBlank(env)) {
             configFileBuilder.append(ENV_SPLIT).append(env);
         }
