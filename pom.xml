@@ -16,17 +16,19 @@
   </modules>
 
   <properties>
+    <!-- basic -->
     <prokect.version>1.0.0</prokect.version>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
     <maven.compiler.release>17</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <!-- dependency -->
     <hutool.version>5.8.25</hutool.version>
     <snakeyaml.version>2.2</snakeyaml.version>
     <javafaker.version>1.0.2</javafaker.version>
     <lombok.version>1.18.30</lombok.version>
-    <slf4j.version>1.7.36</slf4j.version>
-    <logback.version>1.2.12</logback.version>
+    <slf4j.version>2.0.12</slf4j.version>
+    <logback.version>1.5.6</logback.version>
     <vertx.version>4.5.1</vertx.version>
     <kryo.version>5.6.0</kryo.version>
     <hessian.version>4.0.66</hessian.version>
@@ -36,7 +38,7 @@
     <jetcd.version>0.7.7</jetcd.version>
     <curator.version>5.6.0</curator.version>
     <guava-retrying.version>2.0.0</guava-retrying.version>
-
+    <!-- plugin -->
     <maven-checkstyle-plugin.version>3.2.0</maven-checkstyle-plugin.version>
   </properties>
 
@@ -68,7 +70,6 @@
         <artifactId>javafaker</artifactId>
         <version>${javafaker.version}</version>
       </dependency>
-
 
       <dependency>
         <groupId>org.projectlombok</groupId>
@@ -117,14 +118,12 @@
         <version>${guava-retrying.version}</version>
       </dependency>
 
-
       <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-api</artifactId>
         <version>${junit.version}</version>
         <scope>test</scope>
       </dependency>
-
     </dependencies>
   </dependencyManagement>
 
