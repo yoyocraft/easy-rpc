@@ -1,2 +1,0 @@
-etcd=com.youyi.rpc.registry.EtcdRegistry
-zookeeper=com.youyi.rpc.registry.ZookeeperRegistry

@@ -1,3 +1,0 @@
-no=com.youyi.rpc.fault.retry.NoRetryStrategy
-fixed_interval=com.youyi.rpc.fault.retry.FixedIntervalRetryStrategy
-exponential_backoff=com.youyi.rpc.fault.retry.ExponentialBackoffRetryStrategy
