@@ -23,20 +23,12 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- dependency -->
     <hutool.version>5.8.25</hutool.version>
-    <snakeyaml.version>2.2</snakeyaml.version>
-    <javafaker.version>1.0.2</javafaker.version>
     <lombok.version>1.18.30</lombok.version>
     <slf4j.version>2.0.12</slf4j.version>
     <logback.version>1.5.6</logback.version>
     <vertx.version>4.5.1</vertx.version>
-    <kryo.version>5.6.0</kryo.version>
-    <hessian.version>4.0.66</hessian.version>
-    <jackson.version>2.16.1</jackson.version>
     <junit.version>5.10.1</junit.version>
     <netty.version>4.1.103.Final</netty.version>
-    <jetcd.version>0.7.7</jetcd.version>
-    <curator.version>5.6.0</curator.version>
-    <guava-retrying.version>2.0.0</guava-retrying.version>
     <!-- plugin -->
     <maven-checkstyle-plugin.version>3.2.0</maven-checkstyle-plugin.version>
   </properties>
@@ -59,16 +51,6 @@
         <artifactId>hutool-core</artifactId>
         <version>${hutool.version}</version>
       </dependency>
-      <dependency>
-        <groupId>org.yaml</groupId>
-        <artifactId>snakeyaml</artifactId>
-        <version>${snakeyaml.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.github.javafaker</groupId>
-        <artifactId>javafaker</artifactId>
-        <version>${javafaker.version}</version>
-      </dependency>
 
       <dependency>
         <groupId>org.projectlombok</groupId>
@@ -82,39 +64,6 @@
         <artifactId>netty-resolver-dns-native-macos</artifactId>
         <version>${netty.version}</version>
         <classifier>osx-aarch_64</classifier>
-      </dependency>
-
-      <dependency>
-        <groupId>com.esotericsoftware</groupId>
-        <artifactId>kryo</artifactId>
-        <version>${kryo.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.caucho</groupId>
-        <artifactId>hessian</artifactId>
-        <version>${hessian.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.fasterxml.jackson.core</groupId>
-        <artifactId>jackson-databind</artifactId>
-        <version>${jackson.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>io.etcd</groupId>
-        <artifactId>jetcd-core</artifactId>
-        <version>${jetcd.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.curator</groupId>
-        <artifactId>curator-x-discovery</artifactId>
-        <version>${curator.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>com.github.rholder</groupId>
-        <artifactId>guava-retrying</artifactId>
-        <version>${guava-retrying.version}</version>
       </dependency>
 
       <dependency>
@@ -144,7 +93,6 @@
         </exclusion>
       </exclusions>
     </dependency>
-
   </dependencies>
 
   <build>
