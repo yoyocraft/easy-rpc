@@ -2,8 +2,16 @@ rpc:
   name: easy rpc test yaml
   host: localhost
   port: 8888
-  version: 1.0.0
-  serializer: jdk
+  version: 2.0.0
+  serializer: kryo
+  loadBalancer: random
+  tolerant:
+    retry: fixed_interval
+    tolerant: fail_back
+    failBackService: default
   registry:
+    registry: zookeeper
     endpoints: http://localhost:8888
-    username: ababa
+    username: root
+    password: root
+    timeout: 10000

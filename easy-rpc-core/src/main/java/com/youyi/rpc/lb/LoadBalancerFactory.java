@@ -1,7 +1,6 @@
 package com.youyi.rpc.lb;
 
 import com.youyi.rpc.exception.NoSuchLoadClassException;
-import com.youyi.rpc.registry.Registry;
 import com.youyi.rpc.spi.SpiLoader;
 
 /**

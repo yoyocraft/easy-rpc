@@ -37,17 +37,17 @@ public class ZookeeperRegistry implements Registry {
     /**
      * 本机注册的节点 Key 集合，用于维护续期
      */
-    private final Set<String> LOCAL_REGISTERED_NODE_KEY_SET = new HashSet<>();
+    private static final Set<String> LOCAL_REGISTERED_NODE_KEY_SET = new HashSet<>();
 
     /**
      * 注册中心服务节点元信息缓存
      */
-    private final RegistryServiceCache REGISTRY_SERVICE_CACHE = new RegistryServiceCache();
+    private static final RegistryServiceCache REGISTRY_SERVICE_CACHE = new RegistryServiceCache();
 
     /**
      * 正在监听的 Key 集合
      */
-    private final Set<String> WATCHING_KEY_SET = new ConcurrentHashSet<>();
+    private static final Set<String> WATCHING_KEY_SET = new ConcurrentHashSet<>();
 
     private CuratorFramework client;
 

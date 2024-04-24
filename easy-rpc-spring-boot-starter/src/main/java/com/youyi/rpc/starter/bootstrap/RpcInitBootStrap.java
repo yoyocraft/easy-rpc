@@ -1,7 +1,7 @@
 package com.youyi.rpc.starter.bootstrap;
 
 import com.youyi.rpc.RpcApplication;
-import com.youyi.rpc.config.Config;
+import com.youyi.rpc.config.ApplicationConfig;
 import com.youyi.rpc.server.RpcServer;
 import com.youyi.rpc.server.tcp.VertxTcpServer;
 import com.youyi.rpc.starter.annotation.EnableRpc;
@@ -32,12 +32,12 @@ public class RpcInitBootStrap implements ImportBeanDefinitionRegistrar {
         RpcApplication.init();
 
         // 全局配置
-        final Config config = RpcApplication.resolve();
+        final ApplicationConfig applicationConfig = RpcApplication.resolve();
 
         if (needServer) {
             // 启动 服务器
             RpcServer rpcServer = new VertxTcpServer();
-            rpcServer.doStart(config.getPort());
+            rpcServer.doStart(applicationConfig.getPort());
         }
     }
 }

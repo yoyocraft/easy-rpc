@@ -32,6 +32,7 @@ public class RpcRequest implements Serializable {
     /**
      * 服务版本号
      */
+    @Builder.Default
     private String serviceVersion = RpcConstant.DEFAULT_SERVICE_VERSION;
 
     /**

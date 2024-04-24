@@ -1,7 +1,7 @@
 package com.youyi.rpc.bootstrap;
 
 import com.youyi.rpc.RpcApplication;
-import com.youyi.rpc.config.Config;
+import com.youyi.rpc.config.ApplicationConfig;
 import com.youyi.rpc.config.RegistryConfig;
 import com.youyi.rpc.model.ServiceMetadata;
 import com.youyi.rpc.model.ServiceRegisterInfo;
@@ -23,9 +23,9 @@ public class ProviderBootstrap {
         // RPC 框架初始化（配置、注册中心）
         RpcApplication.init();
         // 全局配置
-        final Config config = RpcApplication.resolve();
+        final ApplicationConfig applicationConfig = RpcApplication.resolve();
         // 获取注册中心
-        RegistryConfig registryConfig = config.getRegistry();
+        RegistryConfig registryConfig = applicationConfig.getRegistry();
         Registry registry = RegistryFactory.getRegistry(registryConfig.getRegistry());
 
         // 注册服务
@@ -38,8 +38,8 @@ public class ProviderBootstrap {
 
             ServiceMetadata serviceMetadata = new ServiceMetadata();
             serviceMetadata.setServiceName(serviceName);
-            serviceMetadata.setServiceHost(config.getHost());
-            serviceMetadata.setServicePort(config.getPort());
+            serviceMetadata.setServiceHost(applicationConfig.getHost());
+            serviceMetadata.setServicePort(applicationConfig.getPort());
 
             try {
                 // 注册到注册中心
@@ -51,7 +51,7 @@ public class ProviderBootstrap {
 
         // 启动 Provider Web 服务
         RpcServer rpcServer = new VertxTcpServer();
-        rpcServer.doStart(config.getPort());
+        rpcServer.doStart(applicationConfig.getPort());
 
     }
 }

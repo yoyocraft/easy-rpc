@@ -2,7 +2,7 @@ package com.youyi.rpc.proxy;
 
 import cn.hutool.core.collection.CollUtil;
 import com.youyi.rpc.RpcApplication;
-import com.youyi.rpc.config.Config;
+import com.youyi.rpc.config.ApplicationConfig;
 import com.youyi.rpc.constants.RpcConstant;
 import com.youyi.rpc.fault.retry.RetryStrategy;
 import com.youyi.rpc.fault.retry.RetryStrategyFactory;
@@ -36,9 +36,9 @@ public class ServiceProxy implements InvocationHandler {
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         // 指定序列化器
-        Config config = RpcApplication.resolve();
+        ApplicationConfig applicationConfig = RpcApplication.resolve();
         final Serializer serializer = SerializerFactory.getSerializer(
-                config.getSerializer());
+                applicationConfig.getSerializer());
 
         log.debug("service proxy use serializer: {}", serializer);
 
@@ -52,7 +52,7 @@ public class ServiceProxy implements InvocationHandler {
                 .build();
 
         Registry registry = RegistryFactory.getRegistry(
-                config.getRegistry().getRegistry());
+                applicationConfig.getRegistry().getRegistry());
         ServiceMetadata serviceMetadata = new ServiceMetadata();
         serviceMetadata.setServiceName(serviceName);
         serviceMetadata.setServiceVersion(RpcConstant.DEFAULT_SERVICE_VERSION);
@@ -61,9 +61,10 @@ public class ServiceProxy implements InvocationHandler {
         if (CollUtil.isEmpty(serviceMetadataList)) {
             throw new RuntimeException("there are no registry!");
         }
+
         // 负载均衡
         LoadBalancer loadBalancer = LoadBalancerFactory.getLoadBalancer(
-                RpcApplication.resolve().getLoadBalancer());
+                applicationConfig.getLoadBalancer());
         // 将调用方法名（请求路径）作为负载均衡参数
         Map<String, Object> reqParams = new HashMap<>();
         reqParams.put("methodName", rpcRequest.getMethodName());
@@ -73,20 +74,17 @@ public class ServiceProxy implements InvocationHandler {
         try {
             // 重试机制
             RetryStrategy retryStrategy = RetryStrategyFactory.getRetryStrategy(
-                    RpcApplication.resolve().getRetry());
+                    applicationConfig.getTolerant().getRetry());
             // 发送 TCP 请求
             rpcResponse = retryStrategy.retry(
                     () -> VertxTcpClient.doRequest(rpcRequest, selectedService));
         } catch (Exception e) {
             // 容错上下文
-            Map<String, Object> context = new HashMap<>() {{
-                put("serviceMetadataList", serviceMetadataList);
-                put("errorService", selectedService);
-                put("rpcRequest", rpcRequest);
-            }};
+            Map<String, Object> context = Map.of("serviceMetadataList", serviceMetadataList,
+                    "errorService", selectedService, "rpcRequest", rpcRequest);
             // 容错机制
             TolerantStrategy tolerantStrategy = TolerantStrategyFactory.getTolerantStrategy(
-                    RpcApplication.resolve().getTolerant());
+                    applicationConfig.getTolerant().getTolerant());
             rpcResponse = tolerantStrategy.tolerant(context, e);
         }
         return rpcResponse.getData();
