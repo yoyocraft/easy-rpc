@@ -10,11 +10,11 @@ import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * 配置工具类
+ * Configuration utility class
  * <p>
- * 加载配置文件规则：
- * <p>conf/conf.properties > conf.properties > conf/conf.yaml > conf.yaml > conf/conf.yml >
- * conf.yml</p>
+ * Loading configuration file rules:
+ * <p>
+ * conf/conf.properties > conf.properties > conf/conf.yaml > conf.yaml > conf/conf.yml > conf.yml
  *
  * @author <a href="https://github.com/dingxinliang88">youyi</a>
  */
@@ -72,14 +72,14 @@ public class ConfigUtil {
         try {
             return doLoadProperties(clazz, BASE_PATH_DIR + BASE_CONF_FILE_NAME, prefix, env);
         } catch (NoResourceException e) {
-            log.warn(
+            log.debug(
                     "Not exists properties conf file in [{}], will load properties file from classpath",
                     BASE_PATH_DIR);
         }
         try {
             return doLoadProperties(clazz, BASE_CONF_FILE_NAME, prefix, env);
         } catch (NoResourceException e) {
-            log.warn("Not exists properties conf file,  will load yaml/yml file from classpath");
+            log.debug("Not exists properties conf file,  will load yaml/yml file from classpath");
         }
         return null;
     }
@@ -101,21 +101,21 @@ public class ConfigUtil {
             return doLoadYaml(clazz, BASE_PATH_DIR + BASE_CONF_FILE_NAME, prefix, env,
                     YAML_FILE_EXT);
         } catch (NoResourceException e) {
-            log.warn("Not exists yaml conf file in [{}], will load yaml file from classpath",
+            log.debug("Not exists yaml conf file in [{}], will load yaml file from classpath",
                     BASE_PATH_DIR);
         }
         try {
             return doLoadYaml(clazz, BASE_CONF_FILE_NAME, prefix, env,
                     YAML_FILE_EXT);
         } catch (NoResourceException e) {
-            log.warn("Not exists yaml conf file in [{}], will load yml file", BASE_PATH_DIR);
+            log.debug("Not exists yaml conf file in [{}], will load yml file", BASE_PATH_DIR);
         }
         // 读取 yml 文件
         try {
             return doLoadYaml(clazz, BASE_PATH_DIR + BASE_CONF_FILE_NAME, prefix, env,
                     YML_FILE_EXT);
         } catch (NoResourceException e) {
-            log.warn("Not exists yml conf file in [{}], will load yml file from classpath",
+            log.debug("Not exists yml conf file in [{}], will load yml file from classpath",
                     BASE_PATH_DIR);
         }
         try {

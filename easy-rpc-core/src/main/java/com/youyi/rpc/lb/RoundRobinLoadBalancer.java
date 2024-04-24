@@ -17,7 +17,7 @@ public class RoundRobinLoadBalancer implements LoadBalancer {
     /**
      * 当前选择的服务索引
      */
-    private final AtomicInteger CURR_INDEX = new AtomicInteger(0);
+    private static final AtomicInteger CURR_INDEX = new AtomicInteger(0);
 
     @Override
     public ServiceMetadata select(Map<String, Object> reqParams,

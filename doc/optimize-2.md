@@ -337,9 +337,9 @@ public class ProviderBootstrap {
         // RPC 框架初始化（配置、注册中心）
         RpcApplication.init();
         // 全局配置
-        final Config config = RpcApplication.resolve();
+        final ApplicationConfig applicationConfig = RpcApplication.resolve();
         // 获取注册中心
-        RegistryConfig registryConfig = config.getRegistry();
+        RegistryConfig registryConfig = applicationConfig.getRegistry();
         Registry registry = RegistryFactory.getRegistry(registryConfig.getRegistry());
 
         // 注册服务
@@ -352,8 +352,8 @@ public class ProviderBootstrap {
 
             ServiceMetadata serviceMetadata = new ServiceMetadata();
             serviceMetadata.setServiceName(serviceName);
-            serviceMetadata.setServiceHost(config.getHost());
-            serviceMetadata.setServicePort(config.getPort());
+            serviceMetadata.setServiceHost(applicationConfig.getHost());
+            serviceMetadata.setServicePort(applicationConfig.getPort());
 
             try {
                 // 注册到注册中心
@@ -365,7 +365,7 @@ public class ProviderBootstrap {
 
         // 启动 Provider Web 服务
         RpcServer rpcServer = new VertxTcpServer();
-        rpcServer.doStart(config.getPort());
+        rpcServer.doStart(applicationConfig.getPort());
 
     }
 }
@@ -434,12 +434,12 @@ public class RpcInitBootStrap implements ImportBeanDefinitionRegistrar {
         RpcApplication.init();
 
         // 全局配置
-        final Config config = RpcApplication.resolve();
+        final Config applicationConfig = RpcApplication.resolve();
 
         if (needServer) {
             // 启动 服务器
             RpcServer rpcServer = new VertxTcpServer();
-            rpcServer.doStart(config.getPort());
+            rpcServer.doStart(applicationConfig.getPort());
         }
     }
 }
@@ -509,9 +509,9 @@ public class RpcProviderBootStrap implements BeanPostProcessor {
             String serviceVersion = rpcService.serviceVersion();
 
             // 全局配置
-            final Config config = RpcApplication.resolve();
+            final Config applicationConfig = RpcApplication.resolve();
             // 获取注册中心
-            RegistryConfig registryConfig = config.getRegistry();
+            RegistryConfig registryConfig = applicationConfig.getRegistry();
             Registry registry = RegistryFactory.getRegistry(registryConfig.getRegistry());
 
             // 2. 注册服务
@@ -519,8 +519,8 @@ public class RpcProviderBootStrap implements BeanPostProcessor {
 
             ServiceMetadata serviceMetadata = new ServiceMetadata();
             serviceMetadata.setServiceName(serviceName);
-            serviceMetadata.setServiceHost(config.getHost());
-            serviceMetadata.setServicePort(config.getPort());
+            serviceMetadata.setServiceHost(applicationConfig.getHost());
+            serviceMetadata.setServicePort(applicationConfig.getPort());
             serviceMetadata.setServiceVersion(serviceVersion);
 
             try {

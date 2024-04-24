@@ -1,7 +1,7 @@
 package com.youyi.rpc;
 
 import cn.hutool.core.io.resource.NoResourceException;
-import com.youyi.rpc.config.Config;
+import com.youyi.rpc.config.ApplicationConfig;
 import com.youyi.rpc.config.RegistryConfig;
 import com.youyi.rpc.constants.RpcConstant;
 import com.youyi.rpc.registry.Registry;
@@ -21,20 +21,35 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class RpcApplication {
 
-    private static final Config DEFAULT_CONFIG = new Config();
+    private static final ApplicationConfig DEFAULT_APPLICATION_CONFIG = new ApplicationConfig();
 
-    private static volatile Config config;
+    private static volatile ApplicationConfig applicationConfig;
+
+    /**
+     * RPC Config 初始化
+     */
+    public static void init() {
+        ApplicationConfig conf;
+
+        try {
+            conf = ConfigUtil.load(ApplicationConfig.class, RpcConstant.DEFAULT_CONFIG_PREFIX);
+        } catch (NoResourceException e) {
+            log.error("load rpc properties error, use default config");
+            conf = DEFAULT_APPLICATION_CONFIG;
+        }
+        init(conf);
+    }
 
     /**
      * RPC Config 初始化
      *
      * @param conf 配置
      */
-    public static void init(Config conf) {
-        config = conf;
+    public static void init(ApplicationConfig conf) {
+        applicationConfig = conf;
         log.info("rpc init, config: {}", conf);
         // 注册中心初始化
-        RegistryConfig registryConfig = conf.getRegistry();
+        RegistryConfig registryConfig = applicationConfig.getRegistry();
         Registry registry = RegistryFactory.getRegistry(registryConfig.getRegistry());
         registry.init(registryConfig);
         log.info("registry init, config = {}", registryConfig);
@@ -45,32 +60,17 @@ public class RpcApplication {
     }
 
     /**
-     * RPC Config 初始化
-     */
-    public static void init() {
-        Config conf;
-
-        try {
-            conf = ConfigUtil.load(Config.class, RpcConstant.DEFAULT_CONFIG_PREFIX);
-        } catch (NoResourceException e) {
-            log.error("load rpc properties error, use default config");
-            conf = DEFAULT_CONFIG;
-        }
-        init(conf);
-    }
-
-    /**
      * 获取 RPC 配置
      */
-    public static Config resolve() {
-        if (Objects.isNull(config)) {
+    public static ApplicationConfig resolve() {
+        if (Objects.isNull(applicationConfig)) {
             synchronized (RpcApplication.class) {
-                if (Objects.isNull(config)) {
+                if (Objects.isNull(applicationConfig)) {
                     init();
                 }
             }
         }
-        return config;
+        return applicationConfig;
     }
 
 }

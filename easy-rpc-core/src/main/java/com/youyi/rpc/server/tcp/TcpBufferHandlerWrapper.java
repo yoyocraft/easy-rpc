@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
  * 策略：读两次，第一次读取长度，第二次读取内容
  *
  * @author <a href="https://github.com/dingxinliang88">youyi</a>
+ * @see com.youyi.rpc.protocol.ProtocolMessage
  */
 @Slf4j
 public class TcpBufferHandlerWrapper implements Handler<Buffer> {

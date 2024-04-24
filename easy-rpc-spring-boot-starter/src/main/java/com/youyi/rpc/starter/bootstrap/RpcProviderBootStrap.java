@@ -1,7 +1,7 @@
 package com.youyi.rpc.starter.bootstrap;
 
 import com.youyi.rpc.RpcApplication;
-import com.youyi.rpc.config.Config;
+import com.youyi.rpc.config.ApplicationConfig;
 import com.youyi.rpc.config.RegistryConfig;
 import com.youyi.rpc.model.ServiceMetadata;
 import com.youyi.rpc.registry.LocalRegistry;
@@ -41,9 +41,9 @@ public class RpcProviderBootStrap implements BeanPostProcessor {
             String serviceVersion = rpcService.serviceVersion();
 
             // 全局配置
-            final Config config = RpcApplication.resolve();
+            final ApplicationConfig applicationConfig = RpcApplication.resolve();
             // 获取注册中心
-            RegistryConfig registryConfig = config.getRegistry();
+            RegistryConfig registryConfig = applicationConfig.getRegistry();
             Registry registry = RegistryFactory.getRegistry(registryConfig.getRegistry());
 
             // 2. 注册服务
@@ -51,8 +51,8 @@ public class RpcProviderBootStrap implements BeanPostProcessor {
 
             ServiceMetadata serviceMetadata = new ServiceMetadata();
             serviceMetadata.setServiceName(serviceName);
-            serviceMetadata.setServiceHost(config.getHost());
-            serviceMetadata.setServicePort(config.getPort());
+            serviceMetadata.setServiceHost(applicationConfig.getHost());
+            serviceMetadata.setServicePort(applicationConfig.getPort());
             serviceMetadata.setServiceVersion(serviceVersion);
 
             try {

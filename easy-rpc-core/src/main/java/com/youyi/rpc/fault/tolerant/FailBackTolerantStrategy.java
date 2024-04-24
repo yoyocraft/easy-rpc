@@ -18,7 +18,7 @@ public class FailBackTolerantStrategy implements TolerantStrategy {
     @Override
     public RpcResponse tolerant(Map<String, Object> context, Exception e) {
         MockStrategy mockStrategy = MockStrategyFactory.getMockStrategy(
-                RpcApplication.resolve().getFailBackService());
+                RpcApplication.resolve().getTolerant().getFailBackService());
 
         log.info("fail back mock strategy:{}", mockStrategy);
 

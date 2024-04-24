@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class RandomLoadBalancer implements LoadBalancer {
 
-    private final Random RANDOM = new Random(System.currentTimeMillis());
+    private static final Random RANDOM = new Random(System.currentTimeMillis());
 
     @Override
     public ServiceMetadata select(Map<String, Object> reqParams,
