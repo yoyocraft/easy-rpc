@@ -12,10 +12,10 @@ public interface UserService {
     /**
      * 获取用户
      *
-     * @param user user query info
+     * @param name user name
      * @return user info
      */
-    User getUser(User user);
+    User getUser(String name);
 
     /**
      * 获取一个数字

@@ -11,9 +11,10 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class UserServiceImpl implements UserService {
+
     @Override
-    public User getUser(User user) {
-        log.info("user name: {}", user.getName());
-        return user;
+    public User getUser(String name) {
+        log.info("provider receive user name: {}", name);
+        return new User("&Provider& " + name);
     }
 }
