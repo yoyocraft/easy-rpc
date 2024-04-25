@@ -4,10 +4,9 @@ import com.youyi.example.common.model.User;
 import com.youyi.example.common.service.UserService;
 import com.youyi.rpc.bootstrap.ConsumerBootstrap;
 import com.youyi.rpc.proxy.ServiceProxyFactory;
+import java.util.Objects;
 import java.util.Scanner;
 import lombok.extern.slf4j.Slf4j;
-
-import java.util.Objects;
 
 /**
  * 简易服务消费者示例
@@ -24,12 +23,12 @@ public class ConsumerExample {
         // 获取 UserService 实现类对象
         UserService userService = getUserService();
 
-        User user = new User();
-        user.setName("youyi");
+        log.info("mock data = {}", userService.getNumber());
 
+        String name = "youyi";
         Scanner sc = new Scanner(System.in);
         for (int i = 0; i < 3; i++) {
-            User newUser = userService.getUser(user);
+            User newUser = userService.getUser(name);
             if (Objects.nonNull(newUser)) {
                 log.info("new user name: {}", newUser.getName());
             } else {
