@@ -3,15 +3,18 @@ package com.youyi.rpc.spi;
 import cn.hutool.core.io.resource.ResourceUtil;
 import com.youyi.rpc.exception.NoSuchKeyException;
 import com.youyi.rpc.exception.NoSuchLoadClassException;
-import com.youyi.rpc.serializer.Serializer;
 import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,6 +27,11 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class SpiLoader {
+
+    /**
+     * SPI Class 所在目录
+     */
+    private static final String SPI_CLASS_DIR = "com.youyi.rpc";
 
     /**
      * 系统 SPI 目录
@@ -57,18 +65,18 @@ public class SpiLoader {
 
     /**
      * 动态加载的类列表
-     * <p>
-     * TODO 使用注解和反射的方式动态添加
      */
-    private static final List<Class<?>> LOAD_CLASS_LIST = List.of(Serializer.class);
+    private static final Set<Class<?>> LOAD_CLASS_SET = new HashSet<>();
 
 
     /**
-     * 加载所有类型
+     * 加载所有类型，重量级操作，会删除原先加载的类缓存
      */
     public static void loadAll() {
         log.info("load all spi class.");
-        for (Class<?> spiClass : LOAD_CLASS_LIST) {
+        preLoadAll();
+        doFindAllSpiClass(SPI_CLASS_DIR);
+        for (Class<?> spiClass : LOAD_CLASS_SET) {
             load(spiClass);
         }
     }
@@ -163,4 +171,44 @@ public class SpiLoader {
         return (T) INSTANCE_CACHE.get(implClassName);
     }
 
+    private static void doFindAllSpiClass(String pkg) {
+        String pkgPath = pkg.replaceAll("[.]", "/");
+        try (InputStream is = ClassLoader.getSystemClassLoader().getResourceAsStream(pkgPath);
+                BufferedReader bufferedReader = new BufferedReader(
+                        new InputStreamReader(Objects.requireNonNull(is)))) {
+            bufferedReader.lines().forEach(line -> {
+                if (line.endsWith(".class")) {
+                    try {
+                        doGetClass(pkg, line);
+                    } catch (ClassNotFoundException e) {
+                        log.error("load spi class error", e);
+                    }
+                } else {
+                    doFindAllSpiClass(pkg + "." + line);
+                }
+            });
+        } catch (IOException e) {
+            log.error("load spi class error", e);
+        }
+    }
+
+    private static void preLoadAll() {
+        LOAD_CLASS_SET.clear();
+        INSTANCE_CACHE.clear();
+    }
+
+    private static void doGetClass(String pkg, String line) throws ClassNotFoundException {
+        String className =
+                pkg + "." + line.substring(0, line.lastIndexOf(".class"));
+        Class<?> clazz = Class.forName(className);
+        // 是接口，并且被 @SPI 注解修饰
+        if (!checkSpiClass(clazz)) {
+            return;
+        }
+        LOAD_CLASS_SET.add(clazz);
+    }
+
+    private static boolean checkSpiClass(Class<?> clazz) {
+        return clazz.isInterface() && clazz.isAnnotationPresent(SPI.class);
+    }
 }

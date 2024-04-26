@@ -2,6 +2,7 @@ package com.youyi.rpc.registry;
 
 import com.youyi.rpc.config.RegistryConfig;
 import com.youyi.rpc.model.ServiceMetadata;
+import com.youyi.rpc.spi.SPI;
 import java.util.List;
 
 /**
@@ -9,6 +10,7 @@ import java.util.List;
  *
  * @author <a href="https://github.com/dingxinliang88">youyi</a>
  */
+@SPI
 public interface Registry {
 
 

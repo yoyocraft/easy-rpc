@@ -15,8 +15,8 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
 
     @Override
-    public User getUser(User user) {
-        log.info("username: {}", user.getName());
-        return new User(user.getName() + "-proxy");
+    public User getUser(String name) {
+        log.info("username: {}", name);
+        return new User(name + "-proxy");
     }
 }

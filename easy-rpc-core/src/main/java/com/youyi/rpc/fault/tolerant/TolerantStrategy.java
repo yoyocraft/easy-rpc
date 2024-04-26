@@ -1,6 +1,7 @@
 package com.youyi.rpc.fault.tolerant;
 
 import com.youyi.rpc.model.RpcResponse;
+import com.youyi.rpc.spi.SPI;
 import java.util.Map;
 
 /**
@@ -8,6 +9,7 @@ import java.util.Map;
  *
  * @author <a href="https://github.com/dingxinliang88">youyi</a>
  */
+@SPI
 public interface TolerantStrategy {
 
 
