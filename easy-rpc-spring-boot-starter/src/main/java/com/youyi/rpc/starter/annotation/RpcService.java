@@ -1,6 +1,6 @@
 package com.youyi.rpc.starter.annotation;
 
-import com.youyi.rpc.constants.RpcConstant;
+import com.youyi.rpc.constants.RpcConstants;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -23,5 +23,5 @@ public @interface RpcService {
     /**
      * @return 版本
      */
-    String serviceVersion() default RpcConstant.DEFAULT_SERVICE_VERSION;
+    String serviceVersion() default RpcConstants.DEFAULT_SERVICE_VERSION;
 }

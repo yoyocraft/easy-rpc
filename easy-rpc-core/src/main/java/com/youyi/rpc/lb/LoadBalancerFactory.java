@@ -27,7 +27,7 @@ public class LoadBalancerFactory {
         return loadBalancer;
     }
 
-    public synchronized static void init() {
+    public static synchronized  void init() {
         SpiLoader.load(LoadBalancer.class);
     }
 

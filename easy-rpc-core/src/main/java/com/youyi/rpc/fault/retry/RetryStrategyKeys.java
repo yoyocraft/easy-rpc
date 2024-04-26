@@ -5,11 +5,11 @@ package com.youyi.rpc.fault.retry;
  *
  * @author <a href="https://github.com/dingxinliang88">youyi</a>
  */
-public interface RetryStrategyKeys {
+public class RetryStrategyKeys {
 
-    String NO = "no";
+    public static final String NO = "no";
 
-    String FIXED_INTERVAL = "fixed_interval";
+    public static final String FIXED_INTERVAL = "fixed_interval";
 
-    String EXPONENTIAL_BACKOFF = "exponential_backoff";
+    public static final String EXPONENTIAL_BACKOFF = "exponential_backoff";
 }

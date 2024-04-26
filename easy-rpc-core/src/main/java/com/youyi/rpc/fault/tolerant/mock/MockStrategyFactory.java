@@ -27,7 +27,7 @@ public class MockStrategyFactory {
         return mockStrategy;
     }
 
-    public synchronized static void init() {
+    public static synchronized void init() {
         SpiLoader.load(MockStrategy.class);
     }
 

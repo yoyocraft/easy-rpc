@@ -52,8 +52,8 @@ public class ConfigUtil {
      * @return props
      */
     public static <T> T load(Class<T> clazz, String prefix, String env) {
-        T props;
-        return (props = loadProperties(clazz, prefix, env)) != null ? props
+        T props = loadProperties(clazz, prefix, env);
+        return props != null ? props
                 : loadYaml(clazz, prefix, env);
     }
 

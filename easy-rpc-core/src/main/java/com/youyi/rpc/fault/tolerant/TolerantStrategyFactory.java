@@ -27,7 +27,7 @@ public class TolerantStrategyFactory {
         return tolerantStrategy;
     }
 
-    public synchronized static void init() {
+    public static synchronized void init() {
         SpiLoader.load(TolerantStrategy.class);
     }
 

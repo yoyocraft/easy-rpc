@@ -2,7 +2,7 @@ package com.youyi.rpc.protocol.codec;
 
 import com.youyi.rpc.model.RpcRequest;
 import com.youyi.rpc.model.RpcResponse;
-import com.youyi.rpc.protocol.ProtocolConstant;
+import com.youyi.rpc.protocol.ProtocolConstants;
 import com.youyi.rpc.protocol.ProtocolMessage;
 import com.youyi.rpc.serializer.Serializer;
 import com.youyi.rpc.serializer.SerializerFactory;
@@ -29,8 +29,8 @@ public class ProtocolMessageDecoder {
         ProtocolMessage.Header header = resolveHeader(buffer);
 
         // 解决粘包问题，只读取指定长度的数据
-        byte[] bodyBytes = buffer.getBytes(ProtocolConstant.MESSAGE_HEADER_LENGTH,
-                ProtocolConstant.MESSAGE_HEADER_LENGTH + header.getBodyLength());
+        byte[] bodyBytes = buffer.getBytes(ProtocolConstants.MESSAGE_HEADER_LENGTH,
+                ProtocolConstants.MESSAGE_HEADER_LENGTH + header.getBodyLength());
 
         // 解析消息体
         ProtocolMessage.MessageSerializer messageSerializer = ProtocolMessage.MessageSerializer.resolve(
@@ -60,18 +60,18 @@ public class ProtocolMessageDecoder {
     private static ProtocolMessage.Header resolveHeader(Buffer buffer) {
         ProtocolMessage.Header header = new ProtocolMessage.Header();
 
-        byte magic = buffer.getByte(ProtocolConstant.MAGIC_POS); // 1 byte
-        if (magic != ProtocolConstant.PROTOCOL_MAGIC) {
+        byte magic = buffer.getByte(ProtocolConstants.MAGIC_POS); // 1 byte
+        if (magic != ProtocolConstants.PROTOCOL_MAGIC) {
             throw new IllegalArgumentException("Invalid magic number: " + magic);
         }
 
         header.setMagic(magic);
-        header.setVersion(buffer.getByte(ProtocolConstant.VERSION_POS)); // 1 byte
-        header.setSerializer(buffer.getByte(ProtocolConstant.SERIALIZER_POS)); // 1 byte
-        header.setType(buffer.getByte(ProtocolConstant.TYPE_POS)); // 1 byte
-        header.setStatus(buffer.getByte(ProtocolConstant.STATUS_POS)); // 1 byte
-        header.setReqId(buffer.getLong(ProtocolConstant.REQ_ID_POS)); // 8 byte
-        header.setBodyLength(buffer.getInt(ProtocolConstant.BODY_LEN_POS)); // 4 byte
+        header.setVersion(buffer.getByte(ProtocolConstants.VERSION_POS)); // 1 byte
+        header.setSerializer(buffer.getByte(ProtocolConstants.SERIALIZER_POS)); // 1 byte
+        header.setType(buffer.getByte(ProtocolConstants.TYPE_POS)); // 1 byte
+        header.setStatus(buffer.getByte(ProtocolConstants.STATUS_POS)); // 1 byte
+        header.setReqId(buffer.getLong(ProtocolConstants.REQ_ID_POS)); // 8 byte
+        header.setBodyLength(buffer.getInt(ProtocolConstants.BODY_LEN_POS)); // 4 byte
 
         return header;
     }

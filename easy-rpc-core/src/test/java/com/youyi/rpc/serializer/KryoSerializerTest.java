@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 @Slf4j
 class KryoSerializerTest {
 
-    KryoSerializer serializer = new KryoSerializer();
+    private final KryoSerializer serializer = new KryoSerializer();
 
     @Test
     void serialize() throws IOException {
@@ -33,7 +33,7 @@ class KryoSerializerTest {
         private String name;
         private int age;
 
-        public Person(String name, int age) {
+        Person(String name, int age) {
             this.name = name;
             this.age = age;
         }

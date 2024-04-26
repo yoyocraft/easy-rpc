@@ -27,7 +27,7 @@ public final class RegistryFactory {
         return registry;
     }
 
-    public synchronized static void init() {
+    public static synchronized void init() {
         SpiLoader.load(Registry.class);
     }
 }

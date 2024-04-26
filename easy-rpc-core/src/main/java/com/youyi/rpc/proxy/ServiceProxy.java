@@ -3,7 +3,7 @@ package com.youyi.rpc.proxy;
 import cn.hutool.core.collection.CollUtil;
 import com.youyi.rpc.RpcApplication;
 import com.youyi.rpc.config.ApplicationConfig;
-import com.youyi.rpc.constants.RpcConstant;
+import com.youyi.rpc.constants.RpcConstants;
 import com.youyi.rpc.fault.retry.RetryStrategy;
 import com.youyi.rpc.fault.retry.RetryStrategyFactory;
 import com.youyi.rpc.fault.tolerant.TolerantStrategy;
@@ -55,7 +55,7 @@ public class ServiceProxy implements InvocationHandler {
                 applicationConfig.getRegistry().getRegistry());
         ServiceMetadata serviceMetadata = new ServiceMetadata();
         serviceMetadata.setServiceName(serviceName);
-        serviceMetadata.setServiceVersion(RpcConstant.DEFAULT_SERVICE_VERSION);
+        serviceMetadata.setServiceVersion(RpcConstants.DEFAULT_SERVICE_VERSION);
         List<ServiceMetadata> serviceMetadataList = registry.discovery(
                 serviceMetadata.getServiceKey());
         if (CollUtil.isEmpty(serviceMetadataList)) {

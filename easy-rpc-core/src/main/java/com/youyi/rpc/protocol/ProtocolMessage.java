@@ -80,8 +80,7 @@ public class ProtocolMessage<T> {
         REQUEST(0),
         RESPONSE(1),
         HEARTBEAT(2),
-        OTHER(100),
-        ;
+        OTHER(100);
 
         private final int key;
 
@@ -112,8 +111,7 @@ public class ProtocolMessage<T> {
         JDK(0, "jdk"),
         JSON(1, "json"),
         KRYO(2, "kryo"),
-        HESSIAN(3, "hessian"),
-        ;
+        HESSIAN(3, "hessian");
 
         private final int key;
         private final String value;
@@ -163,8 +161,7 @@ public class ProtocolMessage<T> {
 
         OK("ok", 20),
         BAD_REQUEST("badRequest", 40),
-        BAD_RESPONSE("badResponse", 50),
-        ;
+        BAD_RESPONSE("badResponse", 50);
 
         private final String desc;
         private final int val;

@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 @Slf4j
 class RetryStrategyTest {
 
-    RetryStrategy retryStrategy = new ExponentialBackoffRetryStrategy();
+    private final RetryStrategy retryStrategy = new ExponentialBackoffRetryStrategy();
 
     @Test
     void retry() {

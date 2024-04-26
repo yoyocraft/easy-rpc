@@ -5,12 +5,12 @@ package com.youyi.rpc.lb;
  *
  * @author <a href="https://github.com/dingxinliang88">youyi</a>
  */
-public interface LoadBalancerKeys {
+public class LoadBalancerKeys {
 
-    String ROUND_ROBIN = "round_robin";
+    public static final String ROUND_ROBIN = "round_robin";
 
-    String RANDOM = "random";
+    public static final String RANDOM = "random";
 
-    String CONSISTENT_HASH = "consistent_hash";
+    public static final String CONSISTENT_HASH = "consistent_hash";
 
 }

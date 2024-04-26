@@ -2,7 +2,7 @@ package com.youyi.rpc.protocol;
 
 
 import cn.hutool.core.util.IdUtil;
-import com.youyi.rpc.constants.RpcConstant;
+import com.youyi.rpc.constants.RpcConstants;
 import com.youyi.rpc.model.RpcRequest;
 import com.youyi.rpc.protocol.codec.ProtocolMessageDecoder;
 import com.youyi.rpc.protocol.codec.ProtocolMessageEncoder;
@@ -28,7 +28,7 @@ class ProtocolMessageTest {
         RpcRequest rpcRequest = new RpcRequest();
         rpcRequest.setServiceName("test-service");
         rpcRequest.setMethodName("test-method");
-        rpcRequest.setServiceVersion(RpcConstant.DEFAULT_SERVICE_VERSION);
+        rpcRequest.setServiceVersion(RpcConstants.DEFAULT_SERVICE_VERSION);
         rpcRequest.setParameterTypes(new Class[]{String.class});
         rpcRequest.setParameters(new Object[]{"test-args"});
 
@@ -48,8 +48,8 @@ class ProtocolMessageTest {
 
     private static ProtocolMessage.Header getHeader() {
         ProtocolMessage.Header header = new ProtocolMessage.Header();
-        header.setMagic(ProtocolConstant.PROTOCOL_MAGIC);
-        header.setVersion(ProtocolConstant.PROTOCOL_VERSION);
+        header.setMagic(ProtocolConstants.PROTOCOL_MAGIC);
+        header.setVersion(ProtocolConstants.PROTOCOL_VERSION);
         header.setSerializer((byte) ProtocolMessage.MessageSerializer.JDK.getKey());
         header.setType((byte) ProtocolMessage.MessageType.REQUEST.getKey());
         header.setStatus((byte) ProtocolMessage.MessageStatus.OK.getVal());

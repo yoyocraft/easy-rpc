@@ -27,7 +27,7 @@ public final class SerializerFactory {
         return serializer;
     }
 
-    public synchronized static void init() {
+    public static synchronized void init() {
         SpiLoader.load(Serializer.class);
     }
 }

@@ -19,7 +19,7 @@ public class KryoSerializer implements Serializer {
     /**
      * Kryo 实例线程不安全，使用 ThreadLocal 确保线程安全
      */
-    private final ThreadLocal<Kryo> KRYO_THREAD_LOCAL = ThreadLocal.withInitial(() -> {
+    private final ThreadLocal<Kryo> kryoThreadLocal = ThreadLocal.withInitial(() -> {
         Kryo kryo = new Kryo();
         // 设置动态序列化和反序列化类，不提前注册所有类
         // kryo.setRegistrationRequired(false);
@@ -32,10 +32,10 @@ public class KryoSerializer implements Serializer {
     public byte[] serialize(Object obj) throws IOException {
         try (ByteArrayOutputStream bos = new ByteArrayOutputStream();
                 Output output = new Output(bos)) {
-            KRYO_THREAD_LOCAL.get().writeObject(output, obj);
+            kryoThreadLocal.get().writeObject(output, obj);
             return bos.toByteArray();
         } finally {
-            KRYO_THREAD_LOCAL.remove();
+            kryoThreadLocal.remove();
         }
     }
 
@@ -43,10 +43,10 @@ public class KryoSerializer implements Serializer {
     public <T> T deserialize(byte[] data, Class<T> clazz) throws IOException {
         try (ByteArrayInputStream bis = new ByteArrayInputStream(data);
                 Input input = new Input(bis)) {
-            Object obj = KRYO_THREAD_LOCAL.get().readObject(input, clazz);
+            Object obj = kryoThreadLocal.get().readObject(input, clazz);
             return clazz.cast(obj);
         } finally {
-            KRYO_THREAD_LOCAL.remove();
+            kryoThreadLocal.remove();
         }
     }
 }

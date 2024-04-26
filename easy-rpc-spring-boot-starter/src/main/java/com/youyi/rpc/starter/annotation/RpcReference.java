@@ -1,6 +1,6 @@
 package com.youyi.rpc.starter.annotation;
 
-import com.youyi.rpc.constants.RpcConstant;
+import com.youyi.rpc.constants.RpcConstants;
 import com.youyi.rpc.fault.retry.RetryStrategyKeys;
 import com.youyi.rpc.fault.tolerant.TolerantStrategyKeys;
 import com.youyi.rpc.lb.LoadBalancerKeys;
@@ -27,7 +27,7 @@ public @interface RpcReference {
     /**
      * @return 版本
      */
-    String serviceVersion() default RpcConstant.DEFAULT_SERVICE_VERSION;
+    String serviceVersion() default RpcConstants.DEFAULT_SERVICE_VERSION;
 
     /**
      * @return 负载均衡器
