@@ -11,7 +11,7 @@ import java.nio.charset.StandardCharsets;
 public class CustomJsonSerializer implements Serializer {
 
     @Override
-    public <T> byte[] serialize(T obj) throws IOException {
+    public byte[] serialize(Object obj) throws IOException {
         return JSONUtil.toJsonStr(obj).getBytes(StandardCharsets.UTF_8);
     }
 

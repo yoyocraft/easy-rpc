@@ -1,6 +1,5 @@
 package com.youyi.rpc.serializer;
 
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -15,23 +14,19 @@ import java.io.ObjectOutputStream;
 public class JdkSerializer implements Serializer {
 
     @Override
-    public <T> byte[] serialize(T obj) throws IOException {
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        try (ObjectOutputStream oos = new ObjectOutputStream(bos)) {
+    public byte[] serialize(Object obj) throws IOException {
+        try (ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                ObjectOutputStream oos = new ObjectOutputStream(bos)) {
             oos.writeObject(obj);
-        } catch (IOException ignored) {
+            return bos.toByteArray();
         }
-
-        return bos.toByteArray();
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public <T> T deserialize(byte[] data, Class<T> clazz) throws IOException {
-        ByteArrayInputStream bis = new ByteArrayInputStream(data);
-
-        try (ObjectInputStream ois = new ObjectInputStream(bis)) {
-            return (T) ois.readObject();
+        try (ByteArrayInputStream bis = new ByteArrayInputStream(data);
+                ObjectInputStream ois = new ObjectInputStream(bis)) {
+            return clazz.cast(ois.readObject());
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }

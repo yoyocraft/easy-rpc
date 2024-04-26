@@ -13,11 +13,10 @@ public interface Serializer {
      * 序列化
      *
      * @param obj target object
-     * @param <T> T
      * @return byte arr
      * @throws IOException io exception
      */
-    <T> byte[] serialize(T obj) throws IOException;
+    byte[] serialize(Object obj) throws IOException;
 
     /**
      * 反序列化

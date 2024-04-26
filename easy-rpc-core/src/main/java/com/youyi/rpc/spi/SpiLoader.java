@@ -36,7 +36,7 @@ public class SpiLoader {
     private static final String RPC_CUSTOM_SPI_DIR = "META-INF/rpc/custom/";
 
     /**
-     * SPI 扫描路径
+     * SPI 扫描路径，顺序不可以更改，因为 custom > system，后续的会覆盖前面的
      */
     private static final String[] SCAN_DIRS = new String[]{RPC_SYSTEM_SPI_DIR, RPC_CUSTOM_SPI_DIR};
 
@@ -48,7 +48,7 @@ public class SpiLoader {
     /**
      * 存储已经加载的类
      */
-    private static final Map<String /* 接口名 */, Map<String /* key */, Class<?> /* 实现类 */>> LOADER_MAP = new ConcurrentHashMap<>();
+    private static final Map<String /* 接口名 */, Map<String /* 实现类 key */, Class<?> /* 实现类 */>> LOADER_MAP = new ConcurrentHashMap<>();
 
     /**
      * 对象实例缓存，单例
@@ -57,6 +57,8 @@ public class SpiLoader {
 
     /**
      * 动态加载的类列表
+     * <p>
+     * TODO 使用注解和反射的方式动态添加
      */
     private static final List<Class<?>> LOAD_CLASS_LIST = List.of(Serializer.class);
 
@@ -65,7 +67,7 @@ public class SpiLoader {
      * 加载所有类型
      */
     public static void loadAll() {
-        log.info("load all spi.");
+        log.info("load all spi class.");
         for (Class<?> spiClass : LOAD_CLASS_LIST) {
             load(spiClass);
         }
@@ -88,12 +90,13 @@ public class SpiLoader {
      */
     public static Map<String, Class<?>> load(Class<?> loadClazz) {
         String loadClassName = loadClazz.getName();
-        log.info("load spi class: {}", loadClassName);
 
         // 加载过的不重复加载（懒加载）
         if (LOADER_MAP.containsKey(loadClassName)) {
             return LOADER_MAP.get(loadClassName);
         }
+
+        log.info("load spi class: {}", loadClassName);
 
         // 加载
         Map<String, Class<?>> keyImplClassMap = new HashMap<>();
@@ -102,9 +105,8 @@ public class SpiLoader {
             List<URL> resources = ResourceUtil.getResources(scanDir + loadClassName);
             // read resource
             for (URL resource : resources) {
-                try {
-                    InputStreamReader isr = new InputStreamReader(resource.openStream());
-                    BufferedReader bufReader = new BufferedReader(isr);
+                try (InputStreamReader isr = new InputStreamReader(resource.openStream());
+                        BufferedReader bufReader = new BufferedReader(isr)) {
                     String line;
                     while ((line = bufReader.readLine()) != null) {
                         String[] keyImplClassArr = line.split(SPI_SEPARATOR);

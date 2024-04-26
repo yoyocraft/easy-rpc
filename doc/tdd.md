@@ -124,7 +124,7 @@ public interface Serializer {
 ```java
 public class JdkSerializer implements Serializer {
     @Override
-    public <T> byte[] serialize(T obj) throws IOException {
+    public byte[] serialize(Object obj) throws IOException {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(bos);
         oos.writeObject(obj);

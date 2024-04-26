@@ -14,7 +14,7 @@ import java.io.IOException;
 public class HessianSerializer implements Serializer {
 
     @Override
-    public <T> byte[] serialize(T obj) throws IOException {
+    public byte[] serialize(Object obj) throws IOException {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         Hessian2Output out = new Hessian2Output(bos);
         out.writeObject(obj);
@@ -22,11 +22,10 @@ public class HessianSerializer implements Serializer {
         return bos.toByteArray();
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public <T> T deserialize(byte[] data, Class<T> clazz) throws IOException {
         ByteArrayInputStream bis = new ByteArrayInputStream(data);
         Hessian2Input in = new Hessian2Input(bis);
-        return (T) in.readObject(clazz);
+        return clazz.cast(in.readObject());
     }
 }
