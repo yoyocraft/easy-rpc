@@ -1,6 +1,7 @@
 package com.youyi.rpc.lb;
 
 import com.youyi.rpc.model.ServiceMetadata;
+import com.youyi.rpc.spi.SPI;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +10,7 @@ import java.util.Map;
  *
  * @author <a href="https://github.com/dingxinliang88">youyi</a>
  */
+@SPI
 public interface LoadBalancer {
 
     /**

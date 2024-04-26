@@ -17,8 +17,7 @@ public class ExampleServiceImpl {
     private UserService userService;
 
     public void test() {
-        User user = new User("youyi");
-        User newUser = userService.getUser(user);
+        User newUser = userService.getUser("youyi");
         log.info("new username: {}", newUser.getName());
     }
 
