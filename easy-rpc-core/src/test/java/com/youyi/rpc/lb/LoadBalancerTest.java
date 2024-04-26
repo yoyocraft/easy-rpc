@@ -15,7 +15,7 @@ class LoadBalancerTest {
 
     // final LoadBalancer loadBalancer = new RandomLoadBalancer();
     // final LoadBalancer loadBalancer = new RoundRobinLoadBalancer();
-    final LoadBalancer loadBalancer = new ConsistentHashLoadBalancer();
+    private final LoadBalancer loadBalancer = new ConsistentHashLoadBalancer();
 
     @Test
     void select() {

@@ -43,9 +43,9 @@ public class VertxTcpServerForTest implements RpcServer {
             RecordParser parser = RecordParser.newFixed(8);
 
             parser.setOutput(new Handler<>() {
-                int size = -1;
+                private int size = -1;
                 // 一次性完整地读取（头 + 体）
-                Buffer resultBuffer = Buffer.buffer();
+                private Buffer resultBuffer = Buffer.buffer();
 
                 @Override
                 public void handle(Buffer buffer) {

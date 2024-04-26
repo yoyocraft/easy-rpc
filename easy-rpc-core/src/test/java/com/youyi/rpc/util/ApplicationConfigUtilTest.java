@@ -5,7 +5,7 @@ import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import cn.hutool.setting.yaml.YamlUtil;
 import com.youyi.rpc.config.ApplicationConfig;
-import com.youyi.rpc.constants.RpcConstant;
+import com.youyi.rpc.constants.RpcConstants;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -36,7 +36,7 @@ public class ApplicationConfigUtilTest {
 
     @Test
     void loadConfig() {
-        ApplicationConfig applicationConfig = ConfigUtil.load(ApplicationConfig.class, RpcConstant.DEFAULT_CONFIG_PREFIX);
+        ApplicationConfig applicationConfig = ConfigUtil.load(ApplicationConfig.class, RpcConstants.DEFAULT_CONFIG_PREFIX);
         log.info("config: {}", applicationConfig);
     }
 }

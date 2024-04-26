@@ -5,26 +5,26 @@ package com.youyi.rpc.fault.tolerant;
  *
  * @author <a href="https://github.com/dingxinliang88">youyi</a>
  */
-public interface TolerantStrategyKeys {
+public class TolerantStrategyKeys {
 
     /**
      * 降级处理
      */
-    String FAIL_BACK = "fail_back";
+    public static final String FAIL_BACK = "fail_back";
 
     /**
      * 快速失败
      */
-    String FAIL_FAST = "fail_fast";
+    public static final String FAIL_FAST = "fail_fast";
 
     /**
      * 故障转移
      */
-    String FAIL_OVER = "fail_over";
+    public static final String FAIL_OVER = "fail_over";
 
     /**
      * 静默处理
      */
-    String FAIL_SAFE = "fail_safe";
+    public static final String FAIL_SAFE = "fail_safe";
 
 }

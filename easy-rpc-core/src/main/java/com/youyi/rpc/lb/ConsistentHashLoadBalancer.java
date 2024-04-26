@@ -42,7 +42,7 @@ public class ConsistentHashLoadBalancer implements LoadBalancer {
 
         private final List<ServiceMetadata> metadataList;
 
-        public ConsistentHash(List<ServiceMetadata> metadataList) {
+        ConsistentHash(List<ServiceMetadata> metadataList) {
             this.metadataList = metadataList;
             init();
         }

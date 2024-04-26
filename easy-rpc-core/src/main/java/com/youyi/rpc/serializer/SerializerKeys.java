@@ -5,10 +5,10 @@ package com.youyi.rpc.serializer;
  *
  * @author <a href="https://github.com/dingxinliang88">youyi</a>
  */
-public interface SerializerKeys {
+public class SerializerKeys {
 
-    String JDK = "jdk";
-    String JSON = "json";
-    String KRYO = "kryo";
-    String HESSIAN = "hessian";
+    public static final String JDK = "jdk";
+    public static final String JSON = "json";
+    public static final String KRYO = "kryo";
+    public static final String HESSIAN = "hessian";
 }

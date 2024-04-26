@@ -1,7 +1,7 @@
 package com.youyi.rpc.model;
 
 import cn.hutool.core.util.StrUtil;
-import com.youyi.rpc.constants.RpcConstant;
+import com.youyi.rpc.constants.RpcConstants;
 import lombok.Data;
 
 /**
@@ -13,11 +13,11 @@ import lombok.Data;
 public class ServiceMetadata {
 
     private String serviceName;
-    private String serviceVersion = RpcConstant.DEFAULT_SERVICE_VERSION;
+    private String serviceVersion = RpcConstants.DEFAULT_SERVICE_VERSION;
     /**
      * 服务分组（暂未实现）
      */
-    private String serviceGroup = RpcConstant.DEFAULT_SERVICE_GROUP;
+    private String serviceGroup = RpcConstants.DEFAULT_SERVICE_GROUP;
 
     private String serviceHost;
     private int servicePort;

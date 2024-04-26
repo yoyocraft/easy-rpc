@@ -48,7 +48,7 @@ public class SpiLoader {
     /**
      * 存储已经加载的类
      */
-    private static final Map<String /* 接口名 */, Map<String /* 实现类 key */, Class<?> /* 实现类 */>> LOADER_MAP = new ConcurrentHashMap<>();
+    private static final Map<String /* 接口名 */, Map<String /* 实现类 key */, Class<?>/* 实现类 */>> LOADER_MAP = new ConcurrentHashMap<>();
 
     /**
      * 对象实例缓存，单例
@@ -154,8 +154,8 @@ public class SpiLoader {
             // 缓存中没有，需要加载
             try {
                 INSTANCE_CACHE.put(implClassName, implClazz.getDeclaredConstructor().newInstance());
-            } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
-                     NoSuchMethodException e) {
+            } catch (InstantiationException | IllegalAccessException | InvocationTargetException
+                     | NoSuchMethodException e) {
                 String errMsg = String.format("create instance %s error", implClassName);
                 throw new RuntimeException(errMsg, e);
             }

@@ -5,9 +5,9 @@ package com.youyi.rpc.registry;
  *
  * @author <a href="https://github.com/dingxinliang88">youyi</a>
  */
-public interface RegistryKeys {
+public class RegistryKeys {
 
-    String ETCD = "etcd";
-    String ZOOKEEPER = "zookeeper";
+    public static final String ETCD = "etcd";
+    public static final String ZOOKEEPER = "zookeeper";
 
 }

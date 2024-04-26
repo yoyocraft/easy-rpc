@@ -5,7 +5,7 @@ import com.youyi.rpc.RpcApplication;
 import com.youyi.rpc.model.RpcRequest;
 import com.youyi.rpc.model.RpcResponse;
 import com.youyi.rpc.model.ServiceMetadata;
-import com.youyi.rpc.protocol.ProtocolConstant;
+import com.youyi.rpc.protocol.ProtocolConstants;
 import com.youyi.rpc.protocol.ProtocolMessage;
 import com.youyi.rpc.protocol.codec.ProtocolMessageDecoder;
 import com.youyi.rpc.protocol.codec.ProtocolMessageEncoder;
@@ -83,8 +83,8 @@ public class VertxTcpClient {
     private static ProtocolMessage<RpcRequest> getRpcRequestProtocolMessage(RpcRequest rpcRequest) {
         ProtocolMessage<RpcRequest> protocolMessage = new ProtocolMessage<>();
         ProtocolMessage.Header header = new ProtocolMessage.Header();
-        header.setMagic(ProtocolConstant.PROTOCOL_MAGIC);
-        header.setVersion(ProtocolConstant.PROTOCOL_VERSION);
+        header.setMagic(ProtocolConstants.PROTOCOL_MAGIC);
+        header.setVersion(ProtocolConstants.PROTOCOL_VERSION);
         header.setSerializer((byte) ProtocolMessage.MessageSerializer
                 .resolve(RpcApplication.resolve()
                         .getSerializer()).getKey());

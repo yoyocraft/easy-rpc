@@ -5,7 +5,7 @@ package com.youyi.rpc.fault.tolerant.mock;
  *
  * @author <a href="https://github.com/dingxinliang88">youyi</a>
  */
-public interface MockStrategyKeys {
+public class MockStrategyKeys {
 
-    String DEFAULT = "default";
+    public static final String DEFAULT = "default";
 }

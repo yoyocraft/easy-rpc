@@ -39,7 +39,7 @@
     <curator.version>5.6.0</curator.version>
     <guava-retrying.version>2.0.0</guava-retrying.version>
     <!-- plugin -->
-    <maven-checkstyle-plugin.version>3.2.0</maven-checkstyle-plugin.version>
+    <maven-checkstyle-plugin.version>3.3.1</maven-checkstyle-plugin.version>
   </properties>
 
   <dependencyManagement>
@@ -154,18 +154,11 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
         <version>${maven-checkstyle-plugin.version}</version>
+        <configuration>
+          <configLocation>config/checkstyle.xml</configLocation>
+        </configuration>
         <executions>
           <execution>
-            <id>validate</id>
-            <phase>validate</phase>
-            <configuration>
-              <configLocation>./config/checkstyle.xml</configLocation>
-              <inputEncoding>UTF-8</inputEncoding>
-              <consoleOutput>true</consoleOutput>
-              <failsOnError>true</failsOnError>
-              <includeTestSourceDirectory>true</includeTestSourceDirectory>
-              <excludes>**/generated*/**/*</excludes>
-            </configuration>
             <goals>
               <goal>check</goal>
             </goals>
@@ -174,4 +167,16 @@
       </plugin>
     </plugins>
   </build>
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>${maven-checkstyle-plugin.version}</version>
+        <configuration>
+          <configLocation>checkstyle.xml</configLocation>
+        </configuration>
+      </plugin>
+    </plugins>
+  </reporting>
 </project>

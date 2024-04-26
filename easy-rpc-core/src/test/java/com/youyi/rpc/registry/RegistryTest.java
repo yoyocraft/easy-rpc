@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 @Slf4j
 class RegistryTest {
 
-    final Registry registry = new EtcdRegistry();
+    private final Registry registry = new EtcdRegistry();
 
     @BeforeEach
     void init() {

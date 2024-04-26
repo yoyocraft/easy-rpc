@@ -1,6 +1,6 @@
 package com.youyi.rpc.server.tcp;
 
-import com.youyi.rpc.protocol.ProtocolConstant;
+import com.youyi.rpc.protocol.ProtocolConstants;
 import io.vertx.core.Handler;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.parsetools.RecordParser;
@@ -32,19 +32,19 @@ public class TcpBufferHandlerWrapper implements Handler<Buffer> {
 
     private RecordParser initRecordParser(Handler<Buffer> bufferHandler) {
         // 构造 Parser
-        RecordParser parser = RecordParser.newFixed(ProtocolConstant.MESSAGE_HEADER_LENGTH);
+        RecordParser parser = RecordParser.newFixed(ProtocolConstants.MESSAGE_HEADER_LENGTH);
 
         parser.setOutput(new Handler<>() {
             // 初始化
-            int size = -1;
+            private int size = -1;
             // 一次性完整地读取（头 + 体）
-            Buffer resultBuffer = Buffer.buffer();
+            private Buffer resultBuffer = Buffer.buffer();
 
             @Override
             public void handle(Buffer buffer) {
                 if (-1 == size) {
                     // 读取消息体长度
-                    size = buffer.getInt(ProtocolConstant.BODY_LEN_POS);
+                    size = buffer.getInt(ProtocolConstants.BODY_LEN_POS);
                     parser.fixedSizeMode(size);
                     // 写入头信息
                     resultBuffer.appendBuffer(buffer);
@@ -54,7 +54,7 @@ public class TcpBufferHandlerWrapper implements Handler<Buffer> {
                     bufferHandler.handle(resultBuffer);
 
                     // 重置一轮
-                    parser.fixedSizeMode(ProtocolConstant.MESSAGE_HEADER_LENGTH);
+                    parser.fixedSizeMode(ProtocolConstants.MESSAGE_HEADER_LENGTH);
                     size = -1;
                     resultBuffer = Buffer.buffer();
                 }
