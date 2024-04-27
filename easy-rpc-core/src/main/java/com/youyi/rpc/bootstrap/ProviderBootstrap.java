@@ -26,7 +26,7 @@ public class ProviderBootstrap {
         final ApplicationConfig applicationConfig = RpcApplication.resolve();
         // 获取注册中心
         RegistryConfig registryConfig = applicationConfig.getRegistry();
-        Registry registry = RegistryFactory.getRegistry(registryConfig.getRegistry());
+        Registry registry = RegistryFactory.getRegistry(registryConfig.getType());
 
         // 注册服务
         for (ServiceRegisterInfo<?> serviceRegisterInfo : serviceRegisterInfoList) {
@@ -52,6 +52,5 @@ public class ProviderBootstrap {
         // 启动 Provider Web 服务
         RpcServer rpcServer = new VertxTcpServer();
         rpcServer.doStart(applicationConfig.getPort());
-
     }
 }

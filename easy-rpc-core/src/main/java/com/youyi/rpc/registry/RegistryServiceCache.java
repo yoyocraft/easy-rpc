@@ -1,6 +1,9 @@
 package com.youyi.rpc.registry;
 
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
 import com.youyi.rpc.model.ServiceMetadata;
+import java.time.Duration;
 import java.util.List;
 
 /**
@@ -15,15 +18,19 @@ public class RegistryServiceCache {
     /**
      * 服务缓存
      */
-    private List<ServiceMetadata> serviceCache;
+    private final Cache<String /* serviceKey */, List<ServiceMetadata>> serviceCache
+            = CacheBuilder.newBuilder()
+            .expireAfterAccess(Duration.ofMinutes(1))
+            .maximumSize(1024)
+            .build();
 
     /**
      * 写缓存
      *
      * @param cache service metadata cache
      */
-    void write(List<ServiceMetadata> cache) {
-        this.serviceCache = cache;
+    void write(String serviceKey, List<ServiceMetadata> cache) {
+        serviceCache.put(serviceKey, cache);
     }
 
     /**
@@ -31,14 +38,14 @@ public class RegistryServiceCache {
      *
      * @return local service metadata cache
      */
-    List<ServiceMetadata> read() {
-        return serviceCache;
+    List<ServiceMetadata> read(String serviceKey) {
+        return serviceCache.getIfPresent(serviceKey);
     }
 
     /**
      * 清理缓存
      */
-    void clear() {
-        serviceCache = null;
+    void clear(String serviceKey) {
+        serviceCache.invalidate(serviceKey);
     }
 }

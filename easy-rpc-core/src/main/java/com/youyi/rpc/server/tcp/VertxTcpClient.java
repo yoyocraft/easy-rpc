@@ -45,7 +45,7 @@ public class VertxTcpClient {
                     log.info("connect to server success!");
                     // 构造信息
                     ProtocolMessage<RpcRequest> protocolMessage
-                            = getRpcRequestProtocolMessage(rpcRequest);
+                            = buildRpcRequestProtocolMessage(rpcRequest);
 
                     try {
                         // 编码信息
@@ -80,14 +80,14 @@ public class VertxTcpClient {
         return rpcResponse;
     }
 
-    private static ProtocolMessage<RpcRequest> getRpcRequestProtocolMessage(RpcRequest rpcRequest) {
+    private static ProtocolMessage<RpcRequest> buildRpcRequestProtocolMessage(
+            RpcRequest rpcRequest) {
         ProtocolMessage<RpcRequest> protocolMessage = new ProtocolMessage<>();
         ProtocolMessage.Header header = new ProtocolMessage.Header();
         header.setMagic(ProtocolConstants.PROTOCOL_MAGIC);
         header.setVersion(ProtocolConstants.PROTOCOL_VERSION);
         header.setSerializer((byte) ProtocolMessage.MessageSerializer
-                .resolve(RpcApplication.resolve()
-                        .getSerializer()).getKey());
+                .resolve(RpcApplication.resolve().getSerializer()).getKey());
         header.setType((byte) ProtocolMessage.MessageType.REQUEST.getKey());
         header.setReqId(IdUtil.getSnowflakeNextId());
         protocolMessage.setHeader(header);

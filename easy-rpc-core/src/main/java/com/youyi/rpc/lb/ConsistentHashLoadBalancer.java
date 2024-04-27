@@ -2,6 +2,7 @@ package com.youyi.rpc.lb;
 
 import cn.hutool.core.util.HashUtil;
 import com.youyi.rpc.model.ServiceMetadata;
+import com.youyi.rpc.util.MetadataUtil;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -50,7 +51,7 @@ public class ConsistentHashLoadBalancer implements LoadBalancer {
         private void init() {
             for (ServiceMetadata metadata : metadataList) {
                 for (int i = 0; i < VIRTUAL_NODES_SIZE; i++) {
-                    String addr = metadata.getServiceAddr();
+                    String addr = MetadataUtil.getServiceAddr(metadata);
                     // 计算虚拟节点的 Hash 值
                     int hash = getHash(addr + "#" + i);
                     VIRTUAL_NODES.put(hash, metadata);

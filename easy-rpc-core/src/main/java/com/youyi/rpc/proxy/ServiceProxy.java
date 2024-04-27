@@ -18,6 +18,7 @@ import com.youyi.rpc.registry.RegistryFactory;
 import com.youyi.rpc.serializer.Serializer;
 import com.youyi.rpc.serializer.SerializerFactory;
 import com.youyi.rpc.server.tcp.VertxTcpClient;
+import com.youyi.rpc.util.MetadataUtil;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -52,12 +53,12 @@ public class ServiceProxy implements InvocationHandler {
                 .build();
 
         Registry registry = RegistryFactory.getRegistry(
-                applicationConfig.getRegistry().getRegistry());
+                applicationConfig.getRegistry().getType());
         ServiceMetadata serviceMetadata = new ServiceMetadata();
         serviceMetadata.setServiceName(serviceName);
         serviceMetadata.setServiceVersion(RpcConstants.DEFAULT_SERVICE_VERSION);
         List<ServiceMetadata> serviceMetadataList = registry.discovery(
-                serviceMetadata.getServiceKey());
+                MetadataUtil.getServiceKey(serviceMetadata));
         if (CollUtil.isEmpty(serviceMetadataList)) {
             throw new RuntimeException("there are no registry!");
         }
