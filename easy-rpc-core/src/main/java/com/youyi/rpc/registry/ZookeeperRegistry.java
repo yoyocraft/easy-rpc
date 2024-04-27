@@ -4,6 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.ConcurrentHashSet;
 import com.youyi.rpc.config.RegistryConfig;
 import com.youyi.rpc.model.ServiceMetadata;
+import com.youyi.rpc.util.MetadataUtil;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -83,7 +84,7 @@ public class ZookeeperRegistry implements Registry {
         serviceDiscovery.registerService(buildServiceInstance(metadata));
 
         // 添加节点信息到本地缓存
-        String regKey = ZK_ROOT_PATH + "/" + metadata.getServiceNodeKey();
+        String regKey = ZK_ROOT_PATH + "/" + MetadataUtil.getServiceNodeKey(metadata);
         LOCAL_REGISTERED_NODE_KEY_SET.add(regKey);
     }
 
@@ -95,15 +96,14 @@ public class ZookeeperRegistry implements Registry {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        String regKey = ZK_ROOT_PATH + "/" + metadata.getServiceNodeKey();
+        String regKey = ZK_ROOT_PATH + "/" + MetadataUtil.getServiceNodeKey(metadata);
         LOCAL_REGISTERED_NODE_KEY_SET.remove(regKey);
     }
 
     @Override
     public List<ServiceMetadata> discovery(String serviceKey) {
-
         // 读取缓存
-        List<ServiceMetadata> serviceMetadataCache = REGISTRY_SERVICE_CACHE.read();
+        List<ServiceMetadata> serviceMetadataCache = REGISTRY_SERVICE_CACHE.read(serviceKey);
         if (CollUtil.isNotEmpty(serviceMetadataCache)) {
             log.info("read service metadata from local cache[REGISTRY_SERVICE_CACHE]!");
             return serviceMetadataCache;
@@ -111,8 +111,8 @@ public class ZookeeperRegistry implements Registry {
 
         try {
             // 查询服务信息
-            Collection<ServiceInstance<ServiceMetadata>> serviceInstances = serviceDiscovery.queryForInstances(
-                    serviceKey);
+            Collection<ServiceInstance<ServiceMetadata>> serviceInstances
+                    = serviceDiscovery.queryForInstances(serviceKey);
 
             // 解析服务信息
             List<ServiceMetadata> serviceMetadataList = serviceInstances.stream()
@@ -120,7 +120,7 @@ public class ZookeeperRegistry implements Registry {
                     .toList();
 
             // 写入服务缓存
-            REGISTRY_SERVICE_CACHE.write(serviceMetadataList);
+            REGISTRY_SERVICE_CACHE.write(serviceKey, serviceMetadataList);
 
             return serviceMetadataList;
         } catch (Exception e) {
@@ -135,14 +135,14 @@ public class ZookeeperRegistry implements Registry {
         if (!toBeWatching) {
             return;
         }
-
+        String serviceKey = MetadataUtil.getServiceKey(serviceNodeKey);
         CuratorCache curatorCache = CuratorCache.build(client, watchKey);
         curatorCache.start();
         curatorCache.listenable().addListener(
                 CuratorCacheListener
                         .builder()
-                        .forDeletes(childData -> REGISTRY_SERVICE_CACHE.clear())
-                        .forChanges((oldNode, newNode) -> REGISTRY_SERVICE_CACHE.clear())
+                        .forDeletes(childData -> REGISTRY_SERVICE_CACHE.clear(serviceKey))
+                        .forChanges((oldNode, newNode) -> REGISTRY_SERVICE_CACHE.clear(serviceKey))
                         .build()
         );
 
@@ -175,7 +175,7 @@ public class ZookeeperRegistry implements Registry {
             return ServiceInstance
                     .<ServiceMetadata>builder()
                     .id(addr)
-                    .name(metadata.getServiceKey())
+                    .name(MetadataUtil.getServiceKey(metadata))
                     .address(addr)
                     .payload(metadata)
                     .build();

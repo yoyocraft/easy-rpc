@@ -3,6 +3,7 @@ package com.youyi.rpc.registry;
 
 import com.youyi.rpc.config.RegistryConfig;
 import com.youyi.rpc.model.ServiceMetadata;
+import com.youyi.rpc.util.MetadataUtil;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
@@ -64,7 +65,7 @@ class RegistryTest {
         ServiceMetadata serviceMetadata = new ServiceMetadata();
         serviceMetadata.setServiceName("service-1");
         serviceMetadata.setServiceVersion("1.0.0");
-        String serviceKey = serviceMetadata.getServiceKey();
+        String serviceKey = MetadataUtil.getServiceKey(serviceMetadata);
         List<ServiceMetadata> serviceMetadataList = registry.discovery(serviceKey);
         log.info("discovery result: {}", serviceMetadataList);
         Assertions.assertNotNull(serviceMetadataList);

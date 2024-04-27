@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 服务注册信息
+ * 服务注册信息，根据这个构建 ServiceMetadata
  *
  * @author <a href="https://github.com/dingxinliang88">youyi</a>
  */

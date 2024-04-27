@@ -7,6 +7,7 @@ import cn.hutool.cron.task.Task;
 import cn.hutool.json.JSONUtil;
 import com.youyi.rpc.config.RegistryConfig;
 import com.youyi.rpc.model.ServiceMetadata;
+import com.youyi.rpc.util.MetadataUtil;
 import io.etcd.jetcd.ByteSequence;
 import io.etcd.jetcd.Client;
 import io.etcd.jetcd.KV;
@@ -19,6 +20,7 @@ import io.etcd.jetcd.watch.WatchEvent;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
@@ -35,7 +37,7 @@ public class EtcdRegistry implements Registry {
     /**
      * 服务注册根节点
      */
-    private static final String ETCD_ROOT_PATH = "/rpc/";
+    private static final String ETCD_ROOT_PATH = "/rpc/etcd/";
 
     /**
      * 服务节点注册 TTL
@@ -64,7 +66,7 @@ public class EtcdRegistry implements Registry {
     @Override
     public void init(RegistryConfig config) {
         client = Client.builder()
-                .endpoints(config.getEndpoints())
+                .endpoints(config.getEndpoints().split(",")) // support cluster
                 .connectTimeout(Duration.ofMillis(config.getTimeout()))
                 .build();
         kvClient = client.getKVClient();
@@ -80,7 +82,7 @@ public class EtcdRegistry implements Registry {
         long leaseId = leaseClient.grant(SERVICE_TTL).get().getID();
 
         // 存储的键值对
-        String regKey = ETCD_ROOT_PATH + metadata.getServiceNodeKey();
+        String regKey = ETCD_ROOT_PATH + MetadataUtil.getServiceNodeKey(metadata);
         ByteSequence key = ByteSequence.from(regKey, StandardCharsets.UTF_8);
         ByteSequence value = ByteSequence.from(JSONUtil.toJsonStr(metadata),
                 StandardCharsets.UTF_8);
@@ -95,16 +97,15 @@ public class EtcdRegistry implements Registry {
 
     @Override
     public void unregister(ServiceMetadata metadata) {
-        String regKey = ETCD_ROOT_PATH + metadata.getServiceNodeKey();
+        String regKey = ETCD_ROOT_PATH + MetadataUtil.getServiceNodeKey(metadata);
         kvClient.delete(ByteSequence.from(regKey, StandardCharsets.UTF_8));
         LOCAL_REGISTERED_NODE_KEY_SET.remove(regKey);
     }
 
     @Override
     public List<ServiceMetadata> discovery(String serviceKey) {
-
         // 读取缓存
-        List<ServiceMetadata> serviceMetadataCache = REGISTRY_SERVICE_CACHE.read();
+        List<ServiceMetadata> serviceMetadataCache = REGISTRY_SERVICE_CACHE.read(serviceKey);
         if (CollUtil.isNotEmpty(serviceMetadataCache)) {
             log.info("read service metadata from local cache[REGISTRY_SERVICE_CACHE]!");
             return serviceMetadataCache;
@@ -131,7 +132,7 @@ public class EtcdRegistry implements Registry {
                     .toList();
             // 写入缓存
             log.info("write service metadata into local cache[REGISTRY_SERVICE_CACHE]!");
-            REGISTRY_SERVICE_CACHE.write(serviceMetadataList);
+            REGISTRY_SERVICE_CACHE.write(serviceKey, serviceMetadataList);
             return serviceMetadataList;
         } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException("service discovery error, ", e);
@@ -154,7 +155,8 @@ public class EtcdRegistry implements Registry {
                         // key 删除时触发，清理注册服务缓存
                         if (WatchEvent.EventType.DELETE.equals(event.getEventType())) {
                             log.info("{} is offline, clear cache", serviceNodeKey);
-                            REGISTRY_SERVICE_CACHE.clear();
+                            REGISTRY_SERVICE_CACHE.clear(
+                                    MetadataUtil.getServiceKey(serviceNodeKey));
                         }
                     }
                 });
@@ -164,12 +166,16 @@ public class EtcdRegistry implements Registry {
     public void heartBeat() {
         // 每 10s 续签一次
         CronUtil.schedule("*/10 * * * * *", (Task) () -> {
-            for (String regKey : LOCAL_REGISTERED_NODE_KEY_SET) {
+            Iterator<String> iterator = LOCAL_REGISTERED_NODE_KEY_SET.iterator();
+            while (iterator.hasNext()) {
+                String regKey = iterator.next();
                 try {
                     List<KeyValue> keyValueList = kvClient.get(
                             ByteSequence.from(regKey, StandardCharsets.UTF_8)).get().getKvs();
-                    if (CollUtil.isEmpty(keyValueList)) {
+                    if (keyValueList.isEmpty()) {
+                        log.debug("{} is offline", regKey);
                         // 该节点已过期（需要重启节点才可以重新注册）
+                        iterator.remove();
                         continue;
                     }
 
@@ -178,7 +184,6 @@ public class EtcdRegistry implements Registry {
                     String value = keyValueList.get(0).getValue().toString(StandardCharsets.UTF_8);
                     ServiceMetadata metadata = JSONUtil.toBean(value, ServiceMetadata.class);
                     register(metadata);
-
                 } catch (Exception e) {
                     throw new RuntimeException(regKey + " reset ttl failed", e);
                 }

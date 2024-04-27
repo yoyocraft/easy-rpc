@@ -44,7 +44,7 @@ public class RpcProviderBootStrap implements BeanPostProcessor {
             final ApplicationConfig applicationConfig = RpcApplication.resolve();
             // 获取注册中心
             RegistryConfig registryConfig = applicationConfig.getRegistry();
-            Registry registry = RegistryFactory.getRegistry(registryConfig.getRegistry());
+            Registry registry = RegistryFactory.getRegistry(registryConfig.getType());
 
             // 2. 注册服务
             LocalRegistry.registry(serviceName, beanClazz);

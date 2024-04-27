@@ -37,6 +37,7 @@
     <netty.version>4.1.103.Final</netty.version>
     <jetcd.version>0.7.7</jetcd.version>
     <curator.version>5.6.0</curator.version>
+    <guava.version>33.1.0-jre</guava.version>
     <guava-retrying.version>2.0.0</guava-retrying.version>
     <!-- plugin -->
     <maven-checkstyle-plugin.version>3.3.1</maven-checkstyle-plugin.version>
@@ -113,6 +114,11 @@
       </dependency>
 
       <dependency>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava</artifactId>
+        <version>${guava.version}</version>
+      </dependency>
+      <dependency>
         <groupId>com.github.rholder</groupId>
         <artifactId>guava-retrying</artifactId>
         <version>${guava-retrying.version}</version>
@@ -145,7 +151,6 @@
         </exclusion>
       </exclusions>
     </dependency>
-
   </dependencies>
 
   <build>

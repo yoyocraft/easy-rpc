@@ -15,12 +15,12 @@ public class RegistryConfig {
     /**
      * 注册中心类别
      */
-    private String registry = RegistryKeys.ETCD;
+    private String type = RegistryKeys.ETCD;
 
     /**
-     * 注册中心地址
+     * 注册中心地址，集群地址之间使用逗号分隔
      */
-    private String endpoints = "http://localhost:2380";
+    private String endpoints = "http://localhost:2379";
 
     /**
      * 用户名
