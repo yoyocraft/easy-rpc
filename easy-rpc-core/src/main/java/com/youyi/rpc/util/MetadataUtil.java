@@ -33,6 +33,18 @@ public class MetadataUtil {
     }
 
     /**
+     * 获取服务注册节点键名
+     * <p>
+     * e.g. demo_service:1.0.0:localhost:8080
+     *
+     * @return 服务注册节点键名
+     */
+    public static String getListServiceNodeKey(ServiceMetadata metadata) {
+        return String.format("%s:%s:%s", getServiceKey(metadata), metadata.getServiceHost(),
+                metadata.getServicePort());
+    }
+
+    /**
      * 获取服务键名
      */
     public static String getServiceKey(String serviceNodeKey) {

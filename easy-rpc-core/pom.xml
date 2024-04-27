@@ -61,6 +61,10 @@
       <groupId>org.apache.curator</groupId>
       <artifactId>curator-x-discovery</artifactId>
     </dependency>
+    <dependency>
+      <groupId>redis.clients</groupId>
+      <artifactId>jedis</artifactId>
+    </dependency>
 
     <dependency>
       <groupId>com.google.guava</groupId>
