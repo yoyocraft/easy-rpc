@@ -13,7 +13,6 @@ import java.util.List;
 @SPI
 public interface Registry {
 
-
     /**
      * 注册中心初始化
      *

@@ -37,6 +37,7 @@
     <netty.version>4.1.103.Final</netty.version>
     <jetcd.version>0.7.7</jetcd.version>
     <curator.version>5.6.0</curator.version>
+    <jedis.version>5.1.2</jedis.version>
     <guava.version>33.1.0-jre</guava.version>
     <guava-retrying.version>2.0.0</guava-retrying.version>
     <!-- plugin -->
@@ -111,6 +112,11 @@
         <groupId>org.apache.curator</groupId>
         <artifactId>curator-x-discovery</artifactId>
         <version>${curator.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>redis.clients</groupId>
+        <artifactId>jedis</artifactId>
+        <version>${jedis.version}</version>
       </dependency>
 
       <dependency>

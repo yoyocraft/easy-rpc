@@ -40,11 +40,6 @@ public class EtcdRegistry implements Registry {
     private static final String ETCD_ROOT_PATH = "/rpc/etcd/";
 
     /**
-     * 服务节点注册 TTL
-     */
-    private static final long SERVICE_TTL = 30L;
-
-    /**
      * 本机注册的节点 Key 集合，用于维护续期
      */
     private static final Set<String> LOCAL_REGISTERED_NODE_KEY_SET = new HashSet<>();
@@ -79,7 +74,7 @@ public class EtcdRegistry implements Registry {
         Lease leaseClient = client.getLeaseClient();
 
         // 30s 的租约
-        long leaseId = leaseClient.grant(SERVICE_TTL).get().getID();
+        long leaseId = leaseClient.grant(RegistryConstants.SERVICE_TTL).get().getID();
 
         // 存储的键值对
         String regKey = ETCD_ROOT_PATH + MetadataUtil.getServiceNodeKey(metadata);
