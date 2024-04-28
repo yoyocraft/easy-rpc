@@ -53,8 +53,6 @@ public class ProtocolMessageDecoder {
                             "Unsupported message type: " + messageType);
             default -> throw new IllegalStateException("Unexpected value: " + messageType);
         }
-
-
     }
 
     private static ProtocolMessage.Header resolveHeader(Buffer buffer) {
@@ -65,7 +63,7 @@ public class ProtocolMessageDecoder {
             throw new IllegalArgumentException("Invalid magic number: " + magic);
         }
 
-        header.setMagic(magic);
+        header.setMagic(magic); // 1 byte
         header.setVersion(buffer.getByte(ProtocolConstants.VERSION_POS)); // 1 byte
         header.setSerializer(buffer.getByte(ProtocolConstants.SERIALIZER_POS)); // 1 byte
         header.setType(buffer.getByte(ProtocolConstants.TYPE_POS)); // 1 byte

@@ -71,8 +71,6 @@ public class ProtocolMessage<T> {
 
     /**
      * 协议消息类型枚举
-     *
-     * @author <a href="https://github.com/dingxinliang88">youyi</a>
      */
     @Getter
     public enum MessageType {
@@ -89,7 +87,6 @@ public class ProtocolMessage<T> {
         }
 
         public static MessageType resolve(int key) {
-
             for (MessageType type : MessageType.values()) {
                 if (type.key == key) {
                     return type;
@@ -102,8 +99,6 @@ public class ProtocolMessage<T> {
 
     /**
      * 协议消息序列化器枚举
-     *
-     * @author <a href="https://github.com/dingxinliang88">youyi</a>
      */
     @Getter
     public enum MessageSerializer {
@@ -122,7 +117,6 @@ public class ProtocolMessage<T> {
         }
 
         public static MessageSerializer resolve(int key) {
-
             for (MessageSerializer serializer : values()) {
                 if (serializer.key == key) {
                     return serializer;
@@ -133,7 +127,6 @@ public class ProtocolMessage<T> {
         }
 
         public static MessageSerializer resolve(String value) {
-
             if (ObjectUtil.isEmpty(value)) {
                 throw new NullPointerException(
                         "protocol message serializer value can not be empty");
@@ -153,8 +146,6 @@ public class ProtocolMessage<T> {
 
     /**
      * 协议消息状态枚举
-     *
-     * @author <a href="https://github.com/dingxinliang88">youyi</a>
      */
     @Getter
     public enum MessageStatus {
@@ -164,22 +155,21 @@ public class ProtocolMessage<T> {
         BAD_RESPONSE("badResponse", 50);
 
         private final String desc;
-        private final int val;
+        private final int code;
 
-        MessageStatus(String desc, int val) {
+        MessageStatus(String desc, int code) {
             this.desc = desc;
-            this.val = val;
+            this.code = code;
         }
 
-        public static MessageStatus resolve(int val) {
-
+        public static MessageStatus resolve(int code) {
             for (MessageStatus status : values()) {
-                if (status.val == val) {
+                if (status.code == code) {
                     return status;
                 }
             }
 
-            throw new IllegalArgumentException("unknown protocol message status: " + val);
+            throw new IllegalArgumentException("unknown protocol message status: " + code);
         }
     }
 
