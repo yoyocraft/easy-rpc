@@ -52,7 +52,7 @@ class ProtocolMessageTest {
         header.setVersion(ProtocolConstants.PROTOCOL_VERSION);
         header.setSerializer((byte) ProtocolMessage.MessageSerializer.JDK.getKey());
         header.setType((byte) ProtocolMessage.MessageType.REQUEST.getKey());
-        header.setStatus((byte) ProtocolMessage.MessageStatus.OK.getVal());
+        header.setStatus((byte) ProtocolMessage.MessageStatus.OK.getCode());
         header.setReqId(IdUtil.getSnowflakeNextId());
         header.setBodyLength(0);
         return header;

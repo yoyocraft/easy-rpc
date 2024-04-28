@@ -70,7 +70,6 @@ public class TcpServerHandler implements Handler<NetSocket> {
             } catch (IOException e) {
                 throw new RuntimeException("encode response error, ", e);
             }
-
         });
 
         // 调用装饰之后的 handler
