@@ -86,7 +86,7 @@ public class ConsistentHashLoadBalancer implements LoadBalancer {
          * @return hash
          */
         private static int getHash(Object key) {
-            return HashUtil.fnvHash(key.toString());
+            return HashUtil.fnvHash(key.toString().getBytes());
         }
 
     }
