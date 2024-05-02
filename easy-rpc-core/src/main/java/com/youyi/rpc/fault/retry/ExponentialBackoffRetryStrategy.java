@@ -1,7 +1,5 @@
 package com.youyi.rpc.fault.retry;
 
-import com.github.rholder.retry.Attempt;
-import com.github.rholder.retry.RetryListener;
 import com.github.rholder.retry.Retryer;
 import com.github.rholder.retry.RetryerBuilder;
 import com.github.rholder.retry.StopStrategies;
@@ -19,8 +17,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ExponentialBackoffRetryStrategy implements RetryStrategy {
 
-    private static final long MULTIPLIER = 1000L;
-    private static final long MAXIMUM_WAIT = 30000L;
+    private static final long MULTIPLIER = 100L;
+    private static final long MAXIMUM_WAIT = 5L;
     private static final int ATTEMPT_NUMBER = 5;
 
     @SuppressWarnings("UnstableApiUsage")
@@ -30,14 +28,9 @@ public class ExponentialBackoffRetryStrategy implements RetryStrategy {
                 .<RpcResponse>newBuilder()
                 .retryIfExceptionOfType(Exception.class)
                 .withWaitStrategy(WaitStrategies.exponentialWait(MULTIPLIER, MAXIMUM_WAIT,
-                        TimeUnit.MILLISECONDS))
+                        TimeUnit.SECONDS))
                 .withStopStrategy(StopStrategies.stopAfterAttempt(ATTEMPT_NUMBER))
-                .withRetryListener(new RetryListener() {
-                    @Override
-                    public <V> void onRetry(Attempt<V> attempt) {
-                        log.info("retry count: {}", attempt.getAttemptNumber());
-                    }
-                })
+                .withRetryListener(new EasyRpcRetryListener())
                 .build();
 
         return retryer.call(task);
