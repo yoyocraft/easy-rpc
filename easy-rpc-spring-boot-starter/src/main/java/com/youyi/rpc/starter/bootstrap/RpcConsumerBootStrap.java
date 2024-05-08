@@ -34,17 +34,15 @@ public class RpcConsumerBootStrap implements BeanPostProcessor {
             if (interfaceClass == void.class) {
                 interfaceClass = field.getType();
             }
-
             field.setAccessible(true);
-
-            Object proxy = ServiceProxyFactory.getProxy(interfaceClass);
-
             try {
+                Object proxy = ServiceProxyFactory.getProxy(interfaceClass);
                 field.set(bean, proxy);
-                field.setAccessible(false);
             } catch (IllegalAccessException e) {
-                throw new RuntimeException("failed to set rpc proxy in field: " + field.getName(),
-                        e);
+                throw new RuntimeException(
+                        "failed to set rpc proxy in field: " + field.getName(), e);
+            } finally {
+                field.setAccessible(false);
             }
         }
         return BeanPostProcessor.super.postProcessAfterInitialization(bean, beanName);
