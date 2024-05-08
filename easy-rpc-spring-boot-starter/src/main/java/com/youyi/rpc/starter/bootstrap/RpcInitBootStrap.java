@@ -31,10 +31,9 @@ public class RpcInitBootStrap implements ImportBeanDefinitionRegistrar {
         // RPC 框架初始化
         RpcApplication.init();
 
-        // 全局配置
-        final ApplicationConfig applicationConfig = RpcApplication.resolve();
-
         if (needServer) {
+            // 全局配置
+            final ApplicationConfig applicationConfig = RpcApplication.resolve();
             // 启动 服务器
             RpcServer rpcServer = new VertxTcpServer();
             rpcServer.doStart(applicationConfig.getPort());

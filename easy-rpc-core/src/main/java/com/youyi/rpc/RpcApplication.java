@@ -47,14 +47,21 @@ public class RpcApplication {
      */
     public static void init(ApplicationConfig conf) {
         applicationConfig = conf;
-        log.info("rpc init, config: {}", conf);
+        log.debug("rpc init, config: {}", conf);
+
         // 注册中心初始化
         RegistryConfig registryConfig = applicationConfig.getRegistry();
         Registry registry = RegistryFactory.getRegistry(registryConfig.getType());
+        log.debug("registry init, config = {}", registryConfig);
         registry.init(registryConfig);
-        log.info("registry init, config = {}", registryConfig);
 
-        // 创建并注册 Shutdown Hook, JVM 退出时执行操作
+        registerJvmHook(registry);
+    }
+
+    /**
+     * 创建并注册 Shutdown Hook, JVM 退出时执行操作
+     */
+    private static void registerJvmHook(Registry registry) {
         Runtime.getRuntime()
                 .addShutdownHook(new Thread(registry::destroy, "registry-destroy-hook"));
     }
