@@ -6,6 +6,11 @@
   </appender>
 
   <root level="info">
-    <appender-ref ref="consoleAppender" />
+    <appender-ref ref="consoleAppender"/>
   </root>
+
+  <!-- 配置测试类的日志级别为 debug -->
+  <logger name="com.youyi.rpc.util.ApplicationConfigUtilTest" level="debug">
+    <appender-ref ref="consoleAppender" />
+  </logger>
 </configuration>
