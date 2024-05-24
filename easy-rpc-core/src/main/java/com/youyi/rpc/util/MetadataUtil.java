@@ -53,8 +53,6 @@ public class MetadataUtil {
 
     /**
      * 获取完整的服务地址
-     * <p>
-     * TODO 待修复，万一是 https 等情况呢？
      *
      * @return 完整服务地址
      */
