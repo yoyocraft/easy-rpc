@@ -140,7 +140,7 @@ public class JdkSerializer implements Serializer {
         try (ObjectInputStream ois = new ObjectInputStream(bis)) {
             return (T) ois.readObject();
         } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            throw new RpcException(e);
         }
     }
 }

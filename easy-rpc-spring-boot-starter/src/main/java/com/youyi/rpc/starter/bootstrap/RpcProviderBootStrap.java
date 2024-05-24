@@ -3,6 +3,7 @@ package com.youyi.rpc.starter.bootstrap;
 import com.youyi.rpc.RpcApplication;
 import com.youyi.rpc.config.ApplicationConfig;
 import com.youyi.rpc.config.RegistryConfig;
+import com.youyi.rpc.exception.RpcException;
 import com.youyi.rpc.model.ServiceMetadata;
 import com.youyi.rpc.registry.LocalRegistry;
 import com.youyi.rpc.registry.Registry;
@@ -59,7 +60,7 @@ public class RpcProviderBootStrap implements BeanPostProcessor {
                 // 注册到注册中心
                 registry.register(serviceMetadata);
             } catch (Exception e) {
-                throw new RuntimeException("register service failed", e);
+                throw new RpcException("register service failed", e);
             }
         }
         return BeanPostProcessor.super.postProcessAfterInitialization(bean, beanName);

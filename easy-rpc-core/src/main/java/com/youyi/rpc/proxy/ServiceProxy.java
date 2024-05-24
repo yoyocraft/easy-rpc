@@ -4,6 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import com.youyi.rpc.RpcApplication;
 import com.youyi.rpc.config.ApplicationConfig;
 import com.youyi.rpc.constants.RpcConstants;
+import com.youyi.rpc.exception.RpcException;
 import com.youyi.rpc.fault.retry.RetryStrategy;
 import com.youyi.rpc.fault.retry.RetryStrategyFactory;
 import com.youyi.rpc.fault.tolerant.TolerantStrategy;
@@ -60,7 +61,7 @@ public class ServiceProxy implements InvocationHandler {
         List<ServiceMetadata> serviceMetadataList = registry.discovery(
                 MetadataUtil.getServiceKey(serviceMetadata));
         if (CollUtil.isEmpty(serviceMetadataList)) {
-            throw new RuntimeException("there are no registry!");
+            throw new RpcException("there are no registry services!");
         }
 
         // 负载均衡

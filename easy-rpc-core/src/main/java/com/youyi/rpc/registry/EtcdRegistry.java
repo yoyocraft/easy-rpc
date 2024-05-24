@@ -6,6 +6,7 @@ import cn.hutool.cron.CronUtil;
 import cn.hutool.cron.task.Task;
 import cn.hutool.json.JSONUtil;
 import com.youyi.rpc.config.RegistryConfig;
+import com.youyi.rpc.exception.RpcException;
 import com.youyi.rpc.model.ServiceMetadata;
 import com.youyi.rpc.util.MetadataUtil;
 import io.etcd.jetcd.ByteSequence;
@@ -130,7 +131,7 @@ public class EtcdRegistry implements Registry {
             REGISTRY_SERVICE_CACHE.write(serviceKey, serviceMetadataList);
             return serviceMetadataList;
         } catch (InterruptedException | ExecutionException e) {
-            throw new RuntimeException("service discovery error, ", e);
+            throw new RpcException("service discovery error, ", e);
         }
     }
 
@@ -180,7 +181,7 @@ public class EtcdRegistry implements Registry {
                     ServiceMetadata metadata = JSONUtil.toBean(value, ServiceMetadata.class);
                     register(metadata);
                 } catch (Exception e) {
-                    throw new RuntimeException(regKey + " reset ttl failed", e);
+                    throw new RpcException(regKey + " reset ttl failed", e);
                 }
             }
         });
@@ -198,7 +199,7 @@ public class EtcdRegistry implements Registry {
             try {
                 kvClient.delete(ByteSequence.from(regKey, StandardCharsets.UTF_8)).get();
             } catch (Exception e) {
-                throw new RuntimeException(regKey + " offline failed", e);
+                throw new RpcException(regKey + " offline failed", e);
             }
         }
         // 关闭连接

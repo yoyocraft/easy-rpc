@@ -1,5 +1,6 @@
 package com.youyi.rpc.fault.tolerant;
 
+import com.youyi.rpc.exception.RpcException;
 import com.youyi.rpc.model.RpcResponse;
 import java.util.Map;
 
@@ -12,6 +13,6 @@ public class FailFastTolerantStrategy implements TolerantStrategy {
 
     @Override
     public RpcResponse tolerant(Map<String, Object> context, Exception e) {
-        throw new RuntimeException("server error", e);
+        throw new RpcException("server error", e);
     }
 }
