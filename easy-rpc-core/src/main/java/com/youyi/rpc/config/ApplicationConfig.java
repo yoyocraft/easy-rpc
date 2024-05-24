@@ -15,7 +15,7 @@ public class ApplicationConfig {
     private String name = "easy-rpc-framework";
     private String version = "1.0.0";
     private String host = "127.0.0.1";
-    private int port = 8080;
+    private int port = 8888;
     private boolean mock = false;
     private String serializer = SerializerKeys.HESSIAN;
     private RegistryConfig registry = new RegistryConfig();

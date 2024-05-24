@@ -74,7 +74,7 @@ public class SpiLoader {
      * 加载所有类型，重量级操作，会删除原先加载的类缓存
      */
     public static void loadAll() {
-        log.info("load all spi class.");
+        log.debug("load all spi class.");
         preLoadAll();
         doFindAllSpiClass(SPI_CLASS_DIR);
         for (Class<?> spiClass : LOAD_CLASS_SET) {

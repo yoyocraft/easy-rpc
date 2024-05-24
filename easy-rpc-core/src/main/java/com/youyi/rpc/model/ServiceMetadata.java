@@ -13,18 +13,8 @@ public class ServiceMetadata {
 
     private String serviceName;
     private String serviceVersion = RpcConstants.DEFAULT_SERVICE_VERSION;
-    /**
-     * TODO 服务分组
-     */
     private String serviceGroup = RpcConstants.DEFAULT_SERVICE_GROUP;
-
     private String serviceHost;
     private int servicePort;
-
     private long regTimestamp = System.currentTimeMillis();
-
-    /**
-     * TODO 针对于单个服务的序列化，不配置默认使用全局
-     */
-    private String serializer;
 }

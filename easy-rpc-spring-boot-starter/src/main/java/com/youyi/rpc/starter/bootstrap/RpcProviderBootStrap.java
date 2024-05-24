@@ -10,7 +10,6 @@ import com.youyi.rpc.registry.Registry;
 import com.youyi.rpc.registry.RegistryFactory;
 import com.youyi.rpc.starter.annotation.RpcService;
 import lombok.NonNull;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 
@@ -21,7 +20,6 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
  *
  * @author <a href="https://github.com/dingxinliang88">youyi</a>
  */
-@Slf4j
 public class RpcProviderBootStrap implements BeanPostProcessor {
 
     @Override
@@ -39,7 +37,8 @@ public class RpcProviderBootStrap implements BeanPostProcessor {
             }
 
             String serviceName = interfaceClass.getName();
-            String serviceVersion = rpcService.serviceVersion();
+            String serviceVersion = rpcService.version();
+            String serviceGroup = rpcService.group();
 
             // 全局配置
             final ApplicationConfig applicationConfig = RpcApplication.resolve();
@@ -55,6 +54,7 @@ public class RpcProviderBootStrap implements BeanPostProcessor {
             serviceMetadata.setServiceHost(applicationConfig.getHost());
             serviceMetadata.setServicePort(applicationConfig.getPort());
             serviceMetadata.setServiceVersion(serviceVersion);
+            serviceMetadata.setServiceGroup(serviceGroup);
 
             try {
                 // 注册到注册中心

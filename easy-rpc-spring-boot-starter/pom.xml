@@ -27,6 +27,7 @@
     <dependency>
       <groupId>io.github.dingxinliang88</groupId>
       <artifactId>easy-rpc-core</artifactId>
+      <version>1.0.0</version>
     </dependency>
 
     <dependency>
@@ -39,6 +40,7 @@
       <optional>true</optional>
     </dependency>
   </dependencies>
+
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -47,11 +49,6 @@
         <version>${spring-boot.version}</version>
         <type>pom</type>
         <scope>import</scope>
-      </dependency>
-      <dependency>
-        <groupId>io.github.dingxinliang88</groupId>
-        <artifactId>easy-rpc-core</artifactId>
-        <version>${project.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

@@ -15,6 +15,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUser(String name) {
         log.info("provider receive user name: {}", name);
-        return new User("&Provider& " + name);
+        return new User("[2.0.0] &Provider& " + name);
     }
 }

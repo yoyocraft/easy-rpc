@@ -11,12 +11,12 @@ import org.springframework.stereotype.Service;
  */
 @Slf4j
 @Service
-@RpcService
+@RpcService(version = "3.0.0", group = "test-spring")
 public class UserServiceImpl implements UserService {
 
     @Override
     public User getUser(String name) {
-        log.info("username: {}", name);
-        return new User(name + "-proxy");
+        log.info("getUser: {}", name);
+        return new User(name + "-proxy[3.0.0, test-spring]");
     }
 }

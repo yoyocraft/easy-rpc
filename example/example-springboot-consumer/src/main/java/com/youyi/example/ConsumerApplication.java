@@ -8,11 +8,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author <a href="https://github.com/dingxinliang88">youyi</a>
  */
 @SpringBootApplication
-@EnableRpc
-public class ExampleSpringBootProviderApplication {
+@EnableRpc(needServer = false)
+public class ConsumerApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ExampleSpringBootProviderApplication.class, args);
+        SpringApplication.run(ConsumerApplication.class, args);
     }
 
 }
