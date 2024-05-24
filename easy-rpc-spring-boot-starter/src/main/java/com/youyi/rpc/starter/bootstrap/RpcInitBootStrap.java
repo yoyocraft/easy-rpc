@@ -7,7 +7,6 @@ import com.youyi.rpc.server.tcp.VertxTcpServer;
 import com.youyi.rpc.starter.annotation.EnableRpc;
 import java.util.Objects;
 import lombok.NonNull;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.type.AnnotationMetadata;
@@ -17,7 +16,6 @@ import org.springframework.core.type.AnnotationMetadata;
  *
  * @author <a href="https://github.com/dingxinliang88">youyi</a>
  */
-@Slf4j
 public class RpcInitBootStrap implements ImportBeanDefinitionRegistrar {
 
     @Override
@@ -34,7 +32,7 @@ public class RpcInitBootStrap implements ImportBeanDefinitionRegistrar {
         if (needServer) {
             // 全局配置
             final ApplicationConfig applicationConfig = RpcApplication.resolve();
-            // 启动 服务器
+            // 启动服务
             RpcServer rpcServer = new VertxTcpServer();
             rpcServer.doStart(applicationConfig.getPort());
         }

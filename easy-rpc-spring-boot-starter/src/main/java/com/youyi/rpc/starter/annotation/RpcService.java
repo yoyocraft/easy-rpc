@@ -23,5 +23,10 @@ public @interface RpcService {
     /**
      * @return 版本
      */
-    String serviceVersion() default RpcConstants.DEFAULT_SERVICE_VERSION;
+    String version() default RpcConstants.DEFAULT_SERVICE_VERSION;
+
+    /**
+     * @return 分组
+     */
+    String group() default RpcConstants.DEFAULT_SERVICE_GROUP;
 }

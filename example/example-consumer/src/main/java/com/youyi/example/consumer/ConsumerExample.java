@@ -40,6 +40,7 @@ public class ConsumerExample {
     }
 
     private static UserService getUserService() {
-        return ServiceProxyFactory.getProxy(UserService.class);
+        return ServiceProxyFactory.getProxy(UserService.class,
+                "2.0.0", "test");
     }
 }

@@ -5,7 +5,6 @@ import com.youyi.rpc.proxy.ServiceProxyFactory;
 import com.youyi.rpc.starter.annotation.RpcReference;
 import java.lang.reflect.Field;
 import lombok.NonNull;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 
@@ -16,7 +15,6 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
  *
  * @author <a href="https://github.com/dingxinliang88">youyi</a>
  */
-@Slf4j
 public class RpcConsumerBootStrap implements BeanPostProcessor {
 
     @Override
@@ -37,8 +35,17 @@ public class RpcConsumerBootStrap implements BeanPostProcessor {
             }
             field.setAccessible(true);
             try {
-                Object proxy = ServiceProxyFactory.getProxy(interfaceClass);
-                field.set(bean, proxy);
+                boolean mock = rpcReference.mock();
+                if (mock) {
+                    field.set(bean, ServiceProxyFactory.getMockProxy(interfaceClass));
+                } else {
+                    String serviceVersion = rpcReference.version();
+                    String serviceGroup = rpcReference.group();
+                    String loadBalancer = rpcReference.loadBalancer();
+                    Object proxy = ServiceProxyFactory.getProxy(interfaceClass, serviceVersion,
+                            serviceGroup, loadBalancer);
+                    field.set(bean, proxy);
+                }
             } catch (IllegalAccessException e) {
                 throw new RpcException(
                         "failed to set rpc proxy in field: " + field.getName(), e);

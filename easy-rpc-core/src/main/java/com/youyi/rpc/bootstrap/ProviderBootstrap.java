@@ -41,6 +41,8 @@ public class ProviderBootstrap {
             serviceMetadata.setServiceName(serviceName);
             serviceMetadata.setServiceHost(applicationConfig.getHost());
             serviceMetadata.setServicePort(applicationConfig.getPort());
+            serviceMetadata.setServiceVersion(serviceRegisterInfo.getVersion());
+            serviceMetadata.setServiceGroup(serviceRegisterInfo.getGroup());
 
             try {
                 // 注册到注册中心

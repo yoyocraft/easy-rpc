@@ -1,9 +1,9 @@
 package com.youyi.rpc.proxy;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.StrUtil;
 import com.youyi.rpc.RpcApplication;
 import com.youyi.rpc.config.ApplicationConfig;
-import com.youyi.rpc.constants.RpcConstants;
 import com.youyi.rpc.exception.RpcException;
 import com.youyi.rpc.fault.retry.RetryStrategy;
 import com.youyi.rpc.fault.retry.RetryStrategyFactory;
@@ -35,6 +35,16 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ServiceProxy implements InvocationHandler {
 
+    private final String version;
+    private final String group;
+    private final String loadBalancer;
+
+    public ServiceProxy(String version, String group, String loadBalancer) {
+        this.version = version;
+        this.group = group;
+        this.loadBalancer = loadBalancer;
+    }
+
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         // 指定序列化器
@@ -57,7 +67,8 @@ public class ServiceProxy implements InvocationHandler {
                 applicationConfig.getRegistry().getType());
         ServiceMetadata serviceMetadata = new ServiceMetadata();
         serviceMetadata.setServiceName(serviceName);
-        serviceMetadata.setServiceVersion(RpcConstants.DEFAULT_SERVICE_VERSION);
+        serviceMetadata.setServiceVersion(version);
+        serviceMetadata.setServiceGroup(group);
         List<ServiceMetadata> serviceMetadataList = registry.discovery(
                 MetadataUtil.getServiceKey(serviceMetadata));
         if (CollUtil.isEmpty(serviceMetadataList)) {
@@ -65,8 +76,9 @@ public class ServiceProxy implements InvocationHandler {
         }
 
         // 负载均衡
-        LoadBalancer loadBalancer = LoadBalancerFactory.getLoadBalancer(
-                applicationConfig.getLoadBalancer());
+        String loadBalancerType =
+                StrUtil.isBlank(loadBalancer) ? applicationConfig.getLoadBalancer() : loadBalancer;
+        LoadBalancer loadBalancer = LoadBalancerFactory.getLoadBalancer(loadBalancerType);
         // 将调用方法名（请求路径）作为负载均衡参数
         Map<String, Object> reqParams = new HashMap<>();
         reqParams.put("methodName", rpcRequest.getMethodName());

@@ -4,6 +4,8 @@ import cn.hutool.core.util.StrUtil;
 import com.youyi.rpc.model.ServiceMetadata;
 
 /**
+ * 元数据工具类
+ *
  * @author <a href="https://github.com/dingxinliang88">youyi</a>
  */
 public class MetadataUtil {
@@ -11,13 +13,14 @@ public class MetadataUtil {
     /**
      * 获取服务键名
      * <p>
-     * e.g. demo_service:1.0.0
+     * e.g. demo_service:group1:1.0.0
      *
      * @return service key
      */
     public static String getServiceKey(ServiceMetadata metadata) {
-        // TODO 后续可以扩展分组 name:version:group
-        return String.format("%s:%s", metadata.getServiceName(), metadata.getServiceVersion());
+        // name:group:version
+        return String.format("%s:%s:%s", metadata.getServiceName(), metadata.getServiceGroup(),
+                metadata.getServiceVersion());
     }
 
     /**

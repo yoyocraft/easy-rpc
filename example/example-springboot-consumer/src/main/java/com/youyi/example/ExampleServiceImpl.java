@@ -13,12 +13,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class ExampleServiceImpl {
 
-    @RpcReference
+    @RpcReference(version = "3.0.0", group = "test-spring")
     private UserService userService;
 
     public void test() {
         User newUser = userService.getUser("youyi");
-        log.info("new username: {}", newUser.getName());
+        // log.info("new username: {}", newUser.getName());
+        System.out.println("new username: " + newUser.getName());
     }
 
 }

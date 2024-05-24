@@ -16,7 +16,7 @@ public class ProviderExample {
 
         List<ServiceRegisterInfo<?>> serviceRegisterInfoList = List.of(
                 new ServiceRegisterInfo<>(UserService.class.getName(),
-                        UserServiceImpl.class));
+                        UserServiceImpl.class, "2.0.0", "test"));
 
         ProviderBootstrap.init(serviceRegisterInfoList);
     }

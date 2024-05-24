@@ -1,8 +1,8 @@
 package com.youyi.rpc.model;
 
-import lombok.AllArgsConstructor;
+import com.youyi.rpc.constants.RpcConstants;
+import com.youyi.rpc.lb.LoadBalancerKeys;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
  * 服务注册信息，根据这个构建 ServiceMetadata
@@ -10,8 +10,6 @@ import lombok.NoArgsConstructor;
  * @author <a href="https://github.com/dingxinliang88">youyi</a>
  */
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class ServiceRegisterInfo<T> {
 
     /**
@@ -24,4 +22,34 @@ public class ServiceRegisterInfo<T> {
      */
     private Class<? extends T> implClass;
 
+    private String version;
+
+    private String group;
+
+    private String loadBalancer;
+
+
+    public ServiceRegisterInfo(String serviceName, Class<? extends T> implClass) {
+        this(serviceName, implClass, RpcConstants.DEFAULT_SERVICE_VERSION,
+                RpcConstants.DEFAULT_SERVICE_GROUP, LoadBalancerKeys.ROUND_ROBIN);
+    }
+
+    public ServiceRegisterInfo(String serviceName, Class<? extends T> implClass, String version) {
+        this(serviceName, implClass, version, RpcConstants.DEFAULT_SERVICE_GROUP,
+                LoadBalancerKeys.ROUND_ROBIN);
+    }
+
+    public ServiceRegisterInfo(String serviceName, Class<? extends T> implClass, String version,
+            String group) {
+        this(serviceName, implClass, version, group, LoadBalancerKeys.ROUND_ROBIN);
+    }
+
+    public ServiceRegisterInfo(String serviceName, Class<? extends T> implClass, String version,
+            String group, String loadBalancer) {
+        this.serviceName = serviceName;
+        this.implClass = implClass;
+        this.version = version;
+        this.group = group;
+        this.loadBalancer = loadBalancer;
+    }
 }

@@ -1,8 +1,6 @@
 package com.youyi.rpc.starter.annotation;
 
 import com.youyi.rpc.constants.RpcConstants;
-import com.youyi.rpc.fault.retry.RetryStrategyKeys;
-import com.youyi.rpc.fault.tolerant.TolerantStrategyKeys;
 import com.youyi.rpc.lb.LoadBalancerKeys;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -27,22 +25,17 @@ public @interface RpcReference {
     /**
      * @return 版本
      */
-    String serviceVersion() default RpcConstants.DEFAULT_SERVICE_VERSION;
+    String version() default RpcConstants.DEFAULT_SERVICE_VERSION;
+
+    /**
+     * @return 服务分组
+     */
+    String group() default RpcConstants.DEFAULT_SERVICE_GROUP;
 
     /**
      * @return 负载均衡器
      */
     String loadBalancer() default LoadBalancerKeys.ROUND_ROBIN;
-
-    /**
-     * @return 重试机制
-     */
-    String retryStrategy() default RetryStrategyKeys.NO;
-
-    /**
-     * @return 容错机制
-     */
-    String tolerantStrategy() default TolerantStrategyKeys.FAIL_FAST;
 
     /**
      * @return 是否是模拟调用
