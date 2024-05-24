@@ -1,5 +1,6 @@
 package com.youyi.rpc.server.tcp;
 
+import com.youyi.rpc.exception.RpcException;
 import com.youyi.rpc.model.RpcRequest;
 import com.youyi.rpc.model.RpcResponse;
 import com.youyi.rpc.protocol.ProtocolMessage;
@@ -34,7 +35,7 @@ public class TcpServerHandler implements Handler<NetSocket> {
                 protocolMessage = (ProtocolMessage<RpcRequest>) ProtocolMessageDecoder
                         .decode(buffer);
             } catch (IOException e) {
-                throw new RuntimeException("decode request error", e);
+                throw new RpcException("decode request error", e);
             }
             RpcRequest rpcRequest = protocolMessage.getBody();
 
@@ -68,7 +69,7 @@ public class TcpServerHandler implements Handler<NetSocket> {
                 Buffer encodeBuffer = ProtocolMessageEncoder.encode(respProtocolMessage);
                 socket.write(encodeBuffer);
             } catch (IOException e) {
-                throw new RuntimeException("encode response error, ", e);
+                throw new RpcException("encode response error, ", e);
             }
         });
 

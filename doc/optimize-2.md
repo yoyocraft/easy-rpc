@@ -359,7 +359,7 @@ public class ProviderBootstrap {
                 // 注册到注册中心
                 registry.register(serviceMetadata);
             } catch (Exception e) {
-                throw new RuntimeException("register service failed", e);
+                throw new RpcException("register service failed", e);
             }
         }
 
@@ -478,7 +478,7 @@ public class RpcConsumerBootStrap implements BeanPostProcessor {
                 field.set(bean, proxy);
                 field.setAccessible(false);
             } catch (IllegalAccessException e) {
-                throw new RuntimeException("failed to set rpc proxy in field: " + field.getName(),
+                throw new RpcException("failed to set rpc proxy in field: " + field.getName(),
                         e);
             }
         }
@@ -527,7 +527,7 @@ public class RpcProviderBootStrap implements BeanPostProcessor {
                 // 注册到注册中心
                 registry.register(serviceMetadata);
             } catch (Exception e) {
-                throw new RuntimeException("register service failed", e);
+                throw new RpcException("register service failed", e);
             }
         }
         return BeanPostProcessor.super.postProcessAfterInitialization(bean, beanName);

@@ -3,6 +3,7 @@ package com.youyi.rpc.bootstrap;
 import com.youyi.rpc.RpcApplication;
 import com.youyi.rpc.config.ApplicationConfig;
 import com.youyi.rpc.config.RegistryConfig;
+import com.youyi.rpc.exception.RpcException;
 import com.youyi.rpc.model.ServiceMetadata;
 import com.youyi.rpc.model.ServiceRegisterInfo;
 import com.youyi.rpc.registry.LocalRegistry;
@@ -45,7 +46,7 @@ public class ProviderBootstrap {
                 // 注册到注册中心
                 registry.register(serviceMetadata);
             } catch (Exception e) {
-                throw new RuntimeException("register service failed", e);
+                throw new RpcException("register service failed", e);
             }
         }
 

@@ -2,6 +2,7 @@ package com.youyi.rpc.server.tcp;
 
 import cn.hutool.core.util.IdUtil;
 import com.youyi.rpc.RpcApplication;
+import com.youyi.rpc.exception.RpcException;
 import com.youyi.rpc.model.RpcRequest;
 import com.youyi.rpc.model.RpcResponse;
 import com.youyi.rpc.model.ServiceMetadata;
@@ -53,7 +54,7 @@ public class VertxTcpClient {
                         // 发送请求
                         socket.write(encodeBuffer);
                     } catch (IOException e) {
-                        throw new RuntimeException("encode error, ", e);
+                        throw new RpcException("encode error, ", e);
                     }
 
                     // 接收响应
@@ -66,7 +67,7 @@ public class VertxTcpClient {
                                             .decode(buffer);
                                     respFuture.complete(rpcResponseProtocolMessage.getBody());
                                 } catch (IOException e) {
-                                    throw new RuntimeException("decode error, ", e);
+                                    throw new RpcException("decode error, ", e);
                                 }
                             });
                     // 装饰器，解决粘包

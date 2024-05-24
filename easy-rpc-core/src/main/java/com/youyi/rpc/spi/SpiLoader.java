@@ -3,6 +3,7 @@ package com.youyi.rpc.spi;
 import cn.hutool.core.io.resource.ResourceUtil;
 import com.youyi.rpc.exception.NoSuchKeyException;
 import com.youyi.rpc.exception.NoSuchLoadClassException;
+import com.youyi.rpc.exception.RpcException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -165,7 +166,7 @@ public class SpiLoader {
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException
                      | NoSuchMethodException e) {
                 String errMsg = String.format("create instance %s error", implClassName);
-                throw new RuntimeException(errMsg, e);
+                throw new RpcException(errMsg, e);
             }
         }
         return (T) INSTANCE_CACHE.get(implClassName);

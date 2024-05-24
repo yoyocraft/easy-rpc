@@ -1,5 +1,6 @@
 package com.youyi.rpc.serializer;
 
+import com.youyi.rpc.exception.RpcException;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -28,7 +29,7 @@ public class JdkSerializer implements Serializer {
                 ObjectInputStream ois = new ObjectInputStream(bis)) {
             return clazz.cast(ois.readObject());
         } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            throw new RpcException("jdk deserialize error,", e);
         }
     }
 }

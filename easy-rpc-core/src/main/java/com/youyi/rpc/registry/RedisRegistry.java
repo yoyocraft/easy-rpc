@@ -1,11 +1,11 @@
 package com.youyi.rpc.registry;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.collection.ConcurrentHashSet;
 import cn.hutool.cron.CronUtil;
 import cn.hutool.cron.task.Task;
 import cn.hutool.json.JSONUtil;
 import com.youyi.rpc.config.RegistryConfig;
+import com.youyi.rpc.exception.RpcException;
 import com.youyi.rpc.model.ServiceMetadata;
 import com.youyi.rpc.util.MetadataUtil;
 import java.util.HashSet;
@@ -36,17 +36,11 @@ public class RedisRegistry implements Registry {
      */
     private static final RegistryServiceCache REGISTRY_SERVICE_CACHE = new RegistryServiceCache();
 
-    /**
-     * 正在监听的 Key 集合
-     */
-    private static final Set<String> WATCHING_KEY_SET = new ConcurrentHashSet<>();
-
     private Jedis jedis;
 
 
     @Override
     public void init(RegistryConfig config) {
-        // TODO 支持 Redis 集群
         jedis = new Jedis(config.getEndpoints());
         jedis.auth(config.getPassword());
         String ping = jedis.ping();
@@ -115,7 +109,7 @@ public class RedisRegistry implements Registry {
                     ServiceMetadata metadata = JSONUtil.toBean(value, ServiceMetadata.class);
                     register(metadata);
                 } catch (Exception e) {
-                    throw new RuntimeException(regKey + " reset ttl failed", e);
+                    throw new RpcException(regKey + " reset ttl failed", e);
                 }
             }
         });

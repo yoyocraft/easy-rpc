@@ -3,6 +3,7 @@ package com.youyi.rpc.registry;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.ConcurrentHashSet;
 import com.youyi.rpc.config.RegistryConfig;
+import com.youyi.rpc.exception.RpcException;
 import com.youyi.rpc.model.ServiceMetadata;
 import com.youyi.rpc.util.MetadataUtil;
 import java.util.Collection;
@@ -74,7 +75,7 @@ public class ZookeeperRegistry implements Registry {
             client.start();
             serviceDiscovery.start();
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new RpcException("zk start error, ", e);
         }
     }
 
@@ -94,7 +95,8 @@ public class ZookeeperRegistry implements Registry {
         try {
             serviceDiscovery.unregisterService(buildServiceInstance(metadata));
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new RpcException(
+                    "metadata" + MetadataUtil.getServiceNodeKey(metadata) + " unregister error");
         }
         String regKey = ZK_ROOT_PATH + "/" + MetadataUtil.getServiceNodeKey(metadata);
         LOCAL_REGISTERED_NODE_KEY_SET.remove(regKey);
@@ -124,7 +126,7 @@ public class ZookeeperRegistry implements Registry {
 
             return serviceMetadataList;
         } catch (Exception e) {
-            throw new RuntimeException("get service instance failed, ", e);
+            throw new RpcException("get service instance failed, ", e);
         }
     }
 
@@ -161,7 +163,7 @@ public class ZookeeperRegistry implements Registry {
             try {
                 client.delete().guaranteed().forPath(regKey);
             } catch (Exception e) {
-                throw new RuntimeException(regKey + " offline failed!");
+                throw new RpcException(regKey + " offline failed!");
             }
         }
         if (client != null) {
@@ -180,7 +182,7 @@ public class ZookeeperRegistry implements Registry {
                     .payload(metadata)
                     .build();
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new RpcException("build service instance error, ", e);
         }
     }
 }

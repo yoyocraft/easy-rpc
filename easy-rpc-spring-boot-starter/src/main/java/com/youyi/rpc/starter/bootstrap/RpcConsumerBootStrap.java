@@ -1,5 +1,6 @@
 package com.youyi.rpc.starter.bootstrap;
 
+import com.youyi.rpc.exception.RpcException;
 import com.youyi.rpc.proxy.ServiceProxyFactory;
 import com.youyi.rpc.starter.annotation.RpcReference;
 import java.lang.reflect.Field;
@@ -39,7 +40,7 @@ public class RpcConsumerBootStrap implements BeanPostProcessor {
                 Object proxy = ServiceProxyFactory.getProxy(interfaceClass);
                 field.set(bean, proxy);
             } catch (IllegalAccessException e) {
-                throw new RuntimeException(
+                throw new RpcException(
                         "failed to set rpc proxy in field: " + field.getName(), e);
             } finally {
                 field.setAccessible(false);
