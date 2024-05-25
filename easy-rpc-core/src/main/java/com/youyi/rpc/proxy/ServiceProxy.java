@@ -38,11 +38,13 @@ public class ServiceProxy implements InvocationHandler {
     private final String version;
     private final String group;
     private final String loadBalancer;
+    private final long timeout;
 
-    public ServiceProxy(String version, String group, String loadBalancer) {
+    public ServiceProxy(String version, String group, String loadBalancer, long timeout) {
         this.version = version;
         this.group = group;
         this.loadBalancer = loadBalancer;
+        this.timeout = timeout;
     }
 
     @Override
@@ -91,7 +93,7 @@ public class ServiceProxy implements InvocationHandler {
                     applicationConfig.getTolerant().getRetry());
             // 发送 TCP 请求
             rpcResponse = retryStrategy.retry(
-                    () -> VertxTcpClient.doRequest(rpcRequest, selectedService));
+                    () -> VertxTcpClient.doRequest(rpcRequest, selectedService, timeout));
         } catch (Exception e) {
             // 容错上下文
             Map<String, Object> context = Map.of("serviceMetadataList", serviceMetadataList,

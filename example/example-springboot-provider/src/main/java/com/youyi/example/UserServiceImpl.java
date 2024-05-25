@@ -17,6 +17,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUser(String name) {
         log.info("getUser: {}", name);
+        // 模拟网络延迟
+        try {
+            Thread.sleep(3100);
+        } catch (InterruptedException e) {
+            log.error("sleep error", e);
+        }
         return new User(name + "-proxy[3.0.0, test-spring]");
     }
 }

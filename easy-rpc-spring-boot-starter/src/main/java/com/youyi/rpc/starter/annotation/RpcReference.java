@@ -41,4 +41,9 @@ public @interface RpcReference {
      * @return 是否是模拟调用
      */
     boolean mock() default false;
+
+    /**
+     * @return 超时时间
+     */
+    long timeout() default RpcConstants.DEFAULT_TIMEOUT;
 }

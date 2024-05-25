@@ -15,6 +15,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUser(String name) {
         log.info("provider receive user name: {}", name);
+        // 模拟超时
+        try {
+            Thread.sleep(3100);
+        } catch (InterruptedException e) {
+            log.error("provider sleep error", e);
+        }
         return new User("[2.0.0] &Provider& " + name);
     }
 }

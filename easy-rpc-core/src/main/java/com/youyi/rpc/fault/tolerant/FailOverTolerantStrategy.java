@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -25,7 +26,7 @@ public class FailOverTolerantStrategy implements TolerantStrategy {
     @SuppressWarnings("unchecked")
     @Override
     public RpcResponse tolerant(Map<String, Object> context, Exception e)
-            throws ExecutionException, InterruptedException {
+            throws ExecutionException, InterruptedException, TimeoutException {
         // 自动切换实现，转移到其他节点
         List<ServiceMetadata> serviceMetadataList = (List<ServiceMetadata>) context.get(
                 "serviceMetadataList");
