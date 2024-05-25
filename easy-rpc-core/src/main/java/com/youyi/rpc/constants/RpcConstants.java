@@ -13,4 +13,6 @@ public class RpcConstants {
 
     public static final String DEFAULT_SERVICE_GROUP = "default";
 
+    public static final long DEFAULT_TIMEOUT = 3000;
+
 }

@@ -49,16 +49,32 @@ public class ServiceProxyFactory {
      * @param <T>          T
      * @return 代理对象 {@link T}
      */
-    @SuppressWarnings("unchecked")
     public static <T> T getProxy(Class<T> serviceClazz, String version, String group,
             String loadBalancer) {
+        return getProxy(serviceClazz, version, group, loadBalancer, RpcConstants.DEFAULT_TIMEOUT);
+    }
+
+    /**
+     * 根据服务类获取代理对象
+     *
+     * @param serviceClazz 服务类
+     * @param version      服务版本
+     * @param group        服务分组
+     * @param loadBalancer 负载均衡
+     * @param timeout      超时时间
+     * @param <T>          T
+     * @return 代理对象 {@link T}
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> T getProxy(Class<T> serviceClazz, String version, String group,
+            String loadBalancer, long timeout) {
         if (RpcApplication.resolve().isMock()) {
             return getMockProxy(serviceClazz);
         }
         return (T) Proxy.newProxyInstance(
                 serviceClazz.getClassLoader(),
                 new Class[]{serviceClazz},
-                new ServiceProxy(version, group, loadBalancer)
+                new ServiceProxy(version, group, loadBalancer, timeout)
         );
     }
 

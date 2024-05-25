@@ -13,6 +13,6 @@ public class FailFastTolerantStrategy implements TolerantStrategy {
 
     @Override
     public RpcResponse tolerant(Map<String, Object> context, Exception e) {
-        throw new RpcException("server error", e);
+        throw new RpcException(e.getMessage(), e);
     }
 }

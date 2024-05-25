@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ExampleServiceImpl {
 
-    @RpcReference(version = "3.0.0", group = "test-spring")
+    @RpcReference(version = "3.0.0", group = "test-spring", timeout = 5000)
     private UserService userService;
 
     public void test() {

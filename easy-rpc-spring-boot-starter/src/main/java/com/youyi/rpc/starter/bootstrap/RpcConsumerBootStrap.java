@@ -42,8 +42,9 @@ public class RpcConsumerBootStrap implements BeanPostProcessor {
                     String serviceVersion = rpcReference.version();
                     String serviceGroup = rpcReference.group();
                     String loadBalancer = rpcReference.loadBalancer();
+                    long timeout = rpcReference.timeout();
                     Object proxy = ServiceProxyFactory.getProxy(interfaceClass, serviceVersion,
-                            serviceGroup, loadBalancer);
+                            serviceGroup, loadBalancer, timeout);
                     field.set(bean, proxy);
                 }
             } catch (IllegalAccessException e) {
