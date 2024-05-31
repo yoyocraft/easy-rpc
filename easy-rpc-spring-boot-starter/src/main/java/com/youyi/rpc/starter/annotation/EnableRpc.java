@@ -1,8 +1,8 @@
 package com.youyi.rpc.starter.annotation;
 
-import com.youyi.rpc.starter.bootstrap.RpcConsumerBootstrap;
-import com.youyi.rpc.starter.bootstrap.RpcInitBootstrap;
-import com.youyi.rpc.starter.bootstrap.RpcProviderBootstrap;
+import com.youyi.rpc.starter.bootstrap.RpcServiceInjector;
+import com.youyi.rpc.starter.bootstrap.RpcFrameworkInitializer;
+import com.youyi.rpc.starter.bootstrap.RpcServiceProviderRegistrar;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Import;
  */
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-@Import({RpcInitBootstrap.class, RpcProviderBootstrap.class, RpcConsumerBootstrap.class})
+@Import({RpcFrameworkInitializer.class, RpcServiceProviderRegistrar.class, RpcServiceInjector.class})
 public @interface EnableRpc {
 
     /**

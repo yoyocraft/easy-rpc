@@ -16,15 +16,15 @@ import org.springframework.core.type.AnnotationMetadata;
  *
  * @author <a href="https://github.com/dingxinliang88">youyi</a>
  */
-public class RpcInitBootStrap implements ImportBeanDefinitionRegistrar {
+public class RpcFrameworkInitializer implements ImportBeanDefinitionRegistrar {
 
     @Override
-    public void registerBeanDefinitions(@NonNull AnnotationMetadata importingClassMetadata,
+    public void registerBeanDefinitions(@NonNull AnnotationMetadata metadata,
             @NonNull BeanDefinitionRegistry registry) {
         // 获取 @EnableRpc 注解的属性值
-        boolean needServer = (boolean) Objects.requireNonNull(
-                        importingClassMetadata.getAnnotationAttributes(EnableRpc.class.getName()))
-                .get("needServer");
+        boolean needServer = (boolean)
+                Objects.requireNonNull(metadata.getAnnotationAttributes(EnableRpc.class.getName()))
+                        .get("needServer");
 
         // RPC 框架初始化
         RpcApplication.init();
