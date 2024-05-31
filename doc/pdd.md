@@ -48,8 +48,6 @@ long orderId = orderService.order(arg1, arg2, arg3);
 
 看上去就是在调用自己项目的方法！
 
-
-
 # 二、RPC 框架实现思路
 
 ## 基本设计
