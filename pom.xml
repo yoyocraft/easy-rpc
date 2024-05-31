@@ -17,31 +17,29 @@
 
   <properties>
     <!-- basic -->
-    <prokect.version>1.0.0</prokect.version>
+    <project.version>1.0.0</project.version>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
     <maven.compiler.release>17</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- dependency -->
+    <vertx.version>4.5.1</vertx.version>
+    <netty.version>4.1.103.Final</netty.version>
+    <kryo.version>5.6.0</kryo.version>
+    <hessian.version>4.0.66</hessian.version>
+    <jackson.version>2.16.1</jackson.version>
+    <jetcd.version>0.7.7</jetcd.version>
+    <curator.version>5.6.0</curator.version>
+    <jedis.version>5.1.2</jedis.version>
     <hutool.version>5.8.25</hutool.version>
     <snakeyaml.version>2.2</snakeyaml.version>
     <javafaker.version>1.0.2</javafaker.version>
     <lombok.version>1.18.30</lombok.version>
-<!--    <slf4j.version>2.0.12</slf4j.version>-->
-<!--    <logback.version>1.5.6</logback.version>-->
-    <slf4j.version>1.7.36</slf4j.version>
-    <logback.version>1.2.12</logback.version>
-    <vertx.version>4.5.1</vertx.version>
-    <kryo.version>5.6.0</kryo.version>
-    <hessian.version>4.0.66</hessian.version>
-    <jackson.version>2.16.1</jackson.version>
-    <junit.version>5.10.1</junit.version>
-    <netty.version>4.1.103.Final</netty.version>
-    <jetcd.version>0.7.7</jetcd.version>
-    <curator.version>5.6.0</curator.version>
-    <jedis.version>5.1.2</jedis.version>
     <guava.version>33.1.0-jre</guava.version>
     <guava-retrying.version>2.0.0</guava-retrying.version>
+    <junit.version>5.10.1</junit.version>
+    <slf4j.version>1.7.36</slf4j.version>
+    <logback.version>1.2.12</logback.version>
     <!-- plugin -->
     <maven-checkstyle-plugin.version>3.3.1</maven-checkstyle-plugin.version>
   </properties>
@@ -74,21 +72,19 @@
         <artifactId>javafaker</artifactId>
         <version>${javafaker.version}</version>
       </dependency>
-
       <dependency>
         <groupId>org.projectlombok</groupId>
         <artifactId>lombok</artifactId>
         <version>${lombok.version}</version>
         <scope>provided</scope>
       </dependency>
-
       <dependency>
         <groupId>io.netty</groupId>
         <artifactId>netty-resolver-dns-native-macos</artifactId>
         <version>${netty.version}</version>
         <classifier>osx-aarch_64</classifier>
+        <scope>runtime</scope>
       </dependency>
-
       <dependency>
         <groupId>com.esotericsoftware</groupId>
         <artifactId>kryo</artifactId>
