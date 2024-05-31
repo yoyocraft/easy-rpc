@@ -20,7 +20,7 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
  *
  * @author <a href="https://github.com/dingxinliang88">youyi</a>
  */
-public class RpcProviderBootstrap implements BeanPostProcessor {
+public class RpcServiceProviderRegistrar implements BeanPostProcessor {
 
     @Override
     public Object postProcessAfterInitialization(@NonNull Object bean, @NonNull String beanName)

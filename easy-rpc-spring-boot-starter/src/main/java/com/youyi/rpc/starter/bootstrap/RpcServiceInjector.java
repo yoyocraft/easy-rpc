@@ -15,7 +15,7 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
  *
  * @author <a href="https://github.com/dingxinliang88">youyi</a>
  */
-public class RpcConsumerBootstrap implements BeanPostProcessor {
+public class RpcServiceInjector implements BeanPostProcessor {
 
     @Override
     public Object postProcessAfterInitialization(@NonNull Object bean, @NonNull String beanName)
