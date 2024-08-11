@@ -11,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * 一致性 Hash 负载均衡
  *
- * @author <a href="https://github.com/dingxinliang88">youyi</a>
+ * @author <a href="https://github.com/yoyocraft">youyi</a>
  */
 @Slf4j
 public class ConsistentHashLoadBalancer implements LoadBalancer {

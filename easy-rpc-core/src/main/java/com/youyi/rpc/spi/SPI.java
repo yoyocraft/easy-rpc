@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 /**
  * 标志某接口是 SPI 接口
  *
- * @author <a href="https://github.com/dingxinliang88">youyi</a>
+ * @author <a href="https://github.com/yoyocraft">youyi</a>
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE})

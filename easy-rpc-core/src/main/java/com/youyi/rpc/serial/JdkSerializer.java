@@ -1,4 +1,4 @@
-package com.youyi.rpc.serializer;
+package com.youyi.rpc.serial;
 
 import com.youyi.rpc.exception.RpcException;
 import java.io.ByteArrayInputStream;
@@ -10,7 +10,7 @@ import java.io.ObjectOutputStream;
 /**
  * JDK 序列化器
  *
- * @author <a href="https://github.com/dingxinliang88">youyi</a>
+ * @author <a href="https://github.com/yoyocraft">youyi</a>
  */
 public class JdkSerializer implements Serializer {
 

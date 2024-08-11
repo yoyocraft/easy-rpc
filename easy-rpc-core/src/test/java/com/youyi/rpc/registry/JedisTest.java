@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import redis.clients.jedis.Jedis;
 
 /**
- * @author <a href="https://github.com/dingxinliang88">youyi</a>
+ * @author <a href="https://github.com/yoyocraft">youyi</a>
  */
 @Slf4j
 public class JedisTest {

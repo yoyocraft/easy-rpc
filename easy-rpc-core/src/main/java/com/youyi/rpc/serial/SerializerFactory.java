@@ -1,4 +1,4 @@
-package com.youyi.rpc.serializer;
+package com.youyi.rpc.serial;
 
 import com.youyi.rpc.exception.NoSuchLoadClassException;
 import com.youyi.rpc.spi.SpiLoader;
@@ -6,7 +6,7 @@ import com.youyi.rpc.spi.SpiLoader;
 /**
  * 序列化工厂
  *
- * @author <a href="https://github.com/dingxinliang88">youyi</a>
+ * @author <a href="https://github.com/yoyocraft">youyi</a>
  */
 public final class SerializerFactory {
 

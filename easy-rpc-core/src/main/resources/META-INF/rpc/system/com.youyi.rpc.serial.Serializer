@@ -1,0 +1,4 @@
+jdk=com.youyi.rpc.serial.JdkSerializer
+kryo=com.youyi.rpc.serial.KryoSerializer
+json=com.youyi.rpc.serial.JsonSerializer
+hessian=com.youyi.rpc.serial.HessianSerializer

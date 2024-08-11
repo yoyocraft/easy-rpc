@@ -7,7 +7,7 @@ import lombok.Data;
 /**
  * 服务注册信息，根据这个构建 ServiceMetadata
  *
- * @author <a href="https://github.com/dingxinliang88">youyi</a>
+ * @author <a href="https://github.com/yoyocraft">youyi</a>
  */
 @Data
 public class ServiceRegisterInfo<T> {

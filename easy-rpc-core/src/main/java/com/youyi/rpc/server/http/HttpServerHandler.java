@@ -4,8 +4,8 @@ import com.youyi.rpc.RpcApplication;
 import com.youyi.rpc.model.RpcRequest;
 import com.youyi.rpc.model.RpcResponse;
 import com.youyi.rpc.registry.LocalRegistry;
-import com.youyi.rpc.serializer.Serializer;
-import com.youyi.rpc.serializer.SerializerFactory;
+import com.youyi.rpc.serial.Serializer;
+import com.youyi.rpc.serial.SerializerFactory;
 import io.vertx.core.Handler;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.HttpServerRequest;
@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * HTTP 请求处理器，基于 Vert.x
  *
- * @author <a href="https://github.com/dingxinliang88">youyi</a>
+ * @author <a href="https://github.com/yoyocraft">youyi</a>
  */
 @Slf4j
 public class HttpServerHandler implements Handler<HttpServerRequest> {

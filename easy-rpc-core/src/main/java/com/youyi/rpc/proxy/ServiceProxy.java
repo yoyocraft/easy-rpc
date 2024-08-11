@@ -16,8 +16,8 @@ import com.youyi.rpc.model.RpcResponse;
 import com.youyi.rpc.model.ServiceMetadata;
 import com.youyi.rpc.registry.Registry;
 import com.youyi.rpc.registry.RegistryFactory;
-import com.youyi.rpc.serializer.Serializer;
-import com.youyi.rpc.serializer.SerializerFactory;
+import com.youyi.rpc.serial.Serializer;
+import com.youyi.rpc.serial.SerializerFactory;
 import com.youyi.rpc.server.tcp.VertxTcpClient;
 import com.youyi.rpc.util.MetadataUtil;
 import java.lang.reflect.InvocationHandler;
@@ -30,7 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * 服务代理，基于 JDK 动态代理
  *
- * @author <a href="https://github.com/dingxinliang88">youyi</a>
+ * @author <a href="https://github.com/yoyocraft">youyi</a>
  */
 @Slf4j
 public class ServiceProxy implements InvocationHandler {

@@ -1,9 +1,9 @@
-package com.youyi.rpc.serializer;
+package com.youyi.rpc.serial;
 
 /**
  * 序列化器键名
  *
- * @author <a href="https://github.com/dingxinliang88">youyi</a>
+ * @author <a href="https://github.com/yoyocraft">youyi</a>
  */
 public class SerializerKeys {
 

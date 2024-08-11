@@ -1,4 +1,4 @@
-package com.youyi.rpc.serializer;
+package com.youyi.rpc.serial;
 
 import com.caucho.hessian.io.Hessian2Input;
 import com.caucho.hessian.io.Hessian2Output;
@@ -9,7 +9,7 @@ import java.io.IOException;
 /**
  * Hessian 序列化
  *
- * @author <a href="https://github.com/dingxinliang88">youyi</a>
+ * @author <a href="https://github.com/yoyocraft">youyi</a>
  */
 public class HessianSerializer implements Serializer {
 

@@ -5,7 +5,10 @@ import com.youyi.rpc.config.ApplicationConfig;
 import com.youyi.rpc.server.RpcServer;
 import com.youyi.rpc.server.tcp.VertxTcpServer;
 import com.youyi.rpc.starter.annotation.EnableRpc;
+
+import java.util.Map;
 import java.util.Objects;
+
 import lombok.NonNull;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
@@ -14,17 +17,16 @@ import org.springframework.core.type.AnnotationMetadata;
 /**
  * rpc 初始化引导类
  *
- * @author <a href="https://github.com/dingxinliang88">youyi</a>
+ * @author <a href="https://github.com/yoyocraft">youyi</a>
  */
 public class RpcFrameworkInitializer implements ImportBeanDefinitionRegistrar {
 
     @Override
     public void registerBeanDefinitions(@NonNull AnnotationMetadata metadata,
-            @NonNull BeanDefinitionRegistry registry) {
+                                        @NonNull BeanDefinitionRegistry registry) {
         // 获取 @EnableRpc 注解的属性值
-        boolean needServer = (boolean)
-                Objects.requireNonNull(metadata.getAnnotationAttributes(EnableRpc.class.getName()))
-                        .get("needServer");
+        Map<String, Object> attributes = metadata.getAnnotationAttributes(EnableRpc.class.getName());
+        boolean needServer = (boolean) Objects.requireNonNull(attributes).get("needServer");
 
         // RPC 框架初始化
         RpcApplication.init();

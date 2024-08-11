@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 注册中心
  *
- * @author <a href="https://github.com/dingxinliang88">youyi</a>
+ * @author <a href="https://github.com/yoyocraft">youyi</a>
  */
 @SPI
 public interface Registry {

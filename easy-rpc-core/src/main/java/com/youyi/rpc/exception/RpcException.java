@@ -1,7 +1,7 @@
 package com.youyi.rpc.exception;
 
 /**
- * @author <a href="https://github.com/dingxinliang88">youyi</a>
+ * @author <a href="https://github.com/yoyocraft">youyi</a>
  */
 public class RpcException extends RuntimeException {
 

@@ -3,12 +3,13 @@ package com.youyi.rpc.proxy;
 import com.youyi.rpc.RpcApplication;
 import com.youyi.rpc.constants.RpcConstants;
 import com.youyi.rpc.lb.LoadBalancerKeys;
+
 import java.lang.reflect.Proxy;
 
 /**
  * 服务代理工厂
  *
- * @author <a href="https://github.com/dingxinliang88">youyi</a>
+ * @author <a href="https://github.com/yoyocraft">youyi</a>
  */
 public class ServiceProxyFactory {
 
@@ -21,8 +22,7 @@ public class ServiceProxyFactory {
      * @return 代理对象 {@link T}
      */
     public static <T> T getProxy(Class<T> serviceClazz, String version) {
-        return getProxy(serviceClazz, version, RpcConstants.DEFAULT_SERVICE_GROUP,
-                LoadBalancerKeys.ROUND_ROBIN);
+        return getProxy(serviceClazz, version, RpcConstants.DEFAULT_SERVICE_GROUP);
     }
 
     /**
@@ -50,7 +50,7 @@ public class ServiceProxyFactory {
      * @return 代理对象 {@link T}
      */
     public static <T> T getProxy(Class<T> serviceClazz, String version, String group,
-            String loadBalancer) {
+                                 String loadBalancer) {
         return getProxy(serviceClazz, version, group, loadBalancer, RpcConstants.DEFAULT_TIMEOUT);
     }
 
@@ -67,7 +67,7 @@ public class ServiceProxyFactory {
      */
     @SuppressWarnings("unchecked")
     public static <T> T getProxy(Class<T> serviceClazz, String version, String group,
-            String loadBalancer, long timeout) {
+                                 String loadBalancer, long timeout) {
         if (RpcApplication.resolve().isMock()) {
             return getMockProxy(serviceClazz);
         }

@@ -5,7 +5,7 @@ import com.youyi.rpc.RpcApplication;
 /**
  * 服务消费者启动引导类
  *
- * @author <a href="https://github.com/dingxinliang88">youyi</a>
+ * @author <a href="https://github.com/yoyocraft">youyi</a>
  */
 public class ConsumerBootstrap {
 

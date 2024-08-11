@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 /**
  * 服务提供者注解（用于注册服务）
  *
- * @author <a href="https://github.com/dingxinliang88">youyi</a>
+ * @author <a href="https://github.com/yoyocraft">youyi</a>
  */
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)

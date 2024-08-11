@@ -8,7 +8,7 @@ import lombok.Data;
 /**
  * RPC 容错配置
  *
- * @author <a href="https://github.com/dingxinliang88">youyi</a>
+ * @author <a href="https://github.com/yoyocraft">youyi</a>
  */
 @Data
 public class TolerantConfig {

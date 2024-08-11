@@ -1,14 +1,15 @@
-package com.youyi.rpc.serializer;
+package com.youyi.rpc.serial;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youyi.rpc.model.RpcRequest;
 import com.youyi.rpc.model.RpcResponse;
+
 import java.io.IOException;
 
 /**
  * JSON 序列化器
  *
- * @author <a href="https://github.com/dingxinliang88">youyi</a>
+ * @author <a href="https://github.com/yoyocraft">youyi</a>
  */
 public class JsonSerializer implements Serializer {
 

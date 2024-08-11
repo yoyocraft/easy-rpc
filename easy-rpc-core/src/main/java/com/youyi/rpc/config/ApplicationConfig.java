@@ -1,13 +1,13 @@
 package com.youyi.rpc.config;
 
 import com.youyi.rpc.lb.LoadBalancerKeys;
-import com.youyi.rpc.serializer.SerializerKeys;
+import com.youyi.rpc.serial.SerializerKeys;
 import lombok.Data;
 
 /**
  * RPC 框架配置
  *
- * @author <a href="https://github.com/dingxinliang88">youyi</a>
+ * @author <a href="https://github.com/yoyocraft">youyi</a>
  */
 @Data
 public class ApplicationConfig {

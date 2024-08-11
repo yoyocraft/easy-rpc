@@ -6,7 +6,7 @@ import com.youyi.rpc.spi.SpiLoader;
 /**
  * 注册中心工厂
  *
- * @author <a href="https://github.com/dingxinliang88">youyi</a>
+ * @author <a href="https://github.com/yoyocraft">youyi</a>
  */
 public final class RegistryFactory {
 

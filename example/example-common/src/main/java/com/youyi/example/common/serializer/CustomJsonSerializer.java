@@ -1,12 +1,12 @@
 package com.youyi.example.common.serializer;
 
 import cn.hutool.json.JSONUtil;
-import com.youyi.rpc.serializer.Serializer;
+import com.youyi.rpc.serial.Serializer;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 /**
- * @author <a href="https://github.com/dingxinliang88">youyi</a>
+ * @author <a href="https://github.com/yoyocraft">youyi</a>
  */
 public class CustomJsonSerializer implements Serializer {
 

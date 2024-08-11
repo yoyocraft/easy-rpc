@@ -6,7 +6,7 @@ import java.util.concurrent.Callable;
 /**
  * 不重试策略
  *
- * @author <a href="https://github.com/dingxinliang88">youyi</a>
+ * @author <a href="https://github.com/yoyocraft">youyi</a>
  */
 public class NoRetryStrategy implements RetryStrategy {
 

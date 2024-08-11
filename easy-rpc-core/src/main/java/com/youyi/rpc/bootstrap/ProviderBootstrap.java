@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * 服务提供者启动引导类
  *
- * @author <a href="https://github.com/dingxinliang88">youyi</a>
+ * @author <a href="https://github.com/yoyocraft">youyi</a>
  */
 public class ProviderBootstrap {
 

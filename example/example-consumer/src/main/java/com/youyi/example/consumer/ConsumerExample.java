@@ -11,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * 简易服务消费者示例
  *
- * @author <a href="https://github.com/dingxinliang88">youyi</a>
+ * @author <a href="https://github.com/yoyocraft">youyi</a>
  */
 @Slf4j
 public class ConsumerExample {

@@ -1,4 +1,4 @@
-package com.youyi.rpc.serializer;
+package com.youyi.rpc.serial;
 
 import com.youyi.rpc.spi.SPI;
 import java.io.IOException;
@@ -6,7 +6,7 @@ import java.io.IOException;
 /**
  * 序列化器接口
  *
- * @author <a href="https://github.com/dingxinliang88">youyi</a>
+ * @author <a href="https://github.com/yoyocraft">youyi</a>
  */
 @SPI
 public interface Serializer {

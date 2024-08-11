@@ -5,7 +5,7 @@ import com.youyi.example.common.model.User;
 /**
  * 用户服务
  *
- * @author <a href="https://github.com/dingxinliang88">youyi</a>
+ * @author <a href="https://github.com/yoyocraft">youyi</a>
  */
 public interface UserService {
 

@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * 失败自动切换
  *
- * @author <a href="https://github.com/dingxinliang88">youyi</a>
+ * @author <a href="https://github.com/yoyocraft">youyi</a>
  */
 @Slf4j
 public class FailOverTolerantStrategy implements TolerantStrategy {

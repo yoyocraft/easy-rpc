@@ -26,7 +26,7 @@ import org.apache.curator.x.discovery.details.JsonInstanceSerializer;
  * </p>
  * <a href="https://curator.apache.org/docs/getting-started">Apache Curator 操作文档</a>
  *
- * @author <a href="https://github.com/dingxinliang88">youyi</a>
+ * @author <a href="https://github.com/yoyocraft">youyi</a>
  */
 @Slf4j
 public class ZookeeperRegistry implements Registry {

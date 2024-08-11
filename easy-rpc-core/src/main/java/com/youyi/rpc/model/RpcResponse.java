@@ -11,7 +11,7 @@ import java.io.Serializable;
 /**
  * RPC 响应体
  *
- * @author <a href="https://github.com/dingxinliang88">youyi</a>
+ * @author <a href="https://github.com/yoyocraft">youyi</a>
  */
 @Data
 @Builder

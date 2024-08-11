@@ -6,7 +6,7 @@ import com.youyi.rpc.spi.SpiLoader;
 /**
  * 重试策略工厂
  *
- * @author <a href="https://github.com/dingxinliang88">youyi</a>
+ * @author <a href="https://github.com/yoyocraft">youyi</a>
  */
 public class RetryStrategyFactory {
 

@@ -4,15 +4,15 @@ import com.youyi.rpc.model.RpcRequest;
 import com.youyi.rpc.model.RpcResponse;
 import com.youyi.rpc.protocol.ProtocolConstants;
 import com.youyi.rpc.protocol.ProtocolMessage;
-import com.youyi.rpc.serializer.Serializer;
-import com.youyi.rpc.serializer.SerializerFactory;
+import com.youyi.rpc.serial.Serializer;
+import com.youyi.rpc.serial.SerializerFactory;
 import io.vertx.core.buffer.Buffer;
 import java.io.IOException;
 
 /**
  * 协议消息解码器
  *
- * @author <a href="https://github.com/dingxinliang88">youyi</a>
+ * @author <a href="https://github.com/yoyocraft">youyi</a>
  */
 public class ProtocolMessageDecoder {
 

@@ -3,7 +3,9 @@ package com.youyi.rpc.starter.bootstrap;
 import com.youyi.rpc.exception.RpcException;
 import com.youyi.rpc.proxy.ServiceProxyFactory;
 import com.youyi.rpc.starter.annotation.RpcReference;
+
 import java.lang.reflect.Field;
+
 import lombok.NonNull;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
@@ -13,7 +15,7 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
  * <p>
  * 获取到包含 @RpcReference 注解的类，为其注入属性
  *
- * @author <a href="https://github.com/dingxinliang88">youyi</a>
+ * @author <a href="https://github.com/yoyocraft">youyi</a>
  */
 public class RpcServiceInjector implements BeanPostProcessor {
 
@@ -43,8 +45,12 @@ public class RpcServiceInjector implements BeanPostProcessor {
                     String serviceGroup = rpcReference.group();
                     String loadBalancer = rpcReference.loadBalancer();
                     long timeout = rpcReference.timeout();
-                    Object proxy = ServiceProxyFactory.getProxy(interfaceClass, serviceVersion,
-                            serviceGroup, loadBalancer, timeout);
+                    Object proxy = ServiceProxyFactory.getProxy(
+                            interfaceClass,
+                            serviceVersion,
+                            serviceGroup,
+                            loadBalancer,
+                            timeout);
                     field.set(bean, proxy);
                 }
             } catch (IllegalAccessException e) {

@@ -4,6 +4,7 @@ import cn.hutool.core.io.resource.ResourceUtil;
 import com.youyi.rpc.exception.NoSuchKeyException;
 import com.youyi.rpc.exception.NoSuchLoadClassException;
 import com.youyi.rpc.exception.RpcException;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,6 +18,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -24,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
  * <p>
  * 支持键值对映射
  *
- * @author <a href="https://github.com/dingxinliang88">youyi</a>
+ * @author <a href="https://github.com/yoyocraft">youyi</a>
  */
 @Slf4j
 public class SpiLoader {
@@ -82,11 +84,10 @@ public class SpiLoader {
         }
     }
 
-
     /**
      * 加载某个类型的类
      * <p>
-     * e.g. loadClazz = com.youyi.rpc.serializer.Serializer:
+     * e.g. loadClazz = com.youyi.rpc.serial.Serializer:
      * <p>
      * key=implClass
      * <ul>jdk=com.youyi.rpc.serializer.JdkSerializer</ul>
@@ -115,7 +116,7 @@ public class SpiLoader {
             // read resource
             for (URL resource : resources) {
                 try (InputStreamReader isr = new InputStreamReader(resource.openStream());
-                        BufferedReader bufReader = new BufferedReader(isr)) {
+                     BufferedReader bufReader = new BufferedReader(isr)) {
                     String line;
                     while ((line = bufReader.readLine()) != null) {
                         String[] keyImplClassArr = line.split(SPI_SEPARATOR);
@@ -163,8 +164,7 @@ public class SpiLoader {
             // 缓存中没有，需要加载
             try {
                 INSTANCE_CACHE.put(implClassName, implClazz.getDeclaredConstructor().newInstance());
-            } catch (InstantiationException | IllegalAccessException | InvocationTargetException
-                     | NoSuchMethodException e) {
+            } catch (Exception e) {
                 String errMsg = String.format("create instance %s error", implClassName);
                 throw new RpcException(errMsg, e);
             }
@@ -175,8 +175,8 @@ public class SpiLoader {
     private static void doFindAllSpiClass(String pkg) {
         String pkgPath = pkg.replaceAll("[.]", "/");
         try (InputStream is = ClassLoader.getSystemClassLoader().getResourceAsStream(pkgPath);
-                BufferedReader bufferedReader = new BufferedReader(
-                        new InputStreamReader(Objects.requireNonNull(is)))) {
+             BufferedReader bufferedReader = new BufferedReader(
+                     new InputStreamReader(Objects.requireNonNull(is)))) {
             bufferedReader.lines().forEach(line -> {
                 if (line.endsWith(".class")) {
                     try {

@@ -1,18 +1,22 @@
 package com.youyi.rpc.spi;
 
-import com.youyi.rpc.serializer.Serializer;
+import cn.hutool.json.JSONUtil;
+import com.youyi.rpc.serial.Serializer;
 import io.vertx.core.impl.ConcurrentHashSet;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
 /**
- * @author <a href="https://github.com/dingxinliang88">youyi</a>
+ * @author <a href="https://github.com/yoyocraft">youyi</a>
  */
 @Slf4j
 class SpiLoaderTest {
@@ -37,8 +41,8 @@ class SpiLoaderTest {
     private void findClass(String pkg) {
         String pkgPath = pkg.replaceAll("[.]", "/");
         try (InputStream is = ClassLoader.getSystemClassLoader().getResourceAsStream(pkgPath);
-                BufferedReader bufferedReader = new BufferedReader(
-                        new InputStreamReader(Objects.requireNonNull(is)))) {
+             BufferedReader bufferedReader = new BufferedReader(
+                     new InputStreamReader(Objects.requireNonNull(is)))) {
             bufferedReader.lines().forEach(line -> {
                 if (line.endsWith(".class")) {
                     try {
@@ -70,6 +74,12 @@ class SpiLoaderTest {
     @Test
     void testLoadAll() {
         SpiLoader.loadAll();
+    }
+
+    @Test
+    void test_load() {
+        Map<String, Class<?>> keyClassMap = SpiLoader.load(Serializer.class);
+        log.info("{}", JSONUtil.toJsonStr(keyClassMap));
     }
 
 }

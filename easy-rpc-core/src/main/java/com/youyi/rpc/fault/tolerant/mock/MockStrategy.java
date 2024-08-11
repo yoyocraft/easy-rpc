@@ -5,7 +5,7 @@ import com.youyi.rpc.spi.SPI;
 /**
  * 模拟策略
  *
- * @author <a href="https://github.com/dingxinliang88">youyi</a>
+ * @author <a href="https://github.com/yoyocraft">youyi</a>
  */
 @SPI
 public interface MockStrategy {

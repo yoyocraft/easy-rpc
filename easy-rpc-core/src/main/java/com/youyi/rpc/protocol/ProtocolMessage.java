@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 /**
  * 协议信息结构
  *
- * @author <a href="https://github.com/dingxinliang88">youyi</a>
+ * @author <a href="https://github.com/yoyocraft">youyi</a>
  */
 @Data
 @NoArgsConstructor

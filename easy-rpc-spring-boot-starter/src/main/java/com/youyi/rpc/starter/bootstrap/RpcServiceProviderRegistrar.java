@@ -18,7 +18,7 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
  * <p>
  * 获取到包含 @RpcService 注解的类，通过注解的属性和反射机制，获取到要注册的服务信息，完成服务注册
  *
- * @author <a href="https://github.com/dingxinliang88">youyi</a>
+ * @author <a href="https://github.com/yoyocraft">youyi</a>
  */
 public class RpcServiceProviderRegistrar implements BeanPostProcessor {
 

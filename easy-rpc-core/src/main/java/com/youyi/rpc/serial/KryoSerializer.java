@@ -1,4 +1,4 @@
-package com.youyi.rpc.serializer;
+package com.youyi.rpc.serial;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
@@ -12,7 +12,7 @@ import java.io.IOException;
 /**
  * Kryo 序列化
  *
- * @author <a href="https://github.com/dingxinliang88">youyi</a>
+ * @author <a href="https://github.com/yoyocraft">youyi</a>
  */
 public class KryoSerializer implements Serializer {
 

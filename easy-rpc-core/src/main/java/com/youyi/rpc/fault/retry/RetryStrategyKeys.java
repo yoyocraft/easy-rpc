@@ -3,7 +3,7 @@ package com.youyi.rpc.fault.retry;
 /**
  * 重试策略 key
  *
- * @author <a href="https://github.com/dingxinliang88">youyi</a>
+ * @author <a href="https://github.com/yoyocraft">youyi</a>
  */
 public class RetryStrategyKeys {
 

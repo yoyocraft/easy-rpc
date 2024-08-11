@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 简易服务提供者示例
  *
- * @author <a href="https://github.com/dingxinliang88">youyi</a>
+ * @author <a href="https://github.com/yoyocraft">youyi</a>
  */
 public class ProviderExample {
 

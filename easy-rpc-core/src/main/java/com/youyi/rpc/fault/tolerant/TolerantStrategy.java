@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * 容错策略
  *
- * @author <a href="https://github.com/dingxinliang88">youyi</a>
+ * @author <a href="https://github.com/yoyocraft">youyi</a>
  */
 @SPI
 public interface TolerantStrategy {
